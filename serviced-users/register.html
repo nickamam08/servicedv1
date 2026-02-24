@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bento-card" style="width: 100%; max-width: 500px; padding: 40px; text-align: center;">
+
+        <a href="index.html" style="display: flex; justify-content: center; margin-bottom: 24px;">
+            <img src="log.png" alt="SERVICED" style="height: 56px; width: auto;">
+        </a>
+
+        <h1 class="text-h2" style="font-size: 1.5rem; margin-bottom: 8px;">Crea tu cuenta</h1>
+        <p class="text-body" style="font-size: 0.95rem; margin-bottom: 32px;">Únete a nuestra comunidad de profesionales
+            y clientes</p>
+
+        <form action="client-dashboard.html">
+
+            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                <label style="flex: 1; text-align: left; cursor: pointer;">
+                    <input type="radio" name="role" value="client" checked style="display: none;"
+                        onchange="this.parentElement.style.borderColor = 'var(--primary)'; this.parentElement.nextElementSibling.children[0].style.borderColor = 'var(--border)';">
+                    <div
+                        style="border: 2px solid var(--primary); border-radius: var(--radius-md); padding: 16px; text-align: center; transition: all 0.2s;">
+                        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Cliente</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Quiero contratar</div>
+                    </div>
+                </label>
+                <label style="flex: 1; text-align: left; cursor: pointer;">
+                    <input type="radio" name="role" value="provider" style="display: none;"
+                        onchange="this.parentElement.style.borderColor = 'var(--primary)'; this.parentElement.previousElementSibling.children[0].style.borderColor = 'var(--border)';">
+                    <div
+                        style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; text-align: center; transition: all 0.2s;">
+                        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Profesional</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Quiero trabajar</div>
+                    </div>
+                </label>
+            </div>
+
+            <div style="margin-bottom: 16px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Nombre
+                    Completo</label>
+                <input type="text" placeholder="Ej. Juan Pérez"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <div style="margin-bottom: 16px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Teléfono</label>
+                <input type="tel" placeholder="Ej. +51 999 999 999"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <div style="margin-bottom: 16px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Correo
+                    Electrónico</label>
+                <input type="email" placeholder="nombre@ejemplo.com"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <div style="margin-bottom: 24px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Contraseña</label>
+                <input type="password" placeholder="Mínimo 8 caracteres"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <button type="submit" class="btn"
+                style="width: 100%; background: var(--primary); color: white; justify-content: center; font-size: 1rem;">Crear
+                cuenta</button>
+        </form>
+
+        <p class="text-sm" style="margin-top: 24px;">
+            ¿Ya tienes cuenta? <a href="login.html"
+                style="color: var(--primary); font-weight: 600; text-decoration: none;">Inicia sesión</a>
+        </p>
+    </div>
+
+    <script>
+        // Script visual existente para los radios
+        const radios = document.querySelectorAll('input[name="role"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                radios.forEach(r => {
+                    r.nextElementSibling.style.borderColor = 'var(--border)';
+                    r.nextElementSibling.style.borderWidth = '1px';
+                });
+                e.target.nextElementSibling.style.borderColor = 'var(--primary)';
+                e.target.nextElementSibling.style.borderWidth = '2px';
+            });
+        });
+
+        // Nuevo script para conectar con el backend
+        (function () {
+            const API_BASE_URL = "/api/v1";
+
+            const form = document.querySelector("form");
+            if (!form) return;
+
+            const fullNameInput = form.querySelector('input[placeholder="Ej. Juan Pérez"]');
+            const phoneInput = form.querySelector('input[type="tel"]');
+            const emailInput = form.querySelector('input[type="email"]');
+            const passwordInput = form.querySelector('input[type="password"]');
+
+            const errorBox = document.createElement("div");
+            errorBox.style.marginTop = "12px";
+            errorBox.style.fontSize = "0.85rem";
+            errorBox.style.color = "#DC2626";
+            form.appendChild(errorBox);
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                errorBox.textContent = "";
+
+                const full_name = fullNameInput && fullNameInput.value.trim();
+                const phone = phoneInput && phoneInput.value.trim();
+                const email = emailInput && emailInput.value.trim();
+                const password = passwordInput && passwordInput.value.trim();
+                const roleInput = form.querySelector('input[name="role"]:checked');
+                const role = roleInput && roleInput.value ? roleInput.value : "client";
+
+                if (!full_name || !email || !password) {
+                    errorBox.textContent = "Por favor, completa nombre, correo y contraseña.";
+                    return;
+                }
+
+                const payload = {
+                    full_name,
+                    email,
+                    password,
+                    phone: phone || "",
+                    location: "",
+                    role
+                };
+
+                try {
+                    const response = await fetch(API_BASE_URL + "/auth/register", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (!response.ok) {
+                        const data = await response.json().catch(() => ({}));
+                        errorBox.textContent = data.detail || "No se pudo crear la cuenta. Revisa los datos.";
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    // Guardar token y usuario en sessionStorage para aislamiento por pestaña
+                    if (data.access_token) {
+                        sessionStorage.setItem("serviced_token", data.access_token);
+                    }
+                    if (data.user) {
+                        sessionStorage.setItem("serviced_user", JSON.stringify(data.user));
+                    }
+
+                    const finalRole = (data.user && data.user.role) || role || "client";
+
+                    if (finalRole === "provider") {
+                        window.location.href = "/provider/provider-dashboard.html?v=1.1.8";
+                    } else if (finalRole === "admin") {
+                        window.location.href = "/admin/admin-dashboard.html";
+                    } else {
+                        window.location.href = "/users/client-dashboard.html";
+                    }
+                } catch (error) {
+                    console.error(error);
+                    errorBox.textContent = "Error de conexión con el servidor. Intenta de nuevo más tarde.";
+                }
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

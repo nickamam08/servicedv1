@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <img src="assets/icons/activity.svg" alt="Logo" style="width: 20px; height: 20px; filter: invert(100%);">
+                    </div>
+                    <span>Nexus</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <img src="assets/icons/home.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/icons/users.svg" alt="Usuarios">
+                    <span>Usuarios</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/icons/shopping-bag.svg" alt="Ventas">
+                    <span>Ventas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/icons/bar-chart-2.svg" alt="Reportes">
+                    <span>Reportes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/icons/settings.svg" alt="Configuración">
+                    <span>Configuración</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="assets/images/avatar.svg" alt="User" class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Juan Pérez</span>
+                        <span class="user-role">Administrador</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <h1 class="page-title">Dashboard General</h1>
+                <div class="header-actions">
+                    <button class="btn btn-outline">Filtrar</button>
+                    <button class="btn btn-primary">Exportar Reporte</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-area">
+                <!-- KPIs -->
+                <div class="kpi-grid">
+                    <!-- KPI 1 -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Ingresos Totales</span>
+                            <img src="assets/icons/shopping-bag.svg" class="kpi-icon" alt="Icon">
+                        </div>
+                        <div class="kpi-value">$45,231.89</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 20.1%</span>
+                            <span style="color: var(--text-light); margin-left: 4px;">vs mes anterior</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 2 -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Usuarios Activos</span>
+                            <img src="assets/icons/users.svg" class="kpi-icon" alt="Icon">
+                        </div>
+                        <div class="kpi-value">2,350</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 15.3%</span>
+                            <span style="color: var(--text-light); margin-left: 4px;">vs mes anterior</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 3 -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Nuevas Ventas</span>
+                            <img src="assets/icons/activity.svg" class="kpi-icon" alt="Icon">
+                        </div>
+                        <div class="kpi-value">+12,234</div>
+                        <div class="kpi-trend">
+                            <span class="trend-neutral">→ 0.5%</span>
+                            <span style="color: var(--text-light); margin-left: 4px;">vs mes anterior</span>
+                        </div>
+                    </div>
+                    
+                    <!-- KPI 4 -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Tasa de Rebote</span>
+                            <img src="assets/icons/bar-chart-2.svg" class="kpi-icon" alt="Icon">
+                        </div>
+                        <div class="kpi-value">42.3%</div>
+                        <div class="kpi-trend">
+                            <span class="trend-down">↓ 4.1%</span>
+                            <span style="color: var(--text-light); margin-left: 4px;">vs mes anterior</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity / Table Section -->
+                <div class="section-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Ventas Recientes</h2>
+                            <button class="btn btn-outline" style="padding: 4px 12px; font-size: 0.8rem;">Ver todo</button>
+                        </div>
+                        <!-- Simple HTML Table -->
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="text-align: left; border-bottom: 1px solid var(--border);">
+                                    <th style="padding: 12px 0; color: var(--text-secondary); font-weight: 500; font-size: 0.875rem;">Cliente</th>
+                                    <th style="padding: 12px 0; color: var(--text-secondary); font-weight: 500; font-size: 0.875rem;">Fecha</th>
+                                    <th style="padding: 12px 0; color: var(--text-secondary); font-weight: 500; font-size: 0.875rem;">Monto</th>
+                                    <th style="padding: 12px 0; color: var(--text-secondary); font-weight: 500; font-size: 0.875rem;">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 16px 0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 24px; height: 24px; background: #e0e7ff; border-radius: 50%; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">AC</div>
+                                            <span style="font-weight: 500; font-size: 0.875rem; color: var(--text-primary);">Ana Cortez</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 16px 0; font-size: 0.875rem; color: var(--text-secondary);">Oct 24, 2023</td>
+                                    <td style="padding: 16px 0; font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">$350.00</td>
+                                    <td style="padding: 16px 0;">
+                                        <span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 500;">Completado</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 16px 0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 24px; height: 24px; background: #e0e7ff; border-radius: 50%; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">JL</div>
+                                            <span style="font-weight: 500; font-size: 0.875rem; color: var(--text-primary);">Jorge Lopez</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 16px 0; font-size: 0.875rem; color: var(--text-secondary);">Oct 24, 2023</td>
+                                    <td style="padding: 16px 0; font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">$120.00</td>
+                                    <td style="padding: 16px 0;">
+                                        <span style="background: #fef9c3; color: #854d0e; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 500;">Pendiente</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 16px 0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 24px; height: 24px; background: #e0e7ff; border-radius: 50%; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">MR</div>
+                                            <span style="font-weight: 500; font-size: 0.875rem; color: var(--text-primary);">Maria Rodriguez</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 16px 0; font-size: 0.875rem; color: var(--text-secondary);">Oct 23, 2023</td>
+                                    <td style="padding: 16px 0; font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">$1,250.00</td>
+                                    <td style="padding: 16px 0;">
+                                        <span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 500;">Completado</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Por Dispositivo</h2>
+                        </div>
+                        <!-- Simple visual representation -->
+                        <div style="margin-top: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 0.875rem; color: var(--text-primary);">Desktop</span>
+                                <span style="font-size: 0.875rem; color: var(--text-primary); font-weight: 600;">65%</span>
+                            </div>
+                            <div style="width: 100%; height: 8px; background: #f3f4f6; border-radius: 4px; margin-bottom: 16px;">
+                                <div style="width: 65%; height: 100%; background: var(--primary); border-radius: 4px;"></div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 0.875rem; color: var(--text-primary);">Mobile</span>
+                                <span style="font-size: 0.875rem; color: var(--text-primary); font-weight: 600;">25%</span>
+                            </div>
+                            <div style="width: 100%; height: 8px; background: #f3f4f6; border-radius: 4px; margin-bottom: 16px;">
+                                <div style="width: 25%; height: 100%; background: #a5b4fc; border-radius: 4px;"></div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 0.875rem; color: var(--text-primary);">Tablet</span>
+                                <span style="font-size: 0.875rem; color: var(--text-primary); font-weight: 600;">10%</span>
+                            </div>
+                            <div style="width: 100%; height: 8px; background: #f3f4f6; border-radius: 4px;">
+                                <div style="width: 10%; height: 100%; background: #e0e7ff; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

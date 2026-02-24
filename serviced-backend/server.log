@@ -1,0 +1,1637 @@
+INFO:     Started server process [13252]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+Request: GET http://localhost:8000/api/v1/conversations/7/messages - Status: 200 - Time: 0.1222s
+INFO:     127.0.0.1:59126 - "GET /api/v1/conversations/7/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0095s
+INFO:     127.0.0.1:59126 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/7/read - Status: 200 - Time: 0.0042s
+INFO:     127.0.0.1:59126 - "PUT /api/v1/conversations/7/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/7/messages - Status: 200 - Time: 0.0075s
+INFO:     127.0.0.1:58260 - "GET /api/v1/conversations/7/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/7/read - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:58260 - "PUT /api/v1/conversations/7/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0512s
+INFO:     127.0.0.1:61356 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/7/messages - Status: 200 - Time: 0.0077s
+INFO:     127.0.0.1:61356 - "GET /api/v1/conversations/7/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/7/read - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:61356 - "PUT /api/v1/conversations/7/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html?userId=29 - Status: 304 - Time: 0.0394s
+INFO:     127.0.0.1:61356 - "GET /user-chat.html?userId=29 HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0142s
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0154s
+INFO:     127.0.0.1:58260 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61356 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/9/messages - Status: 200 - Time: 0.0101s
+INFO:     127.0.0.1:61356 - "GET /api/v1/conversations/9/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/9/read - Status: 200 - Time: 0.0059s
+INFO:     127.0.0.1:61356 - "PUT /api/v1/conversations/9/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html?userId=29 - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61356 - "GET /user-chat.html?userId=29 HTTP/1.1" 304 Not Modified
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0108s
+INFO:     127.0.0.1:61356 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0123s
+INFO:     127.0.0.1:58260 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/9/messages - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:58260 - "GET /api/v1/conversations/9/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/9/read - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58260 - "PUT /api/v1/conversations/9/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html?userId=29 - Status: 304 - Time: 0.0021s
+INFO:     127.0.0.1:58260 - "GET /user-chat.html?userId=29 HTTP/1.1" 304 Not Modified
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0105s
+INFO:     127.0.0.1:58260 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0110s
+INFO:     127.0.0.1:61356 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/9/messages - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:61356 - "GET /api/v1/conversations/9/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/9/read - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:61356 - "PUT /api/v1/conversations/9/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html?userId=29 - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:61356 - "GET /user-chat.html?userId=29 HTTP/1.1" 304 Not Modified
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0104s
+INFO:     127.0.0.1:61356 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0105s
+INFO:     127.0.0.1:58260 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/9/messages - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:58260 - "GET /api/v1/conversations/9/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/9/read - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:58260 - "PUT /api/v1/conversations/9/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0011s
+INFO:     127.0.0.1:58260 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0152s
+INFO:     127.0.0.1:58260 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0025s
+INFO:     127.0.0.1:58260 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0128s
+INFO:     127.0.0.1:58260 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/service-detail.html?id=6 - Status: 200 - Time: 0.0027s
+INFO:     127.0.0.1:52343 - "GET /service-detail.html?id=6 HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/6 - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:52343 - "GET /api/v1/services/6 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0102s
+INFO:     127.0.0.1:62915 - "POST /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:62915 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0085s
+INFO:     127.0.0.1:62915 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/users/user-chat.html?userId=7 - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:62915 - "GET /user-chat.html?userId=7 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0092s
+INFO:     127.0.0.1:62915 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0106s
+INFO:     127.0.0.1:56563 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0036s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0042s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0037s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0055s
+INFO:     127.0.0.1:62915 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0101s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:50063 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0085s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0026s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0740s
+INFO:     127.0.0.1:62915 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/provider/provider-dashboard.html - Status: 304 - Time: 0.0024s
+INFO:     127.0.0.1:62915 - "GET /provider-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/provider/provider-dashboard.js - Status: 304 - Time: 0.0010s
+Request: GET http://localhost:8000/provider/provider-dashboard.css - Status: 304 - Time: 0.0030s
+INFO:     127.0.0.1:50063 - "GET /provider-dashboard.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:62915 - "GET /provider-dashboard.css HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0244s
+INFO:     127.0.0.1:62915 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0042s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0020s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:63051 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0085s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0075s
+INFO:     127.0.0.1:62915 - "POST /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:62915 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/10/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:62915 - "GET /api/v1/conversations/10/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/10/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "PUT /api/v1/conversations/10/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:62915 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/service-detail.html?id=14 - Status: 200 - Time: 0.0020s
+INFO:     127.0.0.1:59782 - "GET /service-detail.html?id=14 HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/14 - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:59782 - "GET /api/v1/services/14 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:61252 - "POST /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0022s
+INFO:     127.0.0.1:61252 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:61252 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 400 - Time: 0.0025s
+INFO:     127.0.0.1:61252 - "POST /api/v1/conversations HTTP/1.1" 400 Bad Request
+Request: POST http://localhost:8000/api/v1/conversations - Status: 400 - Time: 0.0025s
+INFO:     127.0.0.1:61252 - "POST /api/v1/conversations HTTP/1.1" 400 Bad Request
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:63994 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/provider/dashboard/requests/31/accept - Status: 200 - Time: 0.0080s
+INFO:     127.0.0.1:63994 - "PUT /api/v1/provider/dashboard/requests/31/accept HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:63994 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0060s
+INFO:     127.0.0.1:63994 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0038s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0091s
+INFO:     127.0.0.1:63994 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0054s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/11/read - Status: 200 - Time: 0.0026s
+INFO:     127.0.0.1:63994 - "PUT /api/v1/conversations/11/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0053s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0049s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/11/read - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63994 - "PUT /api/v1/conversations/11/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/11/read - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:63994 - "PUT /api/v1/conversations/11/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:63994 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 400 - Time: 0.0035s
+INFO:     127.0.0.1:63994 - "POST /api/v1/conversations HTTP/1.1" 400 Bad Request
+Request: POST http://localhost:8000/api/v1/conversations - Status: 400 - Time: 0.0030s
+INFO:     127.0.0.1:63994 - "POST /api/v1/conversations HTTP/1.1" 400 Bad Request
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 400 - Time: 0.0025s
+INFO:     127.0.0.1:63994 - "POST /api/v1/conversations HTTP/1.1" 400 Bad Request
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0048s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:63994 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0053s
+INFO:     127.0.0.1:58120 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58120 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:58120 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:58120 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0038s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations/11/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0629s
+INFO:     127.0.0.1:54319 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0121s
+INFO:     127.0.0.1:54319 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0042s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations/11/messages HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0038s
+INFO:     127.0.0.1:54319 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/14 - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:54319 - "GET /api/v1/services/14 HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations/11/messages HTTP/1.1" 403 Forbidden
+Request: POST http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:54319 - "POST /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:54319 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/11/messages - Status: 403 - Time: 0.0051s
+INFO:     127.0.0.1:54319 - "GET /api/v1/conversations/11/messages HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 403 - Time: 0.0041s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 403 - Time: 0.0035s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0035s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0040s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0045s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0026s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0035s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0016s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0025s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0016s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0036s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0000s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0051s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0030s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0036s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=overview - Status: 304 - Time: 0.0000s
+INFO:     127.0.0.1:54319 - "GET /provider-dashboard.html?view=overview HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 403 - Time: 0.0031s
+INFO:     127.0.0.1:54319 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:53743 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:53743 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0016s
+INFO:     127.0.0.1:53743 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:53743 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:53743 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:53743 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/login - Status: 200 - Time: 0.0571s
+INFO:     127.0.0.1:62053 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0142s
+INFO:     127.0.0.1:62053 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:62053 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/provider/dashboard/requests/32/accept - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:62053 - "PUT /api/v1/provider/dashboard/requests/32/accept HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62053 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:62053 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 400 - Time: 0.0030s
+INFO:     127.0.0.1:53738 - "POST /api/v1/conversations HTTP/1.1" 400 Bad Request
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0065s
+INFO:     127.0.0.1:53738 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0053s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0081s
+INFO:     127.0.0.1:53738 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0080s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/12/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:53738 - "PUT /api/v1/conversations/12/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0042s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/12/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:53738 - "PUT /api/v1/conversations/12/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0020s
+INFO:     127.0.0.1:53738 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/providers/me - Status: 200 - Time: 0.0115s
+INFO:     127.0.0.1:53738 - "GET /api/v1/providers/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53738 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0054s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:56931 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:56998 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:56998 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:56998 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:56998 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53410 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:53410 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:62843 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:62843 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:53687 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:53687 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:60353 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0036s
+INFO:     127.0.0.1:60353 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:54880 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:54880 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:56405 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0070s
+INFO:     127.0.0.1:56405 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:50734 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0043s
+INFO:     127.0.0.1:50734 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/providers/me - Status: 200 - Time: 0.0077s
+INFO:     127.0.0.1:50734 - "GET /api/v1/providers/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0017s
+INFO:     127.0.0.1:50734 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:50734 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/providers/me - Status: 200 - Time: 0.0085s
+INFO:     127.0.0.1:50734 - "GET /api/v1/providers/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0092s
+INFO:     127.0.0.1:50734 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/12/messages - Status: 200 - Time: 0.0149s
+INFO:     127.0.0.1:50734 - "GET /api/v1/conversations/12/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0646s
+INFO:     127.0.0.1:55131 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0151s
+INFO:     127.0.0.1:55131 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:57860 - "POST /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:57860 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0592s
+INFO:     127.0.0.1:65127 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:65127 - "GET /client-dashboard.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0081s
+INFO:     127.0.0.1:65127 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/service-detail.html?id=15 - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:54184 - "GET /service-detail.html?id=15 HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/15 - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:54184 - "GET /api/v1/services/15 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:54359 - "POST /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:54359 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:54359 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0062s
+INFO:     127.0.0.1:54359 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/users/user-chat.html?userId=46 - Status: 200 - Time: 0.0020s
+INFO:     127.0.0.1:54359 - "GET /user-chat.html?userId=46 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0073s
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0073s
+INFO:     127.0.0.1:54359 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+INFO:     127.0.0.1:63394 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/13/messages - Status: 200 - Time: 0.0063s
+INFO:     127.0.0.1:63394 - "GET /api/v1/conversations/13/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/13/read - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:63394 - "PUT /api/v1/conversations/13/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/13/messages - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:63394 - "GET /api/v1/conversations/13/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/13/read - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63394 - "PUT /api/v1/conversations/13/read HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0076s
+INFO:     127.0.0.1:63394 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:63394 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:63394 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 403 - Time: 0.0045s
+INFO:     127.0.0.1:63394 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 403 - Time: 0.0039s
+INFO:     127.0.0.1:63394 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 403 - Time: 0.0035s
+INFO:     127.0.0.1:63394 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/provider/provider-dashboard.html?view=services - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:63394 - "GET /provider-dashboard.html?view=services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/provider/provider-dashboard.js - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:63394 - "GET /provider-dashboard.js HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 403 - Time: 0.0040s
+INFO:     127.0.0.1:63394 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 403 Forbidden
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0021s
+INFO:     127.0.0.1:63394 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0058s
+INFO:     127.0.0.1:63394 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:63394 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:63394 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:63394 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:55131 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:55131 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0081s
+INFO:     127.0.0.1:55131 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:55131 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:55131 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/login - Status: 200 - Time: 0.0555s
+INFO:     127.0.0.1:59881 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0005s
+INFO:     127.0.0.1:59881 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0062s
+INFO:     127.0.0.1:59881 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0619s
+INFO:     127.0.0.1:56049 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/provider/provider-dashboard.css - Status: 304 - Time: 0.0036s
+INFO:     127.0.0.1:56049 - "GET /provider-dashboard.css HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/provider/provider-dashboard.js - Status: 304 - Time: 0.0036s
+INFO:     127.0.0.1:55797 - "GET /provider-dashboard.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0121s
+INFO:     127.0.0.1:55797 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:62653 - "POST /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:62653 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:62653 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/service-detail.html?id=16 - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:62653 - "GET /service-detail.html?id=16 HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/16 - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:62653 - "GET /api/v1/services/16 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0059s
+INFO:     127.0.0.1:60685 - "POST /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0063s
+INFO:     127.0.0.1:60685 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:60685 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:60685 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/provider/dashboard/requests/34/accept - Status: 200 - Time: 0.0073s
+INFO:     127.0.0.1:60685 - "PUT /api/v1/provider/dashboard/requests/34/accept HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:60685 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0071s
+INFO:     127.0.0.1:60685 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0064s
+INFO:     127.0.0.1:60685 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0049s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.js - Status: 200 - Time: 0.0016s
+INFO:     127.0.0.1:60685 - "GET /user-chat.js HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/provider/provider-dashboard.js - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:60685 - "GET /provider-dashboard.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0167s
+INFO:     127.0.0.1:60685 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0033s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0058s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:60685 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:55667 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:55667 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:55667 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:55667 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0077s
+INFO:     127.0.0.1:64963 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:64963 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:64963 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:64963 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:58141 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:58141 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:51617 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:51617 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63313 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:63313 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:62857 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:62857 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:55582 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:55582 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0063s
+INFO:     127.0.0.1:65272 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:65272 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0067s
+INFO:     127.0.0.1:52921 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:52921 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/provider/provider-dashboard.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:50969 - "GET /provider-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/provider/provider-dashboard.js - Status: 200 - Time: 0.0017s
+INFO:     127.0.0.1:50969 - "GET /provider-dashboard.js HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/login.html - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:65534 - "GET /login.html HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0147s
+INFO:     127.0.0.1:50969 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/login.html - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:50969 - "GET /login.html HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/login.html - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:58156 - "GET /login.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/register.html - Status: 200 - Time: 0.0011s
+INFO:     127.0.0.1:58156 - "GET /register.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:57625 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:57625 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0592s
+INFO:     127.0.0.1:57794 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:57794 - "GET /client-dashboard.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0082s
+INFO:     127.0.0.1:57794 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:57794 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0070s
+INFO:     127.0.0.1:57794 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0054s
+INFO:     127.0.0.1:57794 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:57794 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/login.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:57794 - "GET /login.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/users/register.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:57794 - "GET /register.html HTTP/1.1" 304 Not Modified
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0644s
+INFO:     127.0.0.1:51367 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/provider/provider-dashboard.js - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:51367 - "GET /provider-dashboard.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0137s
+INFO:     127.0.0.1:51367 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0067s
+INFO:     127.0.0.1:59045 - "POST /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59045 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/overview - Status: 200 - Time: 0.0126s
+INFO:     127.0.0.1:59045 - "GET /api/v1/provider/dashboard/overview HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59045 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:59045 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59045 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/services - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:59045 - "GET /api/v1/provider/dashboard/services HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:59045 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59045 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:59045 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:59045 - "GET /search-services.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:59045 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59045 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0016s
+INFO:     127.0.0.1:59045 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:59045 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:59045 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59045 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/favorites.html - Status: 200 - Time: 0.0015s
+INFO:     127.0.0.1:59045 - "GET /favorites.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:59045 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:59045 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/service-detail.html?id=17 - Status: 200 - Time: 0.0020s
+INFO:     127.0.0.1:59045 - "GET /service-detail.html?id=17 HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/17 - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:59045 - "GET /api/v1/services/17 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0058s
+INFO:     127.0.0.1:57755 - "POST /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0074s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:57755 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/provider/dashboard/requests/35/accept - Status: 200 - Time: 0.0067s
+INFO:     127.0.0.1:57755 - "PUT /api/v1/provider/dashboard/requests/35/accept HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:57755 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:57755 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0011s
+INFO:     127.0.0.1:57755 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:57755 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:57755 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0016s
+INFO:     127.0.0.1:57755 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:57755 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0058s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:57755 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:57755 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:57755 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:57755 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0072s
+INFO:     127.0.0.1:57755 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:57755 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:57755 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0075s
+INFO:     127.0.0.1:57755 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:57755 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:57755 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.css - Status: 304 - Time: 0.0025s
+Request: GET http://localhost:8000/users/user-chat.js - Status: 200 - Time: 0.0015s
+INFO:     127.0.0.1:57755 - "GET /user-chat.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:56548 - "GET /user-chat.js HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0076s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0078s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0059s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/profile - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/provider/dashboard/profile HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0074s
+INFO:     127.0.0.1:56548 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:56548 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0042s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:56548 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:56548 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/requests - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:56548 - "GET /api/v1/provider/dashboard/requests HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:56548 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:56548 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0066s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:56548 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:56548 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:56548 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/favorites.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:56548 - "GET /favorites.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:56548 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:56548 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:56548 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/providers/me - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:56548 - "GET /api/v1/providers/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/profile - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:61968 - "GET /api/v1/provider/dashboard/profile HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/notifications - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:61968 - "GET /api/v1/provider/dashboard/notifications HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0073s
+INFO:     127.0.0.1:61968 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:61968 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0062s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:59549 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0037s
+INFO:     127.0.0.1:59549 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0075s
+INFO:     127.0.0.1:59549 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0048s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:59549 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:59549 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:59549 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:59549 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/providers/me - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:59549 - "GET /api/v1/providers/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0108s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0053s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:59549 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:59549 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:59549 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:59549 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:59549 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:59549 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59549 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:59549 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59549 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0058s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0044s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0062s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:59549 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:53039 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0076s
+INFO:     127.0.0.1:53039 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0053s
+INFO:     127.0.0.1:53039 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:53039 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:56667 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0070s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0079s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/14/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations/14/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:63125 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0058s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0054s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0075s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0077s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0064s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0048s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59496 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0074s
+INFO:     127.0.0.1:57320 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:57320 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 200 - Time: 0.0015s
+INFO:     127.0.0.1:58472 - "GET /user-requests.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:58472 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:58472 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0063s
+INFO:     127.0.0.1:58472 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58472 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:58472 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0013s
+INFO:     127.0.0.1:58472 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0078s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:58472 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/providers/me - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:58472 - "GET /api/v1/providers/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 200 - Time: 0.0016s
+INFO:     127.0.0.1:58472 - "GET /user-profile.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0044s
+INFO:     127.0.0.1:58472 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0019s
+INFO:     127.0.0.1:58472 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:58472 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0000s
+INFO:     127.0.0.1:58472 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:58472 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:58472 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:58472 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0087s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0081s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/profile - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:58472 - "GET /api/v1/provider/dashboard/profile HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0073s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0075s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0049s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0078s
+INFO:     127.0.0.1:58472 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0044s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0071s
+INFO:     127.0.0.1:58472 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0059s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0076s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0044s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0052s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0036s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0093s
+INFO:     127.0.0.1:58472 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0062s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations/messages/send - Status: 201 - Time: 0.0082s
+INFO:     127.0.0.1:58472 - "POST /api/v1/conversations/messages/send HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:58472 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:58472 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0071s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0032s
+INFO:     127.0.0.1:53404 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0048s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0037s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/provider/dashboard/profile - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:53404 - "GET /api/v1/provider/dashboard/profile HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:53404 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:53404 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:53404 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:53404 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:53404 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0025s
+INFO:     127.0.0.1:53404 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0063s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/favorites.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:53404 - "GET /favorites.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0016s
+INFO:     127.0.0.1:53404 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53404 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0045s
+INFO:     127.0.0.1:53404 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/users/user-chat.html?userId=48 - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:53404 - "GET /user-chat.html?userId=48 HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0085s
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0096s
+INFO:     127.0.0.1:53404 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+INFO:     127.0.0.1:56914 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:56914 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:56914 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:56914 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0045s
+INFO:     127.0.0.1:56914 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: POST http://localhost:8000/api/v1/conversations - Status: 201 - Time: 0.0080s
+INFO:     127.0.0.1:56914 - "POST /api/v1/conversations HTTP/1.1" 201 Created
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0085s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:53404 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations/15/messages - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:53404 - "GET /api/v1/conversations/15/messages HTTP/1.1" 200 OK
+Request: PUT http://localhost:8000/api/v1/conversations/15/read - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:53404 - "PUT /api/v1/conversations/15/read HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:53404 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0036s
+INFO:     127.0.0.1:53404 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=price&sort_desc=false - Status: 200 - Time: 0.0069s
+INFO:     127.0.0.1:53404 - "GET /api/v1/services/?sort_by=price&sort_desc=false HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=rating&sort_desc=true - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:53404 - "GET /api/v1/services/?sort_by=rating&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0031s
+INFO:     127.0.0.1:53404 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 200 - Time: 0.0020s
+INFO:     127.0.0.1:55246 - "GET /client-dashboard.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:55246 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:57159 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:57159 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:57159 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:57159 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0054s
+INFO:     127.0.0.1:57159 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:57159 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:57159 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0032s
+INFO:     127.0.0.1:57159 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:57159 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/favorites.html - Status: 404 - Time: 0.0020s
+INFO:     127.0.0.1:53494 - "GET /favorites.html HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/favorites.html - Status: 404 - Time: 0.0020s
+INFO:     127.0.0.1:53494 - "GET /favorites.html HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/login.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:53494 - "GET /login.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/users/register.html - Status: 304 - Time: 0.0021s
+INFO:     127.0.0.1:53494 - "GET /register.html HTTP/1.1" 304 Not Modified
+Request: POST http://localhost:8000/api/v1/auth/register - Status: 200 - Time: 0.0609s
+INFO:     127.0.0.1:59869 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:59869 - "GET /client-dashboard.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0057s
+INFO:     127.0.0.1:59869 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/notifications.html - Status: 200 - Time: 0.0015s
+INFO:     127.0.0.1:59869 - "GET /notifications.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:59869 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/search-services.html - Status: 200 - Time: 0.0017s
+INFO:     127.0.0.1:61950 - "GET /search-services.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:61950 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/notifications.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61950 - "GET /notifications.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61950 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61950 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/user-requests.html - Status: 200 - Time: 0.0015s
+INFO:     127.0.0.1:61950 - "GET /user-requests.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:61950 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:61950 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0051s
+INFO:     127.0.0.1:61950 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 200 - Time: 0.0010s
+INFO:     127.0.0.1:61950 - "GET /user-profile.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:61950 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61950 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:61950 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/favorites.html - Status: 404 - Time: 0.0020s
+INFO:     127.0.0.1:61950 - "GET /favorites.html HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/favorites.html - Status: 404 - Time: 0.0010s
+INFO:     127.0.0.1:61950 - "GET /favorites.html HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:62581 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0033s
+INFO:     127.0.0.1:53487 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0045s
+INFO:     127.0.0.1:59577 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:65092 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58359 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:61667 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:58887 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:54647 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0037s
+INFO:     127.0.0.1:51161 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0046s
+INFO:     127.0.0.1:62879 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:52149 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html - Status: 200 - Time: 0.0021s
+INFO:     127.0.0.1:61390 - "GET /user-chat.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:61390 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /user-chat.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0061s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:61390 - "GET /user-chat.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0059s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/notifications.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /notifications.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0013s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0005s
+INFO:     127.0.0.1:61390 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0065s
+INFO:     127.0.0.1:61390 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/search-services.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /search-services.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:61390 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0050s
+INFO:     127.0.0.1:61390 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0067s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0041s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0047s
+INFO:     127.0.0.1:61390 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0109s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:61390 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0025s
+INFO:     127.0.0.1:61390 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0037s
+INFO:     127.0.0.1:61390 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:61390 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/services/?sort_by=created_at&sort_desc=true - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:61390 - "GET /api/v1/services/?sort_by=created_at&sort_desc=true HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0084s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0005s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:61390 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0055s
+INFO:     127.0.0.1:61390 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0040s
+INFO:     127.0.0.1:61390 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: POST http://localhost:8000/api/v1/dashboard/notifications/mark-all-read - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "POST /api/v1/dashboard/notifications/mark-all-read HTTP/1.1" 404 Not Found
+Request: POST http://localhost:8000/api/v1/dashboard/notifications/mark-all-read - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "POST /api/v1/dashboard/notifications/mark-all-read HTTP/1.1" 404 Not Found
+Request: POST http://localhost:8000/api/v1/dashboard/notifications/mark-all-read - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:61390 - "POST /api/v1/dashboard/notifications/mark-all-read HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:57584 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:49670 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:49670 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/notifications.html - Status: 304 - Time: 0.0020s
+INFO:     127.0.0.1:49670 - "GET /notifications.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0010s
+INFO:     127.0.0.1:49670 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/user-chat.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:60803 - "GET /user-chat.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/users/user-chat.js - Status: 304 - Time: 0.0011s
+INFO:     127.0.0.1:60803 - "GET /user-chat.js HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0056s
+INFO:     127.0.0.1:60803 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-profile.html - Status: 304 - Time: 0.0011s
+INFO:     127.0.0.1:60803 - "GET /user-profile.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0030s
+INFO:     127.0.0.1:60803 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/notifications.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:60803 - "GET /notifications.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:60803 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:60803 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0010s
+INFO:     127.0.0.1:60803 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:60803 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: POST http://localhost:8000/api/v1/dashboard/notifications/mark-all-read - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:60803 - "POST /api/v1/dashboard/notifications/mark-all-read HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:52572 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0072s
+INFO:     127.0.0.1:52572 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/client-dashboard.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:52572 - "GET /client-dashboard.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/summary - Status: 200 - Time: 0.0093s
+INFO:     127.0.0.1:52572 - "GET /api/v1/dashboard/summary HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0011s
+INFO:     127.0.0.1:52572 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/user-requests.html - Status: 304 - Time: 0.0021s
+INFO:     127.0.0.1:52572 - "GET /user-requests.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/requests/ - Status: 200 - Time: 0.0059s
+INFO:     127.0.0.1:52572 - "GET /api/v1/requests/ HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0079s
+INFO:     127.0.0.1:52572 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0000s
+INFO:     127.0.0.1:52572 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/api/v1/users/me - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:52572 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/user-chat.html - Status: 200 - Time: 0.0026s
+INFO:     127.0.0.1:52572 - "GET /user-chat.html HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0060s
+INFO:     127.0.0.1:52572 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/users/notifications.html - Status: 304 - Time: 0.0015s
+INFO:     127.0.0.1:52572 - "GET /notifications.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/dashboard/notifications - Status: 404 - Time: 0.0011s
+INFO:     127.0.0.1:52572 - "GET /api/v1/dashboard/notifications HTTP/1.1" 404 Not Found
+Request: GET http://localhost:8000/users/user-chat.html - Status: 304 - Time: 0.0010s
+INFO:     127.0.0.1:52572 - "GET /user-chat.html HTTP/1.1" 304 Not Modified
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0076s
+INFO:     127.0.0.1:52572 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0043s
+INFO:     127.0.0.1:63872 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+Request: GET http://localhost:8000/api/v1/conversations - Status: 200 - Time: 0.0035s
+INFO:     127.0.0.1:58286 - "GET /api/v1/conversations HTTP/1.1" 200 OK
+^C

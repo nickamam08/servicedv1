@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes - SERVICED PROVEEDOR</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="provider-dashboard.html" class="sidebar-logo">SERVICED</a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="provider-dashboard.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="manage-services.html" class="nav-item">
+                    <span class="nav-icon">🛠️</span>
+                    <span>Mis Servicios</span>
+                </a>
+                <a href="requests.html" class="nav-item">
+                    <span class="nav-icon">📩</span>
+                    <span>Solicitudes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Clientes</span>
+                </a>
+                <a href="chatprovider.html" class="nav-item active">
+                    <span class="nav-icon">💬</span>
+                    <span>Mensajes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>Estadísticas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span>Perfil Profesional</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="logout-link">
+                    <span class="nav-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main" style="height: 100vh; overflow: hidden;">
+
+            <!-- Top Header -->
+            <header class="app-header">
+                <h1 class="page-title">Mensajes</h1>
+
+                <div class="user-menu">
+                    <div class="user-name">Pro: ...</div>
+                    <div class="user-avatar" style="background-color: #DBEAFE; color: #1E40AF;">P</div>
+                </div>
+            </header>
+
+            <!-- Chat Wrapper -->
+            <div class="chat-dashboard-wrapper">
+
+                <div class="chat-window">
+
+                    <!-- Sidebar: Conversation List -->
+                    <aside class="chat-sidebar">
+                        <div class="chat-sidebar-header">
+                            <div class="chat-search">
+                                <span class="chat-search-icon">🔍</span>
+                                <input type="text" placeholder="Buscar conversación...">
+                            </div>
+                        </div>
+
+                        <div id="conversation-list" class="chat-list">
+                            <p style="padding: 20px; text-align: center; color: var(--text-tertiary);">Cargando
+                                conversaciones...</p>
+                        </div>
+                    </aside>
+
+                    <!-- Main Chat Area -->
+                    <main class="chat-main">
+
+                        <!-- Chat Header -->
+                        <div class="chat-header">
+                            <div class="chat-contact-info">
+                                <div class="contact-name">
+                                    <h3>Selecciona un chat</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Messages History -->
+                        <div id="messages-container" class="chat-messages">
+                            <div
+                                style="height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-tertiary);">
+                                Selecciona una conversación para empezar
+                            </div>
+                        </div>
+
+                        <!-- Input Area -->
+                        <div class="chat-input-area">
+                            <div class="input-wrapper">
+                                <input type="text" class="chat-input" placeholder="Escribe un mensaje aquí">
+                                <button class="btn-send-voice">
+                                    🎤
+                                </button>
+                            </div>
+                        </div>
+
+                    </main>
+
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Logout logic
+            const logoutLink = document.querySelector(".logout-link");
+            if (logoutLink) {
+                logoutLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    localStorage.clear();
+                    window.location.href = "../serviced-users/login.html";
+                });
+            }
+        });
+
+        (function () {
+            const API_BASE_URL = "/api/v1";
+            const token = localStorage.getItem("serviced_token");
+            const userRaw = localStorage.getItem("serviced_user");
+            const user = userRaw ? JSON.parse(userRaw) : null;
+
+            if (!token || !user) {
+                window.location.href = "../serviced-users/login.html";
+                return;
+            }
+
+            // Update Header user info
+            document.querySelector(".user-name").textContent = `Pro: ${user.full_name}`;
+            document.querySelector(".user-avatar").textContent = user.avatar_initials || "P";
+
+            const conversationList = document.getElementById("conversation-list");
+            const messagesContainer = document.getElementById("messages-container");
+            const chatHeader = document.querySelector(".chat-header");
+            const input = document.querySelector(".chat-input");
+
+            let currentConversationId = null;
+            let pollingInterval = null;
+
+            function renderConversationItem(conv) {
+                const item = document.createElement("div");
+                item.className = "chat-item" + (currentConversationId === conv.id ? " active" : "");
+
+                const otherUser = conv.participant || { full_name: "Usuario", id: 0 };
+                const lastMsg = conv.last_message ? conv.last_message.content : "Sin mensajes";
+                const time = conv.last_message ? new Date(conv.last_message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+
+                item.innerHTML = `
+                    <div class="chat-item-content" style="width: 100%;">
+                        <div class="chat-item-top">
+                            <span class="chat-name" style="font-weight: bold;">${otherUser.full_name}</span>
+                            <span class="chat-time" style="font-size: 0.8em; color: gray;">${time}</span>
+                        </div>
+                        <div class="chat-preview">
+                            <span class="last-msg">${lastMsg}</span>
+                        </div>
+                    </div>
+                `;
+                item.addEventListener("click", () => selectConversation(conv));
+                return item;
+            }
+
+            function renderMessage(msg) {
+                const isMine = msg.sender_id === user.id;
+                const row = document.createElement("div");
+                row.className = "message-row " + (isMine ? "sent" : "received");
+                row.innerHTML = `
+                    <div class="msg-content-wrapper">
+                        <div class="msg-bubble" style="background: ${isMine ? '#1E40AF' : '#E5E7EB'}; color: ${isMine ? 'white' : 'black'}; padding: 8px 12px; border-radius: 12px; max-width: 70%;">
+                            <span class="msg-text">${msg.content}</span>
+                        </div>
+                        <span class="msg-meta" style="font-size: 0.7em; color: gray; margin-left: 5px;">
+                                ${new Date(msg.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </span>
+                    </div>
+                `;
+                // Flex adjustment
+                row.style.display = 'flex';
+                row.style.justifyContent = isMine ? 'flex-end' : 'flex-start';
+                row.style.marginBottom = '10px';
+
+                return row;
+            }
+
+            async function fetchConversations() {
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/conversations`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if (!resp.ok) {
+                        if (resp.status === 401 || resp.status === 403) {
+                            alert("Sesión expirada");
+                            window.location.href = "../serviced-users/login.html";
+                            return;
+                        }
+                        return;
+                    }
+                    const conversations = await resp.json();
+
+                    conversationList.innerHTML = "";
+                    if (conversations.length === 0) {
+                        conversationList.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-tertiary);">No tienes conversaciones</p>';
+                    } else {
+                        conversations.forEach(c => conversationList.appendChild(renderConversationItem(c)));
+                    }
+
+                    const params = new URLSearchParams(window.location.search);
+                    const initialId = params.get("id");
+                    const userId = params.get("userId");
+
+                    if (initialId && !currentConversationId) {
+                        const targetConv = conversations.find(c => c.id == initialId);
+                        if (targetConv) {
+                            selectConversation(targetConv);
+                            // window.history.replaceState({}, document.title, window.location.pathname);
+                        }
+                    } else if (userId && !currentConversationId) {
+                        // Check if conversation exists with this user
+                        const targetConv = conversations.find(c => {
+                            const other = c.participant;
+                            return other && other.id == userId;
+                        });
+
+                        if (targetConv) {
+                            selectConversation(targetConv);
+                        } else {
+                            // Create new conversation
+                            try {
+                                const newConvResp = await fetch(`${API_BASE_URL}/conversations`, {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Authorization": `Bearer ${token}`
+                                    },
+                                    body: JSON.stringify({
+                                        client_id: parseInt(userId),
+                                        // provider_id: user.id // Backend infers this from token, but we could send if needed
+                                    })
+                                });
+
+                                if (newConvResp.ok) {
+                                    const newConv = await newConvResp.json();
+                                    conversationList.insertBefore(renderConversationItem(newConv), conversationList.firstChild);
+                                    selectConversation(newConv);
+                                } else {
+                                    const err = await newConvResp.json();
+                                    console.error("Error creating conversation", err);
+                                    alert("No se pudo iniciar el chat: " + (err.detail || "Error desconocido"));
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        }
+                    }
+
+                } catch (e) {
+                    console.error(e);
+                    conversationList.innerHTML = `<p style="padding: 20px; text-align: center; color: red;">Error: ${e.message}</p>`;
+                }
+            }
+
+            async function selectConversation(conv) {
+                currentConversationId = conv.id;
+                const otherUser = conv.participant;
+
+                document.querySelectorAll(".chat-item").forEach(el => el.classList.remove("active"));
+                // Highlight current
+                // (Need re-render or manual class add, reusing fetch logic usually easier or specific selection logic)
+
+                chatHeader.innerHTML = `
+                    <div class="chat-contact-info">
+                        <div class="contact-name">
+                            <h3>${otherUser.full_name}</h3>
+                        </div>
+                    </div>
+                `;
+
+                loadMessages(conv.id);
+
+                clearInterval(pollingInterval);
+                pollingInterval = setInterval(() => loadMessages(conv.id, true), 3000);
+            }
+
+            async function loadMessages(convId, isPolling = false) {
+                if (currentConversationId !== convId) return;
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/conversations/${convId}/messages`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if (!resp.ok) return;
+                    const msgs = await resp.json();
+
+                    const currentCount = messagesContainer.querySelectorAll(".message-row").length;
+                    if (!isPolling || msgs.length !== currentCount) {
+                        messagesContainer.innerHTML = "";
+                        msgs.forEach(m => messagesContainer.appendChild(renderMessage(m)));
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            async function sendMessage(content) {
+                if (!currentConversationId) return;
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/conversations/messages/send`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            conversation_id: currentConversationId,
+                            content: content
+                        })
+                    });
+                    if (!resp.ok) {
+                        const errText = await resp.text();
+                        alert(`Error al enviar: ${errText}`);
+                        return;
+                    }
+                    const msg = await resp.json();
+                    messagesContainer.appendChild(renderMessage(msg));
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    input.value = "";
+                } catch (e) {
+                    console.error(e);
+                    alert(`Error de conexión: ${e.message}`);
+                }
+            }
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    const text = input.value.trim();
+                    if (!text) return;
+                    sendMessage(text);
+                }
+            });
+
+            fetchConversations();
+            setInterval(fetchConversations, 10000);
+        })();
+    </script>
+
+</body>
+
+</html>

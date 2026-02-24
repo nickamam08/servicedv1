@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bento-card" style="width: 100%; max-width: 400px; padding: 40px; text-align: center;">
+
+        <a href="index.html" style="display: flex; justify-content: center; margin-bottom: 24px;">
+            <img src="log.png" alt="SERVICED" style="height: 56px; width: auto;">
+        </a>
+
+        <h1 class="text-h2" style="font-size: 1.5rem; margin-bottom: 8px;">Bienvenido de nuevo</h1>
+        <p class="text-body" style="font-size: 0.95rem; margin-bottom: 32px;">Ingresa a tu cuenta para continuar</p>
+
+        <form action="client-dashboard.html">
+            <div style="margin-bottom: 16px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Correo
+                    Electrónico</label>
+                <input type="email" placeholder="nombre@ejemplo.com"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <div style="margin-bottom: 24px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Contraseña</label>
+                <input type="password" placeholder="••••••••"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <button type="submit" class="btn"
+                style="width: 100%; background: var(--primary); color: white; justify-content: center; font-size: 1rem;">Iniciar
+                Sesión</button>
+        </form>
+
+        <p class="text-sm" style="margin-top: 24px;">
+            ¿No tienes cuenta? <a href="register.html"
+                style="color: var(--primary); font-weight: 600; text-decoration: none;">Regístrate</a>
+        </p>
+    </div>
+
+    <script>
+        (function () {
+            const API_BASE_URL = "/api/v1";
+
+            const form = document.querySelector("form");
+            if (!form) return;
+
+            const emailInput = form.querySelector('input[type="email"]');
+            const passwordInput = form.querySelector('input[type="password"]');
+
+            // Crear contenedor de error reutilizable
+            const errorBox = document.createElement("div");
+            errorBox.style.marginTop = "12px";
+            errorBox.style.fontSize = "0.85rem";
+            errorBox.style.color = "#DC2626";
+            form.appendChild(errorBox);
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                errorBox.textContent = "";
+
+                const email = emailInput && emailInput.value.trim();
+                const password = passwordInput && passwordInput.value.trim();
+
+                if (!email || !password) {
+                    errorBox.textContent = "Por favor, introduce tu correo y contraseña.";
+                    return;
+                }
+
+                try {
+                    // Try to detect if we are running locally (file://) or via server
+                    // If file://, we might have CORS issues if backend doesn't allow *.
+                    // But assume user is running via backend static mount if possible.
+
+                    const response = await fetch(API_BASE_URL + "/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+
+                    if (!response.ok) {
+                        const data = await response.json().catch(() => ({}));
+                        errorBox.textContent = data.detail || "No se pudo iniciar sesión. Revisa tus credenciales.";
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    // Guardar token y usuario en sessionStorage para aislamiento por pestaña
+                    if (data.access_token) {
+                        sessionStorage.setItem("serviced_token", data.access_token);
+                    }
+                    if (data.user) {
+                        sessionStorage.setItem("serviced_user", JSON.stringify(data.user));
+                    }
+
+                    const role = (data.user && data.user.role) || "client";
+
+                    // Redirecciones Absolutas (Works best when served via FastAPI StaticFiles)
+                    if (role === "provider") {
+                        // /provider is mounted to serviced-provider
+                        window.location.href = "/provider/provider-dashboard.html?v=1.1.8";
+                    } else if (role === "admin") {
+                        // /admin is mounted to serviced-admin
+                        window.location.href = "/admin/admin-dashboard.html";
+                    } else {
+                        // /users is mounted to serviced-users
+                        // If we are already in /users/login.html, relative works too, but absolute is safer.
+                        window.location.href = "/users/client-dashboard.html";
+                    }
+                } catch (error) {
+                    console.error(error);
+                    errorBox.textContent = "Error de conexión. Asegúrate de que el servidor (backend) esté corriendo en puerto 8000.";
+                }
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

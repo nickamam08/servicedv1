@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Servicio - SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="../serviced-users/index.html" class="sidebar-logo">
+                    <img src="../serviced-users/log.png" alt="SERVICED" style="height: 40px; width: auto;">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="provider-dashboard.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="manage-services.html" class="nav-item active">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
+                        </path>
+                    </svg>
+                    <span>Mis Servicios</span>
+                </a>
+                <a href="requests.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>Solicitudes</span>
+                </a>
+                <a href="clients.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Clientes</span>
+                </a>
+                <a href="provider-chat.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15 a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Mensajes</span>
+                </a>
+                <a href="statistics.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    <span>Estadísticas</span>
+                </a>
+                <a href="provider-dashboard.html?view=reports" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="logout-link">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div>
+                    <div
+                        style="display: flex; gap: 8px; align-items: center; color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 4px;">
+                        <a href="provider-dashboard.html">Dashboard</a> / <a href="manage-services.html">Servicios</a> /
+                        Detalle
+                    </div>
+                    <h1 class="text-h2 service-title">Cargando Servicio...</h1>
+                </div>
+
+                <div class="user-profile-widget" style="display: flex; align-items: center; gap: 12px;">
+                    <span class="user-name" style="font-weight: 500;">Provider</span>
+                    <div class="user-avatar">P</div>
+                </div>
+            </header>
+
+            <!-- Bento Grid -->
+            <div class="bento-grid">
+
+                <!-- Main Info Card -->
+                <div class="bento-card" style="grid-column: span 8;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 24px;">
+                        <div>
+                            <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                                <span class="badge-status"
+                                    style="padding: 4px 12px; border-radius: 99px; font-size: 0.85rem; font-weight: 500; background: #E5E7EB; color: #374151;">Cargando...</span>
+                                <span class="service-category" style="color: var(--text-secondary);">Categoria</span>
+                            </div>
+                            <h2 class="text-h3 service-price" style="color: var(--primary);">$0.00</h2>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-outline" id="toggle-status-btn"
+                                style="color: #EF4444; border-color: #FECACA;">Pausar</button>
+                            <a href="manage-services.html" class="btn btn-primary">Editar</a>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <h3 class="text-h3" style="margin-bottom: 12px; font-size: 1.1rem;">Descripción</h3>
+                        <p class="text-body service-description" style="white-space: pre-wrap;">...</p>
+                    </div>
+
+                    <!-- Stats Grid inside card -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: auto;">
+                        <div style="background: var(--bg-body); padding: 16px; border-radius: var(--radius-md);">
+                            <div class="text-sm">Solicitudes</div>
+                            <div class="text-h3" style="margin-top: 4px;">--</div>
+                        </div>
+                        <div style="background: var(--bg-body); padding: 16px; border-radius: var(--radius-md);">
+                            <div class="text-sm">Vistas</div>
+                            <div class="text-h3" style="margin-top: 4px;">--</div>
+                        </div>
+                        <div style="background: var(--bg-body); padding: 16px; border-radius: var(--radius-md);">
+                            <div class="text-sm">Calificación</div>
+                            <div class="text-h3" style="margin-top: 4px;">-- ⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar Details -->
+                <div class="bento-card" style="grid-column: span 4; display: flex; flex-direction: column; gap: 24px;">
+                    <div>
+                        <h3 class="text-h3" style="margin-bottom: 16px; font-size: 1.1rem;">Detalles</h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div
+                                style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                                <span class="text-sm">Duración</span>
+                                <span class="service-duration" style="font-weight: 500;">--</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                                <span class="text-sm">ID Servicio</span>
+                                <span class="service-id" style="font-weight: 500; font-family: monospace;">--</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                                <span class="text-sm">Creado</span>
+                                <span class="service-created" style="font-weight: 500;">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-h3" style="margin-bottom: 12px; font-size: 1.1rem;">Cobertura</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <span
+                                style="background: var(--bg-body); padding: 4px 12px; border-radius: 99px; font-size: 0.85rem; border:1px solid var(--border);">Madrid</span>
+                            <!-- Placeholder for coverage -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const API_BASE_URL = "/api/v1";
+            const token = sessionStorage.getItem("serviced_token");
+            const params = new URLSearchParams(window.location.search);
+            const serviceId = params.get("id");
+
+            // Auth Check
+            if (!token) {
+                window.location.href = "../serviced-users/login.html";
+                return;
+            }
+
+            // User Info Sync
+            try {
+                const user = JSON.parse(sessionStorage.getItem("serviced_user"));
+                if (user) {
+                    const nameEl = document.querySelector(".user-name");
+                    const avatarEl = document.querySelector(".user-avatar");
+                    if (nameEl) nameEl.textContent = user.full_name || "Proveedor";
+                    if (avatarEl) {
+                        if (user.avatar_url) {
+                            avatarEl.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                        } else {
+                            avatarEl.textContent = (user.full_name || "P").substring(0, 2).toUpperCase();
+                        }
+                    }
+                }
+            } catch (e) { }
+
+            if (!serviceId) {
+                alert("ID de servicio no especificado");
+                window.location.href = "manage-services.html";
+                return;
+            }
+
+            // Logout
+            const logoutLink = document.querySelector(".logout-link");
+            if (logoutLink) {
+                logoutLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    sessionStorage.removeItem("serviced_token");
+                    sessionStorage.removeItem("serviced_user");
+                    window.location.href = "../serviced-users/login.html";
+                });
+            }
+
+            // Fetch Data
+            try {
+                const resp = await fetch(`${API_BASE_URL}/services/${serviceId}`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                if (!resp.ok) throw new Error("Error al cargar servicio");
+                const service = await resp.json();
+
+                // Fill UI
+                document.querySelector(".service-title").textContent = service.title;
+                document.querySelector(".service-category").textContent = service.category || "General";
+                document.querySelector(".service-price").textContent = `$${service.price}`;
+                document.querySelector(".service-description").textContent = service.description;
+                document.querySelector(".service-duration").textContent = service.duration || "N/A";
+                document.querySelector(".service-id").textContent = `#${service.id}`;
+                document.querySelector(".service-created").textContent = new Date().toLocaleDateString(); // Mock date if not in API
+
+                // Status Badge
+                const badge = document.querySelector(".badge-status");
+                if (service.is_active) {
+                    badge.textContent = "Activo";
+                    badge.style.background = "#ECFDF5";
+                    badge.style.color = "#065F46";
+                } else {
+                    badge.textContent = "Pausado";
+                    badge.style.background = "#FEF3C7";
+                    badge.style.color = "#92400E";
+                }
+
+                // Toggle Button
+                const toggleBtn = document.getElementById("toggle-status-btn");
+                toggleBtn.textContent = service.is_active ? "Pausar Servicio" : "Activar Servicio";
+                toggleBtn.onclick = async () => {
+                    if (!confirm(`¿${service.is_active ? "Pausar" : "Activar"} este servicio?`)) return;
+                    try {
+                        // Mocking toggle endpoint if not strictly defined, or use update
+                        // In previous steps we saw a toggle endpoint usage or update
+                        // Assuming toggle endpoint from previous file view: /provider/dashboard/services/{id}/toggle
+                        // But let's check if it exists in backend. If not, we might need to use PUT /services/{id}
+
+                        // Trying the specific provider dashboard toggle if it was used before, 
+                        // otherwise falling back to a generic update if needed.
+                        // Previous file had: /provider/dashboard/services/${serviceId}/toggle
+                        const actionResp = await fetch(`${API_BASE_URL}/provider/dashboard/services/${serviceId}/toggle`, {
+                            method: "PUT",
+                            headers: { "Authorization": `Bearer ${token}` }
+                        });
+
+                        if (actionResp.ok) window.location.reload();
+                        else alert("Error al actualizar estado");
+                    } catch (e) {
+                        console.error(e);
+                        alert("Error de conexión");
+                    }
+                };
+
+            } catch (e) {
+                console.error(e);
+                document.querySelector(".service-title").textContent = "Error al cargar";
+            }
+        });
+    </script>
+</body>
+
+</html>

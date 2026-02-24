@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Panel Proveedor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
+    <style>
+        .report-form {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: #111827;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: #1f2937;
+        }
+
+        .report-item {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .report-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+        }
+
+        .report-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .app-sidebar {
+            width: 280px;
+            background: #111827;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #1f2937;
+            color: white;
+        }
+
+        .nav-icon {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .app-main {
+            margin-left: 280px;
+            padding: 40px;
+            min-height: 100vh;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div style="padding: 24px;">
+                <h1 style="font-size: 1.5rem; font-weight: 700;">SERVICED <span
+                        style="font-weight: 400; opacity: 0.5;">Provider</span></h1>
+            </div>
+            <nav style="flex: 1;">
+                <a href="provider-dashboard.html" class="nav-item">
+                    <span class="nav-icon"><i class="fas fa-chart-line"></i></span> Dashboard
+                </a>
+                <a href="manage-services.html" class="nav-item">
+                    <span class="nav-icon"><i class="fas fa-tools"></i></span> Mis Servicios
+                </a>
+                <a href="requests.html" class="nav-item">
+                    <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span> Solicitudes
+                </a>
+                <a href="provider-chat.html" class="nav-item">
+                    <span class="nav-icon"><i class="fas fa-comments"></i></span> Chat
+                </a>
+                <a href="reports.html" class="nav-item active">
+                    <span class="nav-icon"><i class="fas fa-flag"></i></span> Reportes
+                </a>
+                <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #1f2937;">
+                    <a href="profile.html" class="nav-item">
+                        <span class="nav-icon"><i class="fas fa-user-cog"></i></span> Configuración
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <header style="margin-bottom: 40px;">
+                <h2 style="font-size: 2rem; font-weight: 700; color: #111827;">Centro de Soporte y Reportes</h2>
+                <p style="color: #6b7280; margin-top: 8px;">Informa sobre problemas con clientes o incidencias técnicas.
+                </p>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <!-- Report Form -->
+                <div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; color: #111827;">Nuevo Reporte
+                    </h3>
+                    <div class="report-form">
+                        <form id="report-form">
+                            <div class="form-group">
+                                <label>Asunto del Reporte</label>
+                                <input type="text" id="report-title"
+                                    placeholder="Ej: Comportamiento del cliente, Error de pago..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Categoría</label>
+                                <select id="report-type" required>
+                                    <option value="behavior">Comportamiento inadecuado</option>
+                                    <option value="payment">Disputa de pago</option>
+                                    <option value="content">Problema con reseñas</option>
+                                    <option value="technical">Problema en la plataforma</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Explicación Detallada</label>
+                                <textarea id="report-desc" placeholder="Proporciona todos los detalles posibles..."
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit" id="submit-btn">Enviar al Administrador</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- My Reports List -->
+                <div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; color: #111827;">Historial de
+                        Reportes</h3>
+                    <div id="my-reports-list">
+                        <p style="color: #6b7280;">Cargando historial...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE = '/api/v1';
+        const token = sessionStorage.getItem('serviced_token');
+
+        if (!token) window.location.href = '../serviced-users/login.html';
+
+        async function apiFetch(endpoint, options = {}) {
+            const res = await fetch(`${API_BASE}${endpoint}`, {
+                ...options,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                }
+            });
+            if (res.status === 401) window.location.href = '../serviced-users/login.html';
+            return res.ok ? res.json() : Promise.reject(await res.json());
+        }
+
+        async function loadMyReports() {
+            try {
+                const reports = await apiFetch('/reports/my-reports');
+                const list = document.getElementById('my-reports-list');
+                list.innerHTML = '';
+
+                if (reports.length === 0) {
+                    list.innerHTML = '<p style="color: #6b7280;">No hay reportes enviados.</p>';
+                    return;
+                }
+
+                reports.forEach(r => {
+                    const div = document.createElement('div');
+                    div.className = 'report-item';
+                    div.innerHTML = `
+                        <div class="report-info">
+                            <h4>${r.title}</h4>
+                            <p>${new Date(r.created_at).toLocaleDateString()} - ${r.type}</p>
+                        </div>
+                        <span class="status-badge ${r.status === 'RESOLVED' ? 'status-resolved' : 'status-pending'}">
+                            ${r.status}
+                        </span>
+                    `;
+                    list.appendChild(div);
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        document.getElementById('report-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Procesando...';
+
+            try {
+                await apiFetch('/reports', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title: document.getElementById('report-title').value,
+                        type: document.getElementById('report-type').value,
+                        description: document.getElementById('report-desc').value
+                    })
+                });
+                alert('Tu reporte ha sido enviado. Recibirás una notificación cuando sea resuelto.');
+                e.target.reset();
+                loadMyReports();
+            } catch (err) {
+                alert('Error al enviar el reporte: ' + (err.detail || 'Error interno'));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enviar al Administrador';
+            }
+        });
+
+        loadMyReports();
+    </script>
+</body>
+
+</html>

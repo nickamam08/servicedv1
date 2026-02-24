@@ -1,0 +1,9 @@
+DEBUG_JWT: Error=Not enough segments
+DEBUG_JWT: Token=null... (len=4)
+DEBUG_JWT: Error=Not enough segments
+DEBUG_JWT: Token=null... (len=4)
+DEBUG_JWT: Error=Not enough segments
+DEBUG_JWT: Token=null... (len=4)
+DEBUG_JWT: Error=Not enough segments
+DEBUG_JWT: Token=null... (len=4)
+DEBUG_ROLE: User=mikadfsd@gmail.com, Role=provider, Expected=provider

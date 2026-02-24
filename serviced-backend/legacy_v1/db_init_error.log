@@ -1,0 +1,9 @@
+'utf-8' codec can't decode byte 0xf3 in position 79: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\Users\alvar\Downloads\serviced2.1\serviced2.0\serviced-backend\init_db.py", line 12, in init_db
+    conn = psycopg2.connect(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\alvar\AppData\Local\Programs\Python\Python311\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf3 in position 79: invalid continuation byte
