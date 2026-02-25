@@ -316,6 +316,11 @@ body.landing-page {
     color: var(--text-main);
 }
 
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
 .btn:hover {
     opacity: 0.9;
     transform: translateY(-1px);

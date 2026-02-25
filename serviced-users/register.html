@@ -13,6 +13,22 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto !important;
+            /* Permitir scroll si el contenido es largo */
+            height: auto !important;
+            /* Sobrescribir el 100vh de styles.css */
+        }
+
+        @media (max-width: 480px) {
+            .bento-card {
+                padding: 24px !important;
+            }
+
+            .role-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -31,7 +47,7 @@
 
         <form action="client-dashboard.html">
 
-            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+            <div class="role-container" style="display: flex; gap: 16px; margin-bottom: 24px;">
                 <label style="flex: 1; text-align: left; cursor: pointer;">
                     <input type="radio" name="role" value="client" checked style="display: none;"
                         onchange="this.parentElement.style.borderColor = 'var(--primary)'; this.parentElement.nextElementSibling.children[0].style.borderColor = 'var(--border)';">
@@ -61,8 +77,10 @@
 
             <div style="margin-bottom: 16px; text-align: left;">
                 <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Teléfono</label>
-                <input type="tel" placeholder="Ej. +51 999 999 999"
+                <input type="tel" id="user-phone" placeholder="Ej. 3001234567" maxlength="10" pattern="[0-9]{10}"
                     style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+                <small style="font-size: 0.75rem; color: var(--text-secondary);">Debe tener exactamente 10
+                    dígitos.</small>
             </div>
 
             <div style="margin-bottom: 16px; text-align: left;">
@@ -74,7 +92,7 @@
 
             <div style="margin-bottom: 24px; text-align: left;">
                 <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Contraseña</label>
-                <input type="password" placeholder="Mínimo 8 caracteres"
+                <input type="password" id="user-password" placeholder="Mínimo 8 caracteres" minlength="8"
                     style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
             </div>
 
@@ -134,6 +152,26 @@
 
                 if (!full_name || !email || !password) {
                     errorBox.textContent = "Por favor, completa nombre, correo y contraseña.";
+                    return;
+                }
+
+                if (phone && !/^\d{10}$/.test(phone)) {
+                    errorBox.textContent = "El teléfono debe tener exactamente 10 números.";
+                    return;
+                }
+
+                if (password.length < 8) {
+                    errorBox.textContent = "La contraseña debe tener al menos 8 caracteres.";
+                    return;
+                }
+
+                if (!/[A-Z]/.test(password)) {
+                    errorBox.textContent = "La contraseña debe tener al menos una mayúscula.";
+                    return;
+                }
+
+                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                    errorBox.textContent = "La contraseña debe tener al menos un carácter especial.";
                     return;
                 }
 

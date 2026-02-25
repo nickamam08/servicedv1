@@ -9,8 +9,9 @@ from app.db.session import get_db
 from app.core import security
 from app.core.config import settings
 from app.schemas.token import AuthResponse
-from app.schemas.user import UserCreate, UserResponse
+from app.schemas.user import UserCreate, UserResponse, ForgotPasswordRequest, ResetPassword
 from app.repositories import user as user_repo
+from app.services import email_service
 
 
 class LoginRequest(BaseModel):
@@ -64,6 +65,13 @@ def register_user(
 
     user = user_repo.create(db, obj_in=user_in)
 
+    # Send welcome email
+    try:
+        email_service.send_welcome_email(user.email, user.full_name)
+    except Exception as e:
+        # Don't fail registration if email fails
+        print(f"Failed to send welcome email: {e}")
+
     # Auto-create ProviderProfile if role is provider
     if user.role == "provider":
         from app.models import ProviderProfile
@@ -93,3 +101,66 @@ def register_user(
         token_type="bearer",
         user=UserResponse.model_validate(user),
     )
+
+
+@router.post("/forgot-password")
+def forgot_password(
+    *,
+    db: Session = Depends(get_db),
+    req: ForgotPasswordRequest
+) -> Any:
+    try:
+        user = user_repo.get_by_email(db, email=req.email)
+        if not user:
+            # Silence failure for security
+            return {"message": "If the user exists, a reset email has been sent."}
+
+        # Create a short-lived reset token (15 mins)
+        reset_token_expires = timedelta(minutes=15)
+        reset_token = security.create_access_token(
+            {"sub": user.email, "type": "reset"},
+            expires_delta=reset_token_expires,
+        )
+
+        email_service.send_password_reset_email(user.email, reset_token)
+
+        return {"message": "If the user exists, a reset email has been sent."}
+    except Exception as e:
+        print(f"Error in forgot_password: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+
+@router.post("/reset-password")
+def reset_password(
+    *,
+    db: Session = Depends(get_db),
+    req: ResetPassword
+) -> Any:
+    try:
+        payload = security.decode_token(req.token)
+        if not payload or payload.get("type") != "reset":
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid or expired reset token",
+            )
+
+        email = payload.get("sub")
+        user = user_repo.get_by_email(db, email=email)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found",
+            )
+
+        # Update password
+        user.password_hash = security.get_password_hash(req.new_password)
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+        return {"message": "Password updated successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in reset_password: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")

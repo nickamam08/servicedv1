@@ -76,6 +76,18 @@ def deactivate_user(
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
+
+@router.delete("/users/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(
+    id: int,
+    db: Session = Depends(get_db),
+    admin_user: User = Depends(require_admin)
+):
+    success = admin_user_service.delete_user(db, id)
+    if not success:
+        raise HTTPException(status_code=404, detail="User not found")
+    return None
+
 # 3. Gestión de Proveedores
 @router.get("/providers", response_model=List[ProviderResponse])
 def get_providers(

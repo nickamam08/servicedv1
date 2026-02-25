@@ -5,6 +5,8 @@
 let allUsers = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Admin Users JS Loaded - V2 (With Delete Button)');
+    // alert('¡Sistema de administración V2 cargado!');
     loadUsers();
     setupFilters();
 });
@@ -58,15 +60,35 @@ function displayUsers(users) {
             <td style="padding: 16px 24px;"><span class="badge ${user.is_active ? 'badge-success' : 'badge-danger'}">${user.is_active ? 'Activo' : 'Inactivo'}</span></td>
             <td style="padding: 16px 24px; color: var(--text-secondary);">${new Date(user.created_at).toLocaleDateString('es-ES')}</td>
             <td style="padding: 16px 24px;">
-                <button class="btn ${user.is_active ? 'btn-outline' : 'btn-primary'}" 
-                        style="padding: 4px 12px; font-size: 0.8rem;"
-                        onclick="toggleUserStatus(${user.id}, ${user.is_active})">
-                    ${user.is_active ? 'Desactivar' : 'Activar'}
-                </button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn ${user.is_active ? 'btn-outline' : 'btn-primary'}" 
+                            style="padding: 4px 12px; font-size: 0.8rem;"
+                            onclick="toggleUserStatus(${user.id}, ${user.is_active})">
+                        ${user.is_active ? 'Desactivar' : 'Activar'}
+                    </button>
+                    <button class="btn btn-danger" 
+                            style="padding: 4px 12px; font-size: 0.8rem; background-color: #ef4444; color: white; border: none;"
+                            onclick="deleteUser(${user.id}, '${user.full_name}')">
+                        Eliminar
+                    </button>
+                </div>
             </td>
         `;
         tbody.appendChild(tr);
     });
+}
+
+async function deleteUser(userId, userName) {
+    if (!confirm(`¿Estás seguro de que deseas eliminar permanentemente al usuario ${userName}? Esta acción no se puede deshacer y eliminará todos sus datos asociados.`)) {
+        return;
+    }
+
+    try {
+        await apiFetch(`/admin/dashboard/users/${userId}`, { method: 'DELETE' });
+        loadUsers();
+    } catch (error) {
+        alert('Error al eliminar usuario: ' + error.message);
+    }
 }
 
 function updateStats(users) {
