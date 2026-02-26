@@ -57,6 +57,7 @@
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
                     <span>Notificaciones</span>
+                    <span id="notif-badge" class="unread-badge"></span>
                 </a>
                 <a href="user-chat.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -64,6 +65,18 @@
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                     <span>Mensajes</span>
+                    <span id="msg-badge" class="unread-badge"></span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Reportes</span>
                 </a>
                 <a href="user-profile.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -89,7 +102,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="app-main" style="overflow-y: hidden; display: flex; flex-direction: column;">
+        <main class="app-main search-main">
 
             <!-- Header -->
             <header class="app-header" style="flex: 0 0 auto; padding: 24px 0;">
@@ -105,11 +118,10 @@
             </header>
 
             <!-- Search Content Grid -->
-            <div
-                style="display: grid; grid-template-columns: 280px 1fr; gap: 24px; flex: 1; overflow: hidden; padding-bottom: 24px;">
+            <div class="search-container">
 
                 <!-- Filters Sidebar -->
-                <div class="bento-card" style="padding: 24px; overflow-y: auto; height: 100%;">
+                <div class="bento-card search-filters">
                     <h3 class="text-h3" style="font-size: 1.1rem; margin-bottom: 20px;">Filtros</h3>
 
                     <!-- Search Input -->
@@ -197,7 +209,7 @@
                 </div>
 
                 <!-- Results Area -->
-                <div style="overflow-y: auto; padding-right: 8px;">
+                <div class="search-results-area">
 
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -217,8 +229,7 @@
                     <div id="active-filters-badges"
                         style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;"></div>
 
-                    <div id="services-results"
-                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                    <div id="services-results" class="search-results-grid">
                         <!-- Results will be injected here -->
                     </div>
                 </div>
@@ -385,6 +396,7 @@
             } catch (e) { }
         })();
     </script>
+    <script src="sidebar-badges.js"></script>
 </body>
 
 </html>

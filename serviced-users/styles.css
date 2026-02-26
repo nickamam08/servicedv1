@@ -67,6 +67,27 @@
     box-sizing: border-box;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.app-main::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.chat-messages::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html,
+body,
+.app-main,
+.sidebar-nav,
+.chat-messages {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-body);
@@ -209,6 +230,41 @@ body.landing-page {
 
 .nav-icon {
     flex-shrink: 0;
+}
+
+.unread-badge {
+    margin-left: auto;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+@keyframes pulse-alert {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: rgba(37, 99, 235, 0.15);
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.nav-item.pulse-alert {
+    animation: pulse-alert 2s infinite ease-in-out;
 }
 
 .sidebar-footer {
@@ -494,6 +550,16 @@ body.chat-page .app-main {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+    .bento-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+    .bento-card {
+        grid-column: span 8 !important;
+    }
+}
+
 @media (max-width: 1024px) {
     .bento-grid {
         grid-template-columns: repeat(6, 1fr);
@@ -507,8 +573,8 @@ body.chat-page .app-main {
 @media (max-width: 768px) {
     .app-container {
         flex-direction: column;
-        height: auto;
-        overflow: visible;
+        height: 100vh;
+        height: -webkit-fill-available;
     }
 
     .app-sidebar {
@@ -516,33 +582,172 @@ body.chat-page .app-main {
         height: auto;
         border-right: none;
         border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: white;
+    }
+
+    .sidebar-header {
+        padding: 12px 16px;
     }
 
     .sidebar-nav {
         flex-direction: row;
         overflow-x: auto;
-        padding: 10px;
+        padding: 5px 10px;
+        gap: 5px;
+        scrollbar-width: none;
     }
 
-    .nav-item span {
+    .sidebar-nav::-webkit-scrollbar {
         display: none;
     }
 
-    /* Icon only on mobile nav? Or stack? */
+    .nav-item {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.65rem;
+    }
+
+    .nav-item span {
+        display: block;
+        font-size: 0.65rem;
+    }
+
+    .nav-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .unread-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 16px;
+        height: 16px;
+        font-size: 0.6rem;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
     .app-main {
-        padding: 20px;
-        height: auto;
-        overflow: visible;
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .app-header {
+        padding: 16px 0 !important;
+    }
+
+    .text-h2 {
+        font-size: 1.5rem;
     }
 
     .bento-grid {
         display: flex;
         flex-direction: column;
+        gap: 16px;
+    }
+
+    .bento-card {
+        padding: 16px !important;
+    }
+
+    /* Form responsiveness */
+    form div {
+        grid-column: span 2 !important;
+    }
+
+    .chat-container {
+        flex-direction: column;
     }
 
     .chat-sidebar {
+        width: 100%;
+        height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item span {
         display: none;
     }
 
-    /* Hide chat list on mobile view for now */
+    .nav-item {
+        padding: 10px;
+    }
+}
+
+/* 9. Search Services Page Specifics */
+.search-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    flex: 1;
+    overflow: hidden;
+    padding-bottom: 24px;
+}
+
+.search-filters {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.search-results-area {
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 1024px) {
+    .search-container {
+        grid-template-columns: 220px 1fr;
+        gap: 20px;
+    }
+
+    .search-filters {
+        padding: 16px !important;
+    }
+
+    .search-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-y: auto !important;
+        height: auto !important;
+        gap: 16px;
+    }
+
+    .search-filters {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .search-results-area {
+        height: auto !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    .app-main.search-main {
+        overflow-y: auto !important;
+    }
 }

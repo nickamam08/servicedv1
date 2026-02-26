@@ -43,6 +43,8 @@ class DashboardSummary(BaseModel):
     balance: float
     active_services_count: int
     active_requests_count: int
+    unread_notifications_count: int = 0
+    unread_messages_count: int = 0
     notifications: List[NotificationSchema]
     user_profile: UserProfileSchema
     recommended_services: List[ServiceSimple] = []

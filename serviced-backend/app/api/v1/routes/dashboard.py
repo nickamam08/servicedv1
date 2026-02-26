@@ -5,7 +5,7 @@ from typing import Any, List, Optional
 
 from app.db.session import get_db
 # Models
-from app.models import User, Service, ServiceRequest, RequestStatus, Order, OrderStatus, Notification
+from app.models import User, Service, ServiceRequest, RequestStatus, Order, OrderStatus, Notification, ChatConversation, ChatMessage
 # Schemas
 from app.schemas.dashboard import DashboardSummary, NotificationSchema, UserProfileSchema
 # Auth dependency
@@ -56,19 +56,30 @@ def get_dashboard_summary(
             Notification.is_read == False
         ).order_by(Notification.created_at.desc()).limit(5).all()
 
-        # 5. Recommended Services (Random 4 active services)
-        # In real app, use recommendation algo. Here: random or latest.
+        unread_notifications_count = db.query(Notification).filter(
+            Notification.user_id == current_user.id,
+            Notification.is_read == False
+        ).count()
+
+        # 5. Messages Unread Count
+        unread_messages_count = db.query(ChatMessage).join(ChatConversation).filter(
+            (ChatConversation.client_id == current_user.id) | (ChatConversation.provider_id == current_user.id),
+            ChatMessage.sender_id != current_user.id,
+            ChatMessage.is_read == False
+        ).count()
+
+        # 6. Recommended Services (Random 4 active services)
         recommended_services = db.query(Service).filter(
             Service.is_active == True
         ).order_by(func.random()).limit(4).all()
 
-        # 6. User Profile
+        # 7. User Profile
         user_profile = {
             "full_name": current_user.full_name,
             "avatar_initials": current_user.avatar_initials
         }
 
-        # 7. Recent Requests (for Client)
+        # 8. Recent Requests (for Client)
         recent_requests = []
         if current_user.role == "client":
             requests_data = db.query(
@@ -93,6 +104,8 @@ def get_dashboard_summary(
             "balance": balance,
             "active_services_count": active_services_count,
             "active_requests_count": active_requests_count,
+            "unread_notifications_count": unread_notifications_count,
+            "unread_messages_count": unread_messages_count,
             "notifications": notifications,
             "user_profile": user_profile,
             "recommended_services": recommended_services,
