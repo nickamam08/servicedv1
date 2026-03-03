@@ -320,6 +320,7 @@
                         card.style.display = "flex";
                         card.style.flexDirection = "column";
                         card.innerHTML = `
+                            ${s.image_urls && s.image_urls[0] ? `<div style="width: 100%; height: 160px; margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #f1f5f9;"><img src="${s.image_urls[0]}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
                             <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
                                 <span class="badge" style="background: #EFF6FF; color: var(--primary); font-weight: 600; font-size: 0.75rem;">${s.category || 'Servicio'}</span>
                                 <div style="font-weight:700; font-size:1.1rem;">$${(s.price ?? 0).toLocaleString('es-CO')}</div>

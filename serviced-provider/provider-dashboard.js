@@ -377,7 +377,15 @@ async function renderServices() {
                  <div style="display:flex; justify-content:space-between; margin-bottom: 24px;"><h3 class="text-h3">Mis Servicios (${safeServices.length})</h3><button class="btn btn-primary" onclick="openCreateServiceModal()">Nuevo Servicio</button></div>
                 <div class="table-container"><table><thead><tr><th>Servicio</th><th>Precio</th><th>Categoria</th><th>Estado</th><th>Acciones</th></tr></thead>
                         <tbody>${safeServices.length > 0 ? safeServices.map(s => `
-                                <tr><td><div style="font-weight:600;">${s.title}</div><div class="text-sm">${s.duration || (s.duration_minutes ? s.duration_minutes + ' m' : '-')}</div></td><td>$${(s.price || 0).toLocaleString('es-CO')}</td><td>${s.category || '-'}</td><td><span class="badge ${s.is_active ? 'badge-active' : 'badge-inactive'}">${s.is_active ? 'Activo' : 'Inactivo'}</span></td><td>
+                                <tr><td>
+                                    <div style="display:flex; align-items:center; gap:12px;">
+                                        ${s.image_urls && s.image_urls[0] ? `<img src="${s.image_urls[0]}" style="width:40px; height:40px; border-radius:4px; object-fit:cover; border:1px solid #eee;">` : `<div style="width:40px; height:40px; border-radius:4px; background:#f3f4f6; display:flex; align-items:center; justify-content:center; color:#9ca3af;"><i class="fas fa-image"></i></div>`}
+                                        <div>
+                                            <div style="font-weight:600;">${s.title}</div>
+                                            <div class="text-sm">${s.duration || (s.duration_minutes ? s.duration_minutes + ' m' : '-')}</div>
+                                        </div>
+                                    </div>
+                                </td><td>$${(s.price || 0).toLocaleString('es-CO')}</td><td>${s.category || '-'}</td><td><span class="badge ${s.is_active ? 'badge-active' : 'badge-inactive'}">${s.is_active ? 'Activo' : 'Inactivo'}</span></td><td>
                                         <button class="btn btn-secondary" style="padding:6px;" onclick="editService(${s.id})"><i class="fas fa-edit"></i></button> <button class="btn btn-secondary" style="padding:6px;" onclick="toggleService(${s.id})"><i class="fas fa-power-off"></i></button> <button class="btn btn-danger" style="padding:6px;" onclick="deleteService(${s.id})"><i class="fas fa-trash"></i></button></td></tr>
                             `).join('') : '<tr><td colspan="5" style="text-align:center;">No tienes servicios creados.</td></tr>'}
                         </tbody></table></div></div>`;
@@ -723,11 +731,31 @@ async function handleProfileSubmit() {
         alert('Error de red al actualizar perfil');
     }
 }
-function openCreateServiceModal() { document.getElementById('service-form').reset(); document.getElementById('service-id').value = ''; document.getElementById('service-modal').classList.add('open'); }
+function openCreateServiceModal() {
+    document.getElementById('service-form').reset();
+    document.getElementById('service-id').value = '';
+    document.getElementById('service-image-preview').style.display = 'none';
+    document.getElementById('service-modal').classList.add('open');
+}
 function closeServiceModal() { document.getElementById('service-modal').classList.remove('open'); }
 function editService(id) {
-    const service = window._services.find(s => s.id === id); if (!service) return;
-    document.getElementById('service-id').value = id; document.getElementById('service-title').value = service.title; document.getElementById('service-description').value = service.description; document.getElementById('service-price').value = service.price; document.getElementById('service-category').value = service.category; document.getElementById('service-modal').classList.add('open');
+    const service = window._services.find(s => s.id === id);
+    if (!service) return;
+    document.getElementById('service-id').value = id;
+    document.getElementById('service-title').value = service.title;
+    document.getElementById('service-description').value = service.description;
+    document.getElementById('service-price').value = service.price;
+    document.getElementById('service-category').value = service.category;
+
+    const preview = document.getElementById('service-image-preview');
+    if (service.image_urls && service.image_urls.length > 0) {
+        preview.querySelector('img').src = service.image_urls[0];
+        preview.style.display = 'block';
+    } else {
+        preview.style.display = 'none';
+    }
+
+    document.getElementById('service-modal').classList.add('open');
 }
 async function toggleService(id) { await fetch(`${API_BASE}/services/${id}/toggle`, { method: 'PUT', headers: getHeaders() }); renderServices(); }
 async function deleteService(id) { if (confirm('¿Eliminar servicio?')) { await fetch(`${API_BASE}/services/${id}`, { method: 'DELETE', headers: getHeaders() }); renderServices(); } }
@@ -736,10 +764,116 @@ function openRescheduleModal(id) { document.getElementById('reschedule-request-i
 function closeRescheduleModal() { document.getElementById('reschedule-modal').classList.remove('open'); }
 
 function setupForms() {
+    // Image Preview & Drag and Drop logic
+    const imageInput = document.getElementById('service-image-input');
+    const dropZone = document.getElementById('service-drop-zone');
+
+    if (dropZone && imageInput) {
+        dropZone.addEventListener('click', () => imageInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        ['dragleave', 'dragend'].forEach(type => {
+            dropZone.addEventListener(type, () => {
+                dropZone.classList.remove('drag-over');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                imageInput.files = files;
+                handleImageSelection(files[0]);
+            }
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files[0]) handleImageSelection(e.target.files[0]);
+        });
+    }
+
+    function handleImageSelection(file) {
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('service-image-preview');
+                preview.querySelector('img').src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     document.getElementById('service-form').addEventListener('submit', async (e) => {
-        e.preventDefault(); const id = document.getElementById('service-id').value; const body = { title: document.getElementById('service-title').value, description: document.getElementById('service-description').value, price: document.getElementById('service-price').value, category: document.getElementById('service-category').value };
-        const method = id ? 'PUT' : 'POST'; const url = id ? `${API_BASE}/services/${id}` : `${API_BASE}/services`; await fetch(url, { method, headers: getHeaders(), body: JSON.stringify(body) }); closeServiceModal(); renderServices();
+        e.preventDefault();
+        const id = document.getElementById('service-id').value;
+        const imageInput = document.getElementById('service-image-input');
+        let image_urls = [];
+
+        // Check for existing image if editing
+        if (id) {
+            const service = window._services.find(s => s.id == id);
+            if (service && service.image_urls) image_urls = [...service.image_urls];
+        }
+
+        // Upload new image if selected
+        if (imageInput.files.length > 0) {
+            const formData = new FormData();
+            formData.append('file', imageInput.files[0]);
+            try {
+                const uploadRes = await fetch(`${API_BASE}/services/upload-image`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem(AUTH_TOKEN_KEY)}` },
+                    body: formData
+                });
+                if (uploadRes.ok) {
+                    const uploadData = await uploadRes.json();
+                    image_urls = [uploadData.url]; // For now, single image
+                } else {
+                    alert('Error al subir la imagen');
+                    return;
+                }
+            } catch (err) {
+                alert('Error de red al subir imagen');
+                return;
+            }
+        }
+
+        const body = {
+            title: document.getElementById('service-title').value,
+            description: document.getElementById('service-description').value,
+            price: parseFloat(document.getElementById('service-price').value),
+            category: document.getElementById('service-category').value,
+            image_urls: image_urls
+        };
+
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `${API_BASE}/services/${id}` : `${API_BASE}/services`;
+
+        try {
+            const res = await fetch(url, {
+                method,
+                headers: getHeaders(),
+                body: JSON.stringify(body)
+            });
+            if (res.ok) {
+                showToast(id ? 'Servicio actualizado' : 'Servicio creado');
+                closeServiceModal();
+                renderServices();
+            } else {
+                const err = await res.json();
+                alert('Error: ' + (err.detail || 'No se pudo guardar el servicio'));
+            }
+        } catch (err) {
+            alert('Error de red');
+        }
     });
+
     document.getElementById('reschedule-form').addEventListener('submit', async (e) => {
         e.preventDefault(); const id = document.getElementById('reschedule-request-id').value; const date = document.getElementById('reschedule-date').value; await fetch(`${API_BASE}/requests/${id}/reschedule`, { method: 'PUT', headers: getHeaders(), body: JSON.stringify({ status: 'ACCEPTED', scheduled_date: date }) }); closeRescheduleModal(); renderRequests();
     });

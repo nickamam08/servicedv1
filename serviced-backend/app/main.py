@@ -56,6 +56,11 @@ if provider_frontend.is_dir():
 if admin_frontend.is_dir():
     app.mount("/admin", StaticFiles(directory=str(admin_frontend), html=True), name="admin")
 
+# Mount static directory for uploads
+static_dir = BASE_DIR / "static"
+if static_dir.is_dir():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
 
 @app.get("/")
 def read_root():

@@ -224,12 +224,13 @@
                 const servicesContainer = document.querySelector("#servicios-section > div");
                 if (provider.services && provider.services.length > 0) {
                     servicesContainer.innerHTML = provider.services.map(s => `
-                        <div class="bento-card" style="border: 1px solid var(--border);">
+                        <div class="bento-card" style="border: 1px solid var(--border); display: flex; flex-direction: column;">
+                            ${s.image_urls && s.image_urls[0] ? `<div style="width: 100%; height: 120px; margin-bottom: 12px; border-radius: 8px; overflow: hidden; border: 1px solid #f1f5f9;"><img src="${s.image_urls[0]}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <h4 style="font-weight: 600;">${s.title}</h4>
                                 <span style="font-weight: 600;">$${s.price.toLocaleString('es-CO')}</span>
                             </div>
-                            <p class="text-sm" style="margin: 8px 0 16px;">${s.description}</p>
+                            <p class="text-sm" style="margin: 8px 0 16px; flex: 1;">${s.description}</p>
                             <a href="service-detail.html?id=${s.id}" class="btn" style="width: 100%; border: 1px solid var(--border); font-size: 0.85rem; text-decoration: none; justify-content: center;">Ver detalle</a>
                         </div>
                     `).join("");

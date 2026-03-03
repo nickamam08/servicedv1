@@ -129,6 +129,18 @@
                     <label class="form-label">Categoría</label>
                     <input type="text" class="form-control" id="service-category">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Imagen del Servicio</label>
+                    <div id="service-drop-zone" class="drop-zone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Arrastra una imagen aquí o haz clic para subir</p>
+                        <input type="file" id="service-image-input" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="service-image-preview" style="margin-top: 12px; display: none; text-align: center;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid #E5E7EB;">
+                    </div>
+                </div>
                 <div style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px;">
                     <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Guardar</button>

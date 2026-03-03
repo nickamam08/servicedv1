@@ -317,6 +317,7 @@
                          ${data.recommended_services && data.recommended_services.length > 0 ?
                         data.recommended_services.map(s => `
                             <div class="bento-card" style="padding: 20px; border: 1px solid rgba(0,0,0,0.05); background: white; display: flex; flex-direction: column;">
+                                ${s.image_urls && s.image_urls[0] ? `<div style="width: 100%; height: 140px; margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #f1f5f9;"><img src="${s.image_urls[0]}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
                                 <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
                                     <span style="background: #EEF2FF; color: var(--primary); font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase;">${s.category || 'Servicio'}</span>
                                     <div style="font-weight:700; color: var(--text-main);">$${(s.price ?? 0).toLocaleString('es-CO')}</div>

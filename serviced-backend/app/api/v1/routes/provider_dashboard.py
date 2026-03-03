@@ -1,6 +1,10 @@
 from typing import List, Optional
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile
+import os
+import uuid
+import shutil
+from pathlib import Path
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -78,6 +82,33 @@ def toggle_service_status(
     current_user: User = Depends(check_provider_role)
 ):
     return provider_service_management.toggle_service_status(db, service_id, current_user.id)
+
+@router.post("/services/upload-image")
+async def upload_service_image(
+    file: UploadFile = File(...),
+    current_user: User = Depends(check_provider_role)
+):
+    # Verify file is an image
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="File must be an image")
+    
+    # Create directory if not exists
+    upload_dir = Path("static/uploads/services")
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Generate unique filename
+    ext = os.path.splitext(file.filename)[1]
+    filename = f"{uuid.uuid4()}{ext}"
+    file_path = upload_dir / filename
+    
+    # Save file
+    try:
+        with file_path.open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Could not save image: {str(e)}")
+    
+    return {"url": f"/static/uploads/services/{filename}"}
 
 
 # --- Requests Management ---
