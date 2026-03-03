@@ -58,7 +58,7 @@ def send_password_reset_email(email: str, token: str):
     subject = "Restablece tu contraseña - SERVICED"
     # In a real app, this would be the actual URL. 
     # Since we are in dev, we assume it's relative to where it's served.
-    reset_link = f"http://localhost:8000/users/reset-password.html?token={token}"
+    reset_link = f"{settings.FRONTEND_HOST}/users/reset-password.html?token={token}"
     body = f"""
     Hola,
     

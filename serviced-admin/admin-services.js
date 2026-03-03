@@ -206,7 +206,7 @@ async function deleteService(serviceId) {
         alert('Servicio eliminado exitosamente.');
     } catch (error) {
         console.error('Error deleting service:', error);
-        alert('No se pudo eliminar el servicio. Es posible que tenga dependencias críticas que no pudieron limpiarse automáticamente.');
+        alert('No se pudo eliminar el servicio: ' + error.message);
     }
 }
 

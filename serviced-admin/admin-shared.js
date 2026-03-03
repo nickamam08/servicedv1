@@ -45,6 +45,11 @@ async function apiFetch(endpoint, options = {}) {
 
         console.log(`Admin API Response (${response.status}): ${url}`);
 
+        // Handle 204 No Content (like successful DELETE)
+        if (response.status === 204) {
+            return null;
+        }
+
         if (response.status === 401 || response.status === 403) {
             console.warn('Authentication error or unauthorized. Redirecting to login.');
             sessionStorage.removeItem('serviced_token');

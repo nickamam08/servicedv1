@@ -29,13 +29,13 @@ def get_current_user(
         email: str = payload.get("sub")
         if email is None:
              raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
+                status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Could not validate credentials",
             )
         token_data = TokenData(email=email)
     except (JWTError, ValidationError):
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
         )
     user = user_repo.get_by_email(db, email=token_data.email)

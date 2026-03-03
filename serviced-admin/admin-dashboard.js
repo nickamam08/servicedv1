@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadDashboardStats() {
     try {
+        // Wait a small moment to ensure auth is checked/processed
+        const token = sessionStorage.getItem('serviced_token');
+        if (!token) {
+            console.warn('Waiting for token...');
+            return;
+        }
+
         console.log('Fetching Dashboard Overview...');
         const stats = await apiFetch('/admin/dashboard/overview');
         if (stats) displayStats(stats);
@@ -34,24 +41,36 @@ function displayStats(stats) {
 }
 
 function displayActivity(requests) {
+    console.log('Rendering Recent Activity:', requests);
     const tbody = document.getElementById('recent-activity-body');
-    if (!tbody) return;
+    if (!tbody) {
+        console.error('Element recent-activity-body not found');
+        return;
+    }
 
     tbody.innerHTML = '';
+
+    if (!requests || requests.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="padding: 16px 24px; text-align: center;">No hay actividad reciente.</td></tr>';
+        return;
+    }
+
     // Show last 5 requests as "activity"
-    requests.slice(0, 5).forEach(req => {
+    const displayItems = Array.isArray(requests) ? requests.slice(0, 5) : [];
+
+    displayItems.forEach(req => {
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid var(--border)';
         tr.innerHTML = `
             <td style="padding: 16px 24px; font-weight: 500;">Solicitud #${req.id}</td>
             <td style="padding: 16px 24px;">
-                <span class="badge ${getStatusBadge(req.status)}">${req.status.toUpperCase()}</span>
+                <span class="badge ${getStatusBadge(req.status)}">${(req.status || 'unknown').toUpperCase()}</span>
             </td>
             <td style="padding: 16px 24px; color: var(--text-secondary);">
-                ${req.client_name} contrató a <strong>${req.provider_name}</strong>
+                ${req.client_name || 'Desconocido'} contrató a <strong>${req.provider_name || 'N/A'}</strong>
             </td>
             <td style="padding: 16px 24px; text-align: right; color: var(--text-tertiary);">
-                ${new Date(req.created_at).toLocaleDateString()}
+                ${req.created_at ? new Date(req.created_at).toLocaleDateString() : 'N/D'}
             </td>
         `;
         tbody.appendChild(tr);

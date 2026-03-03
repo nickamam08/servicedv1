@@ -10,7 +10,7 @@ from app.schemas.admin_dashboard import PlatformStats
 from app.schemas.admin_category import CategoryCreate, CategoryUpdate, CategoryOut
 from app.schemas.user import UserResponse
 from app.schemas.provider import ProviderResponse
-from app.schemas.service import ServiceResponse
+from app.schemas.service import ServiceResponse, ServiceRequestResponse
 from app.schemas.review import ReviewResponse
 from app.schemas.chat import ConversationResponse, ConversationWithMessages
 from app.schemas.report import ReportResponse, ReportUpdate
@@ -181,7 +181,7 @@ def get_requests(
         date_from=date_from, date_to=date_to
     )
 
-@router.put("/requests/{id}/cancel")
+@router.put("/requests/{id}/cancel", response_model=ServiceRequestResponse)
 def cancel_request(
     id: int,
     db: Session = Depends(get_db),

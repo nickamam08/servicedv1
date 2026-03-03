@@ -17,8 +17,16 @@ def activate_service(db: Session, service_id: int) -> Optional[Service]:
         db.refresh(service)
     return service
 
+def deactivate_service(db: Session, service_id: int) -> Optional[Service]:
+    service = db.query(Service).filter(Service.id == service_id).first()
+    if service:
+        service.is_active = False
+        db.commit()
+        db.refresh(service)
+    return service
+
 def delete_service(db: Session, service_id: int) -> bool:
-    from app.models.all_models import ServiceRequest, Order, Review, ChatConversation
+    from app.models.all_models import ServiceRequest, Order, Review, ChatConversation, Report
 
     service = db.query(Service).filter(Service.id == service_id).first()
     if not service:
@@ -30,20 +38,32 @@ def delete_service(db: Session, service_id: int) -> bool:
         for req in requests:
             # Delete associated reviews
             db.query(Review).filter(Review.service_request_id == req.id).delete()
-            # Delete associated conversations (messages are cascaded in model)
-            db.query(ChatConversation).filter(ChatConversation.request_id == req.id).delete()
+            
+            # Delete associated reports for this request
+            db.query(Report).filter(Report.request_id == req.id).delete()
+            
+            # Delete associated conversations
+            conversations = db.query(ChatConversation).filter(ChatConversation.request_id == req.id).all()
+            for conv in conversations:
+                # Messages are cascaded (delete-orphan) in model, so deleting conversation is enough
+                db.delete(conv)
+            
             # Delete the request itself
             db.delete(req)
         
         # 2. Handle Orders
         db.query(Order).filter(Order.service_id == service_id).delete()
 
-        # 3. Delete the service
+        # 3. Handle Reports for this service
+        db.query(Report).filter(Report.service_id == service_id).delete()
+
+        # 4. Delete the service
         db.delete(service)
         
         db.commit()
         return True
     except Exception as e:
         db.rollback()
-        print(f"Error deleting service {service_id}: {str(e)}")
+        # Log error safely for Windows console
+        print(f"Error deleting service {service_id}")
         raise e

@@ -4,6 +4,7 @@ from typing import List, Union
 class Settings(BaseSettings):
     PROJECT_NAME: str = "SERVICED API"
     API_V1_STR: str = "/api/v1"
+    FRONTEND_HOST: str = "http://localhost:8000" # Default for local dev
     
     # Database
     POSTGRES_SERVER: str = "127.0.0.1"
@@ -15,7 +16,7 @@ class Settings(BaseSettings):
     # Security
     SECRET_KEY: str = "supersecretkey123" # CHANGE THIS IN PRODUCTION
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8 # 8 days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 30 # 30 days
 
     # SMTP (Emails)
     SMTP_HOST: str | None = None

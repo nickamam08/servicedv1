@@ -40,27 +40,31 @@ def delete_user(db: Session, user_id: int) -> bool:
         db.query(Service).filter(Service.provider_id == user.provider_profile.id).delete()
         db.delete(user.provider_profile)
     
-    # 2. Notifications
-    from app.models.all_models import Notification
+    # 3. Reports, Requests, Orders, and Conversations
+    from app.models.all_models import ServiceRequest, Order, ChatConversation, Report, Review, Notification
+    
+    # Notifications
     db.query(Notification).filter(Notification.user_id == user.id).delete()
     
-    # 3. Reviews (both given and received)
-    from app.models.all_models import Review
+    # Reviews (both given and received)
     db.query(Review).filter((Review.client_id == user.id) | (Review.provider_id == user.id)).delete()
-    
-    # Note: ServiceRequests, Orders, ChatConversations, and Reports are more complex 
-    # and might be better to keep for history, but for a "hard delete" we attempt to clear them
-    # to avoid FK violations.
-    
-    from app.models.all_models import ServiceRequest, Order, ChatConversation, Report
-    db.query(ServiceRequest).filter(ServiceRequest.client_id == user.id).delete()
-    db.query(Order).filter(Order.client_id == user.id).delete()
-    
-    # Conversations (where user is client or provider)
-    db.query(ChatConversation).filter((ChatConversation.client_id == user.id) | (ChatConversation.provider_id == user.id)).delete()
-    
+
     # Reports
     db.query(Report).filter((Report.reporter_id == user.id) | (Report.reported_user_id == user.id)).delete()
+    
+    # Orders
+    db.query(Order).filter(Order.client_id == user.id).delete()
+
+    # Conversations (where user is client or provider)
+    # Delete messages first (though they cascade)
+    conversations = db.query(ChatConversation).filter((ChatConversation.client_id == user.id) | (ChatConversation.provider_id == user.id)).all()
+    for conv in conversations:
+        db.delete(conv)
+
+    # Service Requests
+    requests = db.query(ServiceRequest).filter(ServiceRequest.client_id == user.id).all()
+    for req in requests:
+        db.delete(req)
 
     db.delete(user)
     db.commit()
