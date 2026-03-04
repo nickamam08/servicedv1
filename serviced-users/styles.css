@@ -16,51 +16,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    /* Colores - Base Neutral */
-    --bg-body: #FAFAFA;
-    /* Fondo principal de la aplicación */
-    --bg-surface: #FFFFFF;
-    /* Fondo de tarjetas y contenedores */
-    --bg-surface-alt: #F3F4F6;
-    /* Estados hover o activos secundarios */
+    /* Premium AI Palette - Light Theme */
+    --bg-body: #ffffff;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #f8fafc;
+    --bg-subtle: #f1f5f9;
 
-    /* Colores - Texto */
-    --text-main: #111827;
-    /* Texto primario (casi negro) */
-    --text-secondary: #6B7280;
-    /* Texto secundario (gris) */
-    --text-tertiary: #9CA3AF;
-    /* Placeholders e iconos desactivados */
+    /* Text - High Contrast & Modern */
+    --text-main: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #94a3b8;
 
-    /* Colores - Acentos y Estados */
-    --primary: #2563EB;
-    /* Azul de marca */
-    --primary-dark: #1D4ED8;
-    --accent: #111827;
-    /* Acento oscuro fuerte */
-    --danger: #EF4444;
-    /* Alertas y errores */
-    --success: #10B981;
-    /* Procesos completados */
-    --warning: #F59E0B;
-    /* Advertencias */
+    /* Brand Accents */
+    --primary: #2563eb;
+    --primary-glow: rgba(37, 99, 235, 0.15);
+    --secondary: #7c3aed;
+    --accent: #0f172a;
 
-    /* Métricas de Espaciado y Bordes */
+    /* Sophisticated Gradients */
+    --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+
+    /* Status */
+    --danger: #ef4444;
+    --success: #10b981;
+    --warning: #f59e0b;
+
+    /* Metrics */
     --sidebar-width: 260px;
-    --header-height: 80px;
+    --header-height: 72px;
     --radius-sm: 8px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
     --radius-xl: 32px;
+    --container-max: 1200px;
 
-    /* Sombras Elevación */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-
-    /* Bordes y Líneas */
-    --border: #E5E7EB;
-    --border-hover: #D1D5DB;
+    /* Depth & Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+    --shadow-md: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+    --border: #f1f5f9;
+    --border-hover: #e2e8f0;
 }
 
 /* 2. Reset Global y Base */
@@ -306,13 +304,52 @@ body.landing-page {
     display: flex;
     flex-direction: column;
     position: relative;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bento-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-glow);
+}
+
+/* Glassmorphism Utility */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+}
+
+/* Gradients */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.bg-gradient {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* Scroll Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Buttons Glow */
+.btn-glow:hover {
+    box-shadow: 0 0 20px var(--primary-glow);
 }
 
 /* 6. Tipografía */

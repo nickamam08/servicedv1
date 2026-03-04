@@ -6,338 +6,370 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SERVICED - Conecta con Profesionales</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            scroll-behavior: smooth;
+        }
+
+        .hero-visual-dots {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background-image: radial-gradient(var(--primary) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .cta-section {
+            background: var(--text-main);
+            color: white;
+            padding: 80px 40px;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.2), transparent);
+            pointer-events: none;
+        }
+
+        footer {
+            padding: 60px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-link {
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.2s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body class="landing-page">
 
     <!-- Header -->
-    <header
-        style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; height: 72px; display: flex; align-items: center;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <a href="#" style="display: flex; align-items: center;">
-                <img src="log.png" alt="SERVICED" style="height: 48px; width: auto;">
+    <header class="glass"
+        style="position: fixed; top: 0; width: 100%; z-index: 1000; height: var(--header-height); display: flex; align-items: center; border-bottom: 1px solid var(--border); transition: all 0.3s;">
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 24px;">
+            <a href="#" style="display: flex; align-items: center; gap: 8px;">
+                <img src="log.png" alt="SERVICED" style="height: 32px; width: auto;">
+                <span
+                    style="font-weight: 800; font-size: 1.25rem; letter-spacing: -1px; color: var(--text-main);">SERVICED</span>
             </a>
 
-            <nav style="display: flex; gap: 32px; align-items: center;">
-                <a href="#servicios"
-                    style="color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; text-decoration: none;">Servicios</a>
-                <a href="#como-funciona"
-                    style="color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; text-decoration: none;">Cómo
-                    funciona</a>
-                <a href="login.html" class="btn"
-                    style="background: var(--text-main); color: white; padding: 10px 20px; border-radius: 99px; font-size: 0.9rem;">Iniciar
+            <nav style="display: flex; gap: 40px; align-items: center;">
+                <a href="#servicios" class="nav-link"
+                    style="color: var(--text-secondary); font-weight: 500; font-size: 0.9rem;">Servicios</a>
+                <a href="#como-funciona" class="nav-link"
+                    style="color: var(--text-secondary); font-weight: 500; font-size: 0.9rem;">Cómo funciona</a>
+                <a href="login.html" class="btn btn-glow"
+                    style="background: var(--text-main); color: white; padding: 10px 24px; border-radius: 99px; font-size: 0.85rem; font-weight: 600;">Iniciar
                     Sesión</a>
             </nav>
         </div>
     </header>
 
-    <div class="container" style="padding: 40px 20px;">
+    <main class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 140px 24px 80px;">
 
-        <!-- Hero Section (Split Layout) -->
-        <div class="bento-grid" style="margin-bottom: 80px; align-items: center;">
-
-            <!-- Left: Copy & CTAs -->
-            <div style="grid-column: span 7; padding-right: 40px;">
+        <!-- Hero Section -->
+        <section class="reveal active"
+            style="margin-bottom: 120px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center;">
+            <div style="position: relative;">
                 <div
-                    style="display: inline-block; background: #DBEAFE; color: var(--primary); padding: 6px 16px; border-radius: 99px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;">
-                    ✨ La plataforma #1 de servicios</div>
-                <h1 class="text-h1"
-                    style="font-size: 4rem; margin-bottom: 24px; color: var(--text-main); line-height: 1.1;">
-                    Expertos locales,<br>soluciones globales.
+                    style="display: inline-flex; align-items: center; gap: 8px; background: var(--bg-surface-alt); border: 1px solid var(--border); padding: 8px 16px; border-radius: 99px; font-size: 0.8rem; font-weight: 600; margin-bottom: 32px; color: var(--text-secondary);">
+                    <span style="color: var(--primary);">✨</span> Redefiniendo los servicios en 2026
+                </div>
+                <h1
+                    style="font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1.05; font-weight: 800; margin-bottom: 24px;">
+                    Expertos locales,<br><span class="text-gradient">soluciones premium.</span>
                 </h1>
-                <p class="text-body" style="font-size: 1.25rem; max-width: 500px; margin-bottom: 40px; margin-top: 0;">
-                    Desde reparaciones urgentes hasta proyectos creativos. Encuentra al profesional perfecto, verificado
-                    y seguro.
+                <p
+                    style="font-size: 1.25rem; color: var(--text-secondary); max-width: 520px; margin-bottom: 40px; line-height: 1.6;">
+                    Encuentra, contrata y gestiona profesionales verificados con la plataforma más intuitiva y segura
+                    del mercado.
                 </p>
-                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-                    <a href="login.html" class="btn"
-                        style="background: var(--text-main); color: white; padding: 16px 32px; font-size: 1.1rem; border-radius: 99px;">Buscar
-                        Profesional</a>
+                <div style="display: flex; gap: 16px; align-items: center;">
+                    <a href="login.html" class="btn btn-glow"
+                        style="background: var(--text-main); color: white; padding: 18px 36px; font-size: 1rem; border-radius: 99px; font-weight: 600;">Empezar
+                        Ahora</a>
                     <a href="register.html" class="btn"
-                        style="background: white; border: 1px solid var(--border); color: var(--text-main); padding: 16px 32px; font-size: 1.1rem; border-radius: 99px;">Ofrecer
+                        style="background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 18px 36px; font-size: 1rem; border-radius: 99px; font-weight: 600;">Ofrecer
                         Servicios</a>
                 </div>
-                <div
-                    style="margin-top: 32px; display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--text-secondary);">
-                    <div style="display: flex;">
-                        <span
-                            style="width: 32px; height: 32px; border-radius: 50%; background: #ddd; border: 2px solid white; margin-right: -10px;"></span>
-                        <span
-                            style="width: 32px; height: 32px; border-radius: 50%; background: #ccc; border: 2px solid white; margin-right: -10px;"></span>
-                        <span
-                            style="width: 32px; height: 32px; border-radius: 50%; background: #bbb; border: 2px solid white;"></span>
-                    </div>
-                    <span>+10,000 servicios completados este mes</span>
-                </div>
             </div>
 
-            <!-- Right: Visual Bento Composition -->
-            <div style="grid-column: span 5; position: relative;">
-                <div class="bento-card"
-                    style="padding: 0; border: none; overflow: visible; background: transparent; box-shadow: none;">
-
-                    <!-- Main Card Visual -->
-                    <div class="bento-card"
-                        style="background: white; position: relative; z-index: 2; transform: rotate(-2deg);">
-                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-                            <div
-                                style="width: 50px; height: 50px; background: #DBEAFE; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                                👷‍♂️</div>
-                            <div>
-                                <h4 style="font-weight: 700;">Carlos R.</h4>
-                                <p class="text-sm">Electricista Certificado</p>
-                            </div>
-                            <span style="margin-left: auto; font-weight: 700; color: #10B981;">4.9 ★</span>
-                        </div>
-                        <div
-                            style="background: var(--bg-surface-alt); padding: 12px; border-radius: 12px; margin-bottom: 12px;">
-                            <p class="text-sm" style="color: var(--text-main);">"¡Excelente trabajo! Llegó puntual y
-                                solucionó el problema en 30 minutos."</p>
-                        </div>
-                        <button class="btn"
-                            style="width: 100%; background: var(--text-main); color: white; border-radius: 8px; height: 40px;">Ver
-                            Perfil</button>
-                    </div>
-
-                    <!-- Floating Badge -->
-                    <div class="bento-card"
-                        style="position: absolute; bottom: -20px; right: -20px; z-index: 3; padding: 16px; width: 220px; transform: rotate(2deg); border-color: var(--primary);">
+            <div style="position: relative;">
+                <div class="hero-visual-dots"></div>
+                <div class="bento-card glass" style="padding: 32px; box-shadow: var(--shadow-lg); z-index: 1;">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
                         <div style="display: flex; align-items: center; gap: 12px;">
-                            <div style="background: #D1FAE5; padding: 8px; border-radius: 50%; color: #047857;">To</div>
+                            <div
+                                style="width: 48px; height: 48px; border-radius: 14px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                🛠️</div>
                             <div>
-                                <h4 style="font-weight: 700;">Garantía</h4>
-                                <p class="text-sm">Pago 100% Seguro</p>
+                                <h4 style="font-weight: 700;">Servicio Completo</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-tertiary);">Publicado hace 5 min</p>
                             </div>
                         </div>
+                        <span
+                            style="padding: 4px 10px; background: rgba(16, 185, 129, 0.1); color: var(--success); border-radius: 6px; font-size: 0.75rem; font-weight: 700;">ACTIVO</span>
                     </div>
-
+                    <div
+                        style="background: var(--bg-surface-alt); border: 1px solid var(--border); padding: 16px; border-radius: 12px; margin-bottom: 24px;">
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); font-style: italic;">
+                            "Buscamos electricista para instalación solar residencial. Urgente."
+                        </p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div
+                            style="display: flex; -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%); mask-image: linear-gradient(to right, black 70%, transparent 100%);">
+                            <div
+                                style="width: 32px; height: 32px; border-radius: 50%; background: #e2e8f0; border: 2px solid white;">
+                            </div>
+                            <div
+                                style="width: 32px; height: 32px; border-radius: 50%; background: #cbd5e1; border: 2px solid white; margin-left: -12px;">
+                            </div>
+                            <div
+                                style="width: 32px; height: 32px; border-radius: 50%; background: #94a3b8; border: 2px solid white; margin-left: -12px;">
+                            </div>
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">+12 aplicantes
+                            hoy</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Services Grid -->
-        <div id="servicios" style="margin-bottom: 64px;">
-            <h2 class="text-h2" style="margin-bottom: 32px;">Explora Categorías</h2>
-            <div class="bento-grid">
+        <section id="servicios" class="reveal" style="margin-bottom: 120px;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 16px;">Explora Categorías</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Todo lo que necesitas, a un
+                    clic de distancia. Profesionales validados en múltiples sectores.</p>
+            </div>
 
-                <!-- Category 1 -->
+            <div class="bento-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="bento-card" style="grid-column: span 1;">
+                    <div
+                        style="width: 50px; height: 50px; background: var(--bg-subtle); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <span style="font-size: 1.5rem;">🏠</span>
+                    </div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Hogar</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Limpieza, reparaciones y mantenimiento
+                        profesional.</p>
+                </div>
+                <div class="bento-card" style="grid-column: span 1;">
+                    <div
+                        style="width: 50px; height: 50px; background: var(--bg-subtle); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <span style="font-size: 1.5rem;">💻</span>
+                    </div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">IT & Tech</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Soporte, desarrollo y configuración de
+                        redes.</p>
+                </div>
                 <div class="bento-card"
-                    style="grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px; transition: transform 0.2s;">
+                    style="grid-column: span 2; flex-direction: row; align-items: center; gap: 24px;">
                     <div
-                        style="width: 48px; height: 48px; background: #DBEAFE; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                        </svg>
+                        style="width: 80px; height: 80px; background: var(--gradient-primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white;">
+                        <span style="font-size: 2.5rem;">✨</span>
                     </div>
                     <div>
-                        <h3 class="text-h3" style="margin-bottom: 8px;">Hogar</h3>
-                        <p class="text-body" style="font-size: 0.9rem;">Limpieza, reparaciones y mantenimiento.</p>
-                    </div>
-                </div>
-
-                <!-- Category 2 -->
-                <div class="bento-card"
-                    style="grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
-                    <div
-                        style="width: 48px; height: 48px; background: #F3E8FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #7C3AED;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                            <line x1="8" y1="21" x2="16" y2="21"></line>
-                            <line x1="12" y1="17" x2="12" y2="21"></line>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-h3" style="margin-bottom: 8px;">Tecnología</h3>
-                        <p class="text-body" style="font-size: 0.9rem;">Soporte, redes y configuración.</p>
-                    </div>
-                </div>
-
-                <!-- Category 3 -->
-                <div class="bento-card"
-                    style="grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
-                    <div
-                        style="width: 48px; height: 48px; background: #ECFDF5; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #059669;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-h3" style="margin-bottom: 8px;">Bienestar</h3>
-                        <p class="text-body" style="font-size: 0.9rem;">Yoga, entrenamiento y salud.</p>
-                    </div>
-                </div>
-
-                <!-- Category 4 -->
-                <div class="bento-card" style="grid-column: span 6; display: flex; align-items: center; gap: 24px;">
-                    <div
-                        style="width: 48px; height: 48px; background: #FEF3C7; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #D97706; flex-shrink: 0;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
-                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
-                            <path d="M2 2l7.586 7.586"></path>
-                            <circle cx="11" cy="11" r="2"></circle>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-h3" style="font-size: 1.1rem;">Diseño y Creatividad</h3>
-                        <p class="text-body" style="font-size: 0.9rem;">Branding, web y arte.</p>
-                    </div>
-                </div>
-
-                <!-- Category 5 -->
-                <div class="bento-card" style="grid-column: span 6; display: flex; align-items: center; gap: 24px;">
-                    <div
-                        style="width: 48px; height: 48px; background: #FCE7F3; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #DB2777; flex-shrink: 0;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-h3" style="font-size: 1.1rem;">Educación</h3>
-                        <p class="text-body" style="font-size: 0.9rem;">Idiomas, música y tutorías.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- How It Works (Steps) -->
-        <div id="como-funciona" style="margin-bottom: 64px;">
-            <h2 class="text-h2" style="margin-bottom: 32px;">Cómo funciona</h2>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4; background: var(--bg-surface-alt); border: none;">
-                    <div
-                        style="font-size: 4rem; font-weight: 800; color: rgba(0,0,0,0.05); line-height: 0.8; margin-bottom: 16px;">
-                        01</div>
-                    <h3 class="text-h3">Publica o Busca</h3>
-                    <p class="text-body" style="font-size: 0.95rem;">Describe lo que necesitas o explora nuestros
-                        profesionales verificados.</p>
-                </div>
-                <div class="bento-card" style="grid-column: span 4; background: var(--bg-surface-alt); border: none;">
-                    <div
-                        style="font-size: 4rem; font-weight: 800; color: rgba(0,0,0,0.05); line-height: 0.8; margin-bottom: 16px;">
-                        02</div>
-                    <h3 class="text-h3">Elige al Mejor</h3>
-                    <p class="text-body" style="font-size: 0.95rem;">Compara perfiles, precios y reseñas reales de otros
-                        usuarios.</p>
-                </div>
-                <div class="bento-card" style="grid-column: span 4; background: var(--bg-surface-alt); border: none;">
-                    <div
-                        style="font-size: 4rem; font-weight: 800; color: rgba(0,0,0,0.05); line-height: 0.8; margin-bottom: 16px;">
-                        03</div>
-                    <h3 class="text-h3">Soluciona</h3>
-                    <p class="text-body" style="font-size: 0.95rem;">Contrata, paga seguro y califica el servicio
-                        recibido.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Social Proof / Testimonials -->
-    <div style="margin-bottom: 80px;">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h2 class="text-h2">Lo que dicen nuestros usuarios</h2>
-            <p class="text-body" style="max-width: 600px; margin: 0 auto;">Miles de clientes satisfechos confían en
-                SERVICED cada día.</p>
-        </div>
-        <div class="bento-grid">
-            <!-- Review 1 -->
-            <div class="bento-card" style="grid-column: span 4;">
-                <div style="display: flex; gap: 4px; color: #F59E0B; margin-bottom: 16px;">★★★★★</div>
-                <p class="text-body" style="margin-bottom: 24px; flex: 1;">"Encontré un fontanero en menos de 10
-                    minutos. El sistema de pagos es súper seguro y el servicio fue impecable."</p>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 40px; height: 40px; background: #eee; border-radius: 50%;"></div>
-                    <div>
-                        <div style="font-weight: 600;">María G.</div>
-                        <div class="text-sm">Madrid</div>
+                        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">Diseño & Branding</h3>
+                        <p style="font-size: 0.95rem; color: var(--text-secondary);">Eleva tu marca con creativos de
+                            clase mundial.</p>
                     </div>
                 </div>
             </div>
-            <!-- Review 2 -->
-            <div class="bento-card" style="grid-column: span 4;">
-                <div style="display: flex; gap: 4px; color: #F59E0B; margin-bottom: 16px;">★★★★★</div>
-                <p class="text-body" style="margin-bottom: 24px; flex: 1;">"Como freelance, esta plataforma ha cambiado
-                    mi vida. Consigo clientes de calidad sin tener que preocuparme por el marketing."</p>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 40px; height: 40px; background: #eee; border-radius: 50%;"></div>
-                    <div>
-                        <div style="font-weight: 600;">David P.</div>
-                        <div class="text-sm">Diseñador Web</div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="como-funciona" class="reveal" style="margin-bottom: 120px;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 16px;">¿Cómo funciona?</h2>
+                <p style="color: var(--text-secondary);">Tres pasos simples para resolver cualquier necesidad.</p>
+            </div>
+
+            <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="bento-card" style="background: var(--bg-surface-alt); border: none;">
+                    <div class="step-number">1</div>
+                    <h3 style="margin-bottom: 12px;">Publica tu necesidad</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Describe lo que
+                        buscas de forma sencilla. Nuestro algoritmo te conectará con los mejores.</p>
+                </div>
+                <div class="bento-card" style="background: var(--bg-surface-alt); border: none;">
+                    <div class="step-number">2</div>
+                    <h3 style="margin-bottom: 12px;">Elige al profesional</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Revisa perfiles,
+                        experiencias previas y valoraciones reales de la comunidad.</p>
+                </div>
+                <div class="bento-card" style="background: var(--bg-surface-alt); border: none;">
+                    <div class="step-number">3</div>
+                    <h3 style="margin-bottom: 12px;">Misión cumplida</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Realiza el pago de
+                        forma segura y califica la experiencia para ayudar a otros.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="reveal" style="margin-bottom: 120px;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 16px;">Voces de confianza</h2>
+                <p style="color: var(--text-secondary);">Lo que dicen quienes ya están usando SERVICED.</p>
+            </div>
+
+            <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="bento-card">
+                    <div style="color: var(--warning); margin-bottom: 20px;">★★★★★</div>
+                    <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7;">
+                        "Resolví un problema eléctrico en minutos. El profesional fue impecable y el proceso de pago
+                        súper transparente."</p>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0;"></div>
+                        <div>
+                            <p style="font-weight: 700; font-size: 0.9rem;">Elena R.</p>
+                            <p style="font-size: 0.75rem; color: var(--text-tertiary);">Cliente verificada</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div style="color: var(--warning); margin-bottom: 20px;">★★★★★</div>
+                    <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7;">
+                        "Como diseñador, SERVICED me ha dado una visibilidad que no esperaba. He conseguido clientes
+                        recurrentes en un mes."</p>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #cbd5e1;"></div>
+                        <div>
+                            <p style="font-weight: 700; font-size: 0.9rem;">Marco V.</p>
+                            <p style="font-size: 0.75rem; color: var(--text-tertiary);">Profesional creativo</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div style="color: var(--warning); margin-bottom: 20px;">★★★★★</div>
+                    <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7;">
+                        "La mejor interfaz que he visto en este tipo de apps. Todo fluye y es muy fácil de gestionar tus
+                        solicitudes."</p>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #94a3b8;"></div>
+                        <div>
+                            <p style="font-weight: 700; font-size: 0.9rem;">Javier M.</p>
+                            <p style="font-size: 0.75rem; color: var(--text-tertiary);">Usuario frecuente</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Review 3 -->
-            <div class="bento-card" style="grid-column: span 4;">
-                <div style="display: flex; gap: 4px; color: #F59E0B; margin-bottom: 16px;">★★★★★</div>
-                <p class="text-body" style="margin-bottom: 24px; flex: 1;">"La mejor app de servicios que he probado. La
-                    interfaz es limpia y muy fácil de usar."</p>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 40px; height: 40px; background: #eee; border-radius: 50%;"></div>
-                    <div>
-                        <div style="font-weight: 600;">Laura M.</div>
-                        <div class="text-sm">Barcelona</div>
-                    </div>
-                </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="reveal cta-section" style="margin-bottom: 80px;">
+            <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">¿Listo para empezar?</h2>
+            <p style="font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin: 0 auto 40px; line-height: 1.6;">Únete
+                a miles de personas que ya están transformando su forma de contratar servicios.</p>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <a href="login.html" class="btn btn-glow"
+                    style="background: white; color: var(--text-main); padding: 18px 40px; border-radius: 99px; font-weight: 700;">Crear
+                    cuenta gratis</a>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Trust/Stats Bento Block -->
-    <div class="bento-grid" style="grid-template-rows: repeat(2, auto);">
-        <div class="bento-card" style="grid-column: span 6; background: #111827; color: white;">
-            <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 16px;">Seguridad garantizada</h2>
-            <p style="color: #9CA3AF; margin-bottom: 24px;">Todos los profesionales pasan por un riguroso proceso de
-                validación de identidad.</p>
-            <div style="display: flex; gap: 12px; align-items: center;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-                <span style="font-weight: 600;">Garantía SERVICED</span>
-            </div>
-        </div>
+    </main>
 
-        <div class="bento-card"
-            style="grid-column: span 3; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">10k+</div>
-            <div style="font-size: 0.9rem; color: var(--text-secondary);">Usuarios Activos</div>
-        </div>
-
-        <div class="bento-card"
-            style="grid-column: span 3; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">4.9/5</div>
-            <div style="font-size: 0.9rem; color: var(--text-secondary);">Valoración Media</div>
-        </div>
-    </div>
-
-    </div>
-
-    <!-- Footer -->
-    <footer style="border-top: 1px solid var(--border); padding: 40px 0; margin-top: 80px; background: white;">
-        <div class="container" style="text-align: center;">
+    <footer>
+        <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 24px;">
             <div
-                style="font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; margin-bottom: 24px;">
-                SERVICED</div>
-            <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 32px;">
-                <a href="#" style="color: var(--text-secondary); text-decoration: none;">Sobre Nosotros</a>
-                <a href="#" style="color: var(--text-secondary); text-decoration: none;">Términos</a>
-                <a href="#" style="color: var(--text-secondary); text-decoration: none;">Privacidad</a>
-                <a href="#" style="color: var(--text-secondary); text-decoration: none;">Contacto</a>
+                style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; margin-bottom: 60px;">
+                <div style="max-width: 300px;">
+                    <a href="#" style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+                        <img src="log.png" alt="SERVICED" style="height: 28px; width: auto;">
+                        <span
+                            style="font-weight: 800; font-size: 1.2rem; color: var(--text-main); letter-spacing: -0.5px;">SERVICED</span>
+                    </a>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Conectando talento
+                        local con las necesidades del mundo real, de forma segura y eficiente.</p>
+                </div>
+                <div style="display: flex; gap: 80px;">
+                    <div>
+                        <h4 style="font-weight: 700; margin-bottom: 20px;">Plataforma</h4>
+                        <ul
+                            style="display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><a href="#">Servicios</a></li>
+                            <li><a href="#">Cómo funciona</a></li>
+                            <li><a href="#">Precios</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="font-weight: 700; margin-bottom: 20px;">Compañía</h4>
+                        <ul
+                            style="display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><a href="#">Sobre nosotros</a></li>
+                            <li><a href="#">Términos</a></li>
+                            <li><a href="#">Privacidad</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <p style="color: var(--text-light); font-size: 0.85rem;">&copy; 2026 SERVICED Inc.</p>
+            <div
+                style="border-top: 1px solid var(--border); padding-top: 40px; display: flex; justify-content: space-between; align-items: center;">
+                <p style="color: var(--text-tertiary); font-size: 0.85rem;">&copy; 2026 SERVICED Inc. Todos los derechos
+                    reservados.</p>
+                <div style="display: flex; gap: 20px;">
+                    <!-- Simple Social Links Placeholder -->
+                    <span style="width: 20px; height: 20px; background: var(--bg-subtle); border-radius: 4px;"></span>
+                    <span style="width: 20px; height: 20px; background: var(--bg-subtle); border-radius: 4px;"></span>
+                    <span style="width: 20px; height: 20px; background: var(--bg-subtle); border-radius: 4px;"></span>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <script src="landing.js"></script>
 </body>
 
 </html>
