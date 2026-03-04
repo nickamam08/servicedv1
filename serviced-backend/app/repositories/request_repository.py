@@ -8,9 +8,11 @@ class RequestRepository:
 
     def fetch_by_client(self, client_id: int) -> List[ServiceRequest]:
         from sqlalchemy.orm import joinedload
-        from app.models import Service
+        from app.models import Service, ProviderProfile
         return self.db.query(ServiceRequest).options(
-            joinedload(ServiceRequest.service).joinedload(Service.provider)
+            joinedload(ServiceRequest.service)
+            .joinedload(Service.provider)
+            .joinedload(ProviderProfile.user)
         ).filter(
             ServiceRequest.client_id == client_id
         ).order_by(ServiceRequest.created_at.desc()).all()

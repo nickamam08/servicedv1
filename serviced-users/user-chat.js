@@ -279,13 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Update Header
         const otherUser = conv.participant || { full_name: "Proveedor", avatar_initials: "?" };
         els.headerName.textContent = otherUser.full_name;
-        // Debug: Show my ID to help user understand session state
-        const myIdSpan = document.createElement("span");
-        myIdSpan.style.fontSize = "0.7rem";
-        myIdSpan.style.color = "red";
-        myIdSpan.style.marginLeft = "10px";
-        myIdSpan.textContent = `(Mi ID: ${state.user.id})`;
-        els.headerName.appendChild(myIdSpan);
 
         if (otherUser.avatar_url) {
             els.headerAvatar.innerHTML = `<img src="${otherUser.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;

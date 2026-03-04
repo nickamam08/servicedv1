@@ -396,8 +396,8 @@
                     const tr = document.createElement("tr");
 
                     const title = service.title || "Servicio #" + r.service_id;
-                    const providerName = service.provider && service.provider.user
-                        ? service.provider.user.full_name
+                    const providerName = service.provider && service.provider.full_name
+                        ? service.provider.full_name
                         : "Proveedor #" + (service.provider_id || "?");
 
                     const displayDate = r.scheduled_date ? new Date(r.scheduled_date) : new Date(r.created_at);
