@@ -7,9 +7,15 @@ def get_all_services(
     db: Session, category: Optional[str] = None, is_active: Optional[bool] = None, 
     provider_id: Optional[int] = None, search: Optional[str] = None
 ) -> List[Service]:
+    """
+    Obtiene todos los servicios globales con filtros avanzados para el administrador.
+    """
     return admin_repo.fetch_all_services(db, category=category, is_active=is_active, provider_id=provider_id, search=search)
 
 def activate_service(db: Session, service_id: int) -> Optional[Service]:
+    """
+    Marca un servicio como activo para que aparezca en los resultados de búsqueda.
+    """
     service = db.query(Service).filter(Service.id == service_id).first()
     if service:
         service.is_active = True
@@ -18,6 +24,9 @@ def activate_service(db: Session, service_id: int) -> Optional[Service]:
     return service
 
 def deactivate_service(db: Session, service_id: int) -> Optional[Service]:
+    """
+    Marca un servicio como inactivo (oculto para clientes).
+    """
     service = db.query(Service).filter(Service.id == service_id).first()
     if service:
         service.is_active = False
@@ -26,6 +35,10 @@ def deactivate_service(db: Session, service_id: int) -> Optional[Service]:
     return service
 
 def delete_service(db: Session, service_id: int) -> bool:
+    """
+    Elimina físicamente un servicio y limpia todas sus dependencias relacionadas 
+    (solicitudes, reseñas, reportes, chats) para evitar errores de clave foránea.
+    """
     from app.models.all_models import ServiceRequest, Order, Review, ChatConversation, Report
 
     service = db.query(Service).filter(Service.id == service_id).first()
@@ -33,37 +46,37 @@ def delete_service(db: Session, service_id: int) -> bool:
         return False
     
     try:
-        # 1. Handle Service Requests and their dependencies
+        # 1. Gestionar las Solicitudes (Service Requests) y sus dependencias
         requests = db.query(ServiceRequest).filter(ServiceRequest.service_id == service_id).all()
         for req in requests:
-            # Delete associated reviews
+            # Eliminar reseñas asociadas a la solicitud
             db.query(Review).filter(Review.service_request_id == req.id).delete()
             
-            # Delete associated reports for this request
+            # Eliminar reportes vinculados a esta solicitud específica
             db.query(Report).filter(Report.request_id == req.id).delete()
             
-            # Delete associated conversations
+            # Eliminar conversaciones de chat relacionadas
             conversations = db.query(ChatConversation).filter(ChatConversation.request_id == req.id).all()
             for conv in conversations:
-                # Messages are cascaded (delete-orphan) in model, so deleting conversation is enough
+                # Al eliminar la conversación, SQLAlchemy elimina automáticamente sus mensajes (cascade)
                 db.delete(conv)
             
-            # Delete the request itself
+            # Eliminar la solicitud en sí
             db.delete(req)
         
-        # 2. Handle Orders
+        # 2. Gestionar las Órdenes de pago vinculadas a este servicio
         db.query(Order).filter(Order.service_id == service_id).delete()
 
-        # 3. Handle Reports for this service
+        # 3. Eliminar reportes que apuntan directamente al servicio
         db.query(Report).filter(Report.service_id == service_id).delete()
 
-        # 4. Delete the service
+        # 4. Finalmente, eliminar el registro del servicio
         db.delete(service)
         
         db.commit()
         return True
     except Exception as e:
         db.rollback()
-        # Log error safely for Windows console
-        print(f"Error deleting service {service_id}")
+        # Log del error para depuración
+        print(f"Error eliminando el servicio {service_id}")
         raise e

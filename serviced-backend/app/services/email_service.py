@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 def send_welcome_email(email: str, full_name: str):
     """
-    Sends a welcome email to the user.
-    If SMTP is not configured, it logs the message instead.
+    Envía un correo electrónico de bienvenida al usuario.
+    Si el servidor SMTP no está configurado, el mensaje se registra únicamente en los logs (modo depuración).
     """
     subject = f"¡Bienvenido a SERVICED, {full_name}!"
     body = f"""
@@ -25,13 +25,13 @@ def send_welcome_email(email: str, full_name: str):
     El equipo de SERVICED
     """
 
-    # Check for SMTP configuration
+    # Verifica la configuración de SMTP
     if not all([settings.SMTP_HOST, settings.SMTP_USER, settings.SMTP_PASSWORD]):
-        logger.warning(f"SMTP not configured. Welcome email to {email} logged instead.")
-        print(f"\n--- [DEBUG EMAIL] TO: {email} ---")
-        print(f"Subject: {subject}")
-        print(f"Content: {body}")
-        print("--- [END DEBUG EMAIL] ---\n")
+        logger.warning(f"SMTP no configurado. El correo de bienvenida para {email} se registró en el log.")
+        print(f"\n--- [DEBUG EMAIL] PARA: {email} ---")
+        print(f"Asunto: {subject}")
+        print(f"Contenido: {body}")
+        print("--- [FIN DEBUG EMAIL] ---\n")
         return
 
     try:
@@ -47,17 +47,16 @@ def send_welcome_email(email: str, full_name: str):
             server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
             server.send_message(msg)
             
-        logger.info(f"Welcome email sent to {email}")
+        logger.info(f"Correo de bienvenida enviado a {email}")
     except Exception as e:
-        logger.error(f"Error sending welcome email to {email}: {e}")
+        logger.error(f"Error enviando correo de bienvenida a {email}: {e}")
 
 def send_password_reset_email(email: str, token: str):
     """
-    Sends a password reset email to the user.
+    Envía un correo electrónico con un enlace para restablecer la contraseña.
     """
     subject = "Restablece tu contraseña - SERVICED"
-    # In a real app, this would be the actual URL. 
-    # Since we are in dev, we assume it's relative to where it's served.
+    # El enlace apunta al frontend para que el usuario gestione el cambio
     reset_link = f"{settings.FRONTEND_HOST}/users/reset-password.html?token={token}"
     body = f"""
     Hola,
@@ -73,11 +72,11 @@ def send_password_reset_email(email: str, token: str):
     """
 
     if not all([settings.SMTP_HOST, settings.SMTP_USER, settings.SMTP_PASSWORD]):
-        logger.warning(f"SMTP not configured. Password reset email to {email} logged instead.")
-        print(f"\n--- [DEBUG EMAIL] TO: {email} ---")
-        print(f"Subject: {subject}")
-        print(f"Content: {body}")
-        print("--- [END DEBUG EMAIL] ---\n")
+        logger.warning(f"SMTP no configurado. El correo de restablecimiento para {email} se registró en el log.")
+        print(f"\n--- [DEBUG EMAIL] PARA: {email} ---")
+        print(f"Asunto: {subject}")
+        print(f"Contenido: {body}")
+        print("--- [FIN DEBUG EMAIL] ---\n")
         return
 
     try:
@@ -93,6 +92,6 @@ def send_password_reset_email(email: str, token: str):
             server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
             server.send_message(msg)
             
-        logger.info(f"Password reset email sent to {email}")
+        logger.info(f"Correo de restablecimiento enviado a {email}")
     except Exception as e:
-        logger.error(f"Error sending password reset email to {email}: {e}")
+        logger.error(f"Error enviando correo de restablecimiento a {email}: {e}")

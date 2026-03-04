@@ -19,38 +19,38 @@ def get_dashboard_summary(
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Get dashboard summary statistics for the current user.
+    Genera un resumen consolidado para el panel principal (Bento Grid) del usuario.
+    Incluye estadísticas, notificaciones pendientes, servicios recomendados y actividad reciente.
     """
     try:
-        # 1. Balance (Mocked for now as per plan)
+        # 1. Saldo (Simulado por ahora según el plan de implementación)
         balance = 1250.50
         
-        # 2. Active Services Count
+        # 2. Contador de Servicios Activos
         active_services_count = 0
         
-        # 3. Active Requests Count (for Client) & Services (for Provider)
+        # 3. Conteo de Solicitudes Activas (Clientes) / Servicios (Proveedores)
         if current_user.role == "provider":
-            # Provider: count active services they OFFER
+            # Para Proveedores: contamos los servicios que ELLOS ofrecen
             if current_user.provider_profile:
                 active_services_count = db.query(Service).filter(
                     Service.provider_id == current_user.provider_profile.id,
                     Service.is_active == True
                 ).count()
-                # Provider might also have requests they made as a client? 
+                # También contamos solicitudes que ellos hayan hecho como clientes
                 active_requests_count = db.query(ServiceRequest).filter(
                     ServiceRequest.client_id == current_user.id,
                     ServiceRequest.status.in_([RequestStatus.PENDING, RequestStatus.ACTIVE])
                 ).count()
         else:
-            # Client: count active requests
-            # Note: Model is ServiceRequest, not Order (unless we migrated). Usage: ServiceRequest.
+            # Para Clientes: contamos sus solicitudes en curso
             active_requests_count = db.query(ServiceRequest).filter(
                 ServiceRequest.client_id == current_user.id,
                 ServiceRequest.status.in_([RequestStatus.PENDING, RequestStatus.ACTIVE])
             ).count()
-            active_services_count = 0 # Clients don't offer services
+            active_services_count = 0 # Los clientes no publican servicios
 
-        # 4. Notifications (Latest unread)
+        # 4. Notificaciones (Últimas 5 no leídas)
         notifications = db.query(Notification).filter(
             Notification.user_id == current_user.id,
             Notification.is_read == False
@@ -61,25 +61,25 @@ def get_dashboard_summary(
             Notification.is_read == False
         ).count()
 
-        # 5. Messages Unread Count
+        # 5. Conteo de Mensajes de Chat sin leer
         unread_messages_count = db.query(ChatMessage).join(ChatConversation).filter(
             (ChatConversation.client_id == current_user.id) | (ChatConversation.provider_id == current_user.id),
             ChatMessage.sender_id != current_user.id,
             ChatMessage.is_read == False
         ).count()
 
-        # 6. Recommended Services (Random 4 active services)
+        # 6. Servicios Recomendados (Elegidos aleatoriamente para dinamismo)
         recommended_services = db.query(Service).filter(
             Service.is_active == True
         ).order_by(func.random()).limit(4).all()
 
-        # 7. User Profile
+        # 7. Información básica del perfil
         user_profile = {
             "full_name": current_user.full_name,
             "avatar_initials": current_user.avatar_initials
         }
 
-        # 8. Recent Requests (for Client)
+        # 8. Actividad Reciente (Específico para clientes)
         recent_requests = []
         if current_user.role == "client":
             requests_data = db.query(
@@ -112,7 +112,7 @@ def get_dashboard_summary(
             "recent_requests": recent_requests
         }
     except Exception as e:
-        print(f"Error generating dashboard summary: {e}")
+        print(f"Error generando dashboard summary: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Could not generate dashboard summary: {str(e)}"
@@ -126,7 +126,7 @@ def get_all_notifications(
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Get all notifications for the current user.
+    Recupera el historial completo de notificaciones del usuario autenticado.
     """
     return db.query(Notification).filter(
         Notification.user_id == current_user.id
@@ -139,7 +139,7 @@ def mark_notification_as_read(
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Mark a specific notification as read.
+    Marca una notificación específica como leída.
     """
     notification = db.query(Notification).filter(
         Notification.id == notification_id,
@@ -147,7 +147,7 @@ def mark_notification_as_read(
     ).first()
     
     if not notification:
-        raise HTTPException(status_code=404, detail="Notification not found")
+        raise HTTPException(status_code=404, detail="Notificación no encontrada")
     
     notification.is_read = True
     db.add(notification)
@@ -160,7 +160,7 @@ def mark_all_notifications_as_read(
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Mark all notifications for the current user as read.
+    Marca TODAS las notificaciones del usuario como leídas de forma masiva.
     """
     db.query(Notification).filter(
         Notification.user_id == current_user.id,

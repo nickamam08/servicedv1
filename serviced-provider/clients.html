@@ -199,11 +199,16 @@
     </div>
 
     <script>
+        /**
+         * Gestión de la vista de Clientes del Proveedor.
+         * Se encarga de cargar y mostrar la lista de usuarios que han contratado servicios.
+         */
         document.addEventListener("DOMContentLoaded", async () => {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
             const userStr = sessionStorage.getItem("serviced_user");
 
+            // Validación de sesión activa: Redirige al login si no hay token
             if (!token || !userStr) {
                 window.location.href = "../serviced-users/login.html";
                 return;
@@ -211,7 +216,9 @@
 
             const user = JSON.parse(userStr);
 
-            // Fetch Clients
+            /**
+             * Obtiene la lista de clientes única del proveedor desde el backend.
+             */
             try {
                 const response = await fetch(`${API_BASE_URL}/provider/dashboard/clients`, {
                     headers: { "Authorization": `Bearer ${token}` }
@@ -222,34 +229,57 @@
                 const clients = await response.json();
                 renderClients(clients);
 
-                // Search logic
-                document.getElementById("clientSearch").addEventListener("input", (e) => {
-                    const term = e.target.value.toLowerCase();
-                    const filtered = clients.filter(c => c.full_name.toLowerCase().includes(term));
-                    renderClients(filtered);
-                });
+                // Lógica de búsqueda en tiempo real (filtrado por nombre)
+                const searchInput = document.getElementById("clientSearch");
+                if (searchInput) {
+                    searchInput.addEventListener("input", (e) => {
+                        const term = e.target.value.toLowerCase();
+                        const filtered = clients.filter(c =>
+                            c.full_name.toLowerCase().includes(term) ||
+                            (c.email && c.email.toLowerCase().includes(term))
+                        );
+                        renderClients(filtered);
+                    });
+                }
 
             } catch (error) {
-                console.error(error);
-                document.getElementById("clientsContainer").innerHTML = `<p style="color:red;">Error cargando clientes.</p>`;
+                console.error("Error al cargar clientes:", error);
+                document.getElementById("clientsContainer").innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; color: red; padding: 40px;">
+                        <p>Error al cargar la lista de clientes. Por favor, intenta de nuevo más tarde.</p>
+                    </div>`;
             }
 
-            // Logout
-            document.querySelector(".logout-link").addEventListener("click", (e) => {
-                e.preventDefault();
-                sessionStorage.removeItem("serviced_token");
-                sessionStorage.removeItem("serviced_user");
-                window.location.href = "../serviced-users/login.html";
-            });
+            // Manejo del cierre de sesión
+            const logoutLink = document.querySelector(".logout-link");
+            if (logoutLink) {
+                logoutLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    sessionStorage.removeItem("serviced_token");
+                    sessionStorage.removeItem("serviced_user");
+                    window.location.href = "../serviced-users/login.html";
+                });
+            }
         });
 
+        /**
+         * Renderiza las tarjetas de los clientes en el grid.
+         * @param {Array} clients - Lista de objetos cliente.
+         */
         function renderClients(clients) {
             const container = document.getElementById("clientsContainer");
-            if (clients.length === 0) {
-                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 40px;">No tienes clientes aún.</p>`;
+            if (!container) return;
+
+            // Mostrar mensaje si no hay resultados para el filtro o la carga inicial
+            if (!Array.isArray(clients) || clients.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 40px;">
+                        <p>No se encontraron clientes activos o bajo este término de búsqueda.</p>
+                    </div>`;
                 return;
             }
 
+            // Mapeo de clientes a HTML con avatar dinámico y estadísticas
             container.innerHTML = clients.map(client => `
                 <div class="client-card-item">
                     <div class="client-avatar">
@@ -258,11 +288,11 @@
                     (client.avatar_initials || client.full_name.substring(0, 2).toUpperCase())}
                     </div>
                     <div class="client-info">
-                        <h3>${client.full_name}</h3>
-                        <p style="font-size: 0.85rem;">📧 ${client.email}</p>
-                        ${client.phone ? `<p style="font-size: 0.85rem;">📞 ${client.phone}</p>` : ''}
+                        <h3 style="font-weight: 700;">${client.full_name}</h3>
+                        <p style="font-size: 0.85rem; margin-bottom: 4px;">📧 ${client.email}</p>
+                        ${client.phone ? `<p style="font-size: 0.85rem; margin-bottom: 4px;">📞 ${client.phone}</p>` : ''}
                         ${client.location ? `<p style="font-size: 0.85rem;">📍 ${client.location}</p>` : ''}
-                        <span class="stat-badge">${client.requests_count} Servicios contratados</span>
+                        <span class="stat-badge" style="margin-top: 10px;">${client.requests_count} Servicios contratados</span>
                     </div>
                 </div>
             `).join("");

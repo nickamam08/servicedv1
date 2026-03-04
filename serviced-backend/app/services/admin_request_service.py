@@ -8,6 +8,10 @@ def get_all_requests(
     db: Session, status: Optional[str] = None, provider_id: Optional[int] = None, 
     client_id: Optional[int] = None, date_from: Optional[datetime] = None, date_to: Optional[datetime] = None
 ) -> List[dict]:
+    """
+    Recupera todas las solicitudes del sistema con información enriquecida (nombres de cliente y proveedor) 
+    aplicando filtros de fecha y estado.
+    """
     requests = admin_repo.fetch_all_requests(
         db, status=status, provider_id=provider_id, client_id=client_id, 
         date_from=date_from, date_to=date_to
@@ -15,11 +19,11 @@ def get_all_requests(
     
     enriched_requests = []
     for req in requests:
-        # Get names from relationships or direct queries if relationships are lazy
+        # Enriquecimiento de datos para visualización clara en el frontend
         client_name = req.client.full_name if req.client else "Desconocido"
         service_title = req.service.title if req.service else "Servicio eliminado"
         
-        # Provider name is through service -> provider -> user
+        # El nombre del proveedor se obtiene a través de la relación de servicio
         provider_name = "N/A"
         provider_id_val = None
         if req.service and req.service.provider and req.service.provider.user:
@@ -44,12 +48,13 @@ def get_all_requests(
     return enriched_requests
 
 def cancel_request(db: Session, request_id: int) -> Optional[ServiceRequest]:
+    """
+    Cancela formalmente una solicitud de servicio por parte de la administración.
+    """
     from app.models.all_models import RequestStatus
     request = db.query(ServiceRequest).filter(ServiceRequest.id == request_id).first()
     if request:
         request.status = RequestStatus.CANCELLED
         db.commit()
         db.refresh(request)
-    return request
-
     return request

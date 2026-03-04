@@ -1,14 +1,13 @@
 /**
- * SERVICED User Chat Logic
- * Handles real-time messaging, conversation management, and UI updates for Clients.
+ * Lógica del Chat para Usuarios (Clientes) de SERVICED
+ * Gestiona la mensajería en tiempo real, administración de conversaciones y actualizaciones de la interfaz.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // --- Constants ---
+    // --- Constantes de Configuración ---
     const API_BASE_URL = "/api/v1";
-    // const POLLING_INTERVAL = 3000; // 3 seconds
 
-    // --- State ---
+    // --- Estado de la Aplicación (Frontend) ---
     let state = {
         token: sessionStorage.getItem("serviced_token"),
         user: JSON.parse(sessionStorage.getItem("serviced_user") || "null"),
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isSending: false
     };
 
-    // --- DOM Elements ---
+    // --- Elementos del DOM ---
     const els = {
         conversationList: document.getElementById("conversation-list"),
         messagesContainer: document.getElementById("messages-container"),
@@ -36,22 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput: document.getElementById("search-input")
     };
 
-    // --- Initialization ---
+    // --- Inicialización ---
     function init() {
+        // Verificar autenticación
         if (!state.token || !state.user) {
             window.location.href = "login.html";
             return;
         }
 
-        // Role Validation
+        // Validación de Rol (Evitar que proveedores entren a vista de cliente)
         if (state.user.role !== 'client') {
-            console.warn("Incorrect role for this page, redirecting...");
+            console.warn("Rol incorrecto para esta página, redireccionando...");
             if (state.user.role === 'provider') window.location.href = "/provider/provider-dashboard.html";
             else window.location.href = "login.html";
             return;
         }
 
-        // Setup Logout
+        // Configuración de Cierre de Sesión
         if (els.logoutLink) {
             els.logoutLink.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -60,24 +60,24 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Check for URL params (auto-open logic)
+        // Manejar parámetros de URL (ej: abrir chat directamente desde perfil de proveedor)
         handleUrlParams();
 
-        // Initial Fetch
+        // Carga inicial de datos
         fetchConversations();
 
-        // Start Polling
-        setInterval(fetchConversations, 10000); // Poll list every 10s
+        // Polling: Actualizar lista de conversaciones cada 10s
+        setInterval(fetchConversations, 10000);
 
-        // Event Listeners
+        // Configurar escuchadores de eventos
         setupEventListeners();
     }
 
     function setupEventListeners() {
-        // Send Message
+        // Enviar mensaje al hacer clic en el botón
         els.sendBtn.addEventListener("click", sendMessage);
 
-        // Enter to send
+        // Enviar al presionar Enter (sin Shift)
         els.messageInput.addEventListener("keydown", (e) => {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -85,26 +85,26 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Input typing listener
+        // Habilitar/deshabilitar botón según contenido y auto-ajustar altura del input
         els.messageInput.addEventListener("input", () => {
             els.sendBtn.disabled = els.messageInput.value.trim().length === 0;
             autoResizeTextarea(els.messageInput);
         });
 
-        // Search
+        // Buscador de conversaciones
         els.searchInput.addEventListener("input", (e) => {
             renderConversationList(state.conversations, e.target.value);
         });
 
-        // Mobile Back
+        // Botón de Volver (especialmente para vista móvil)
         els.backBtn.addEventListener("click", () => {
             state.currentConversationId = null;
             els.chatContainer.classList.remove("chat-open");
-            clearInterval(state.pollingTimer);
+            if (state.pollingTimer) clearInterval(state.pollingTimer);
         });
     }
 
-    // --- API Interactions ---
+    // --- Interacciones con la API ---
 
     async function fetchConversations() {
         try {
@@ -121,19 +121,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const data = await resp.json();
-            // Sort by updated_at desc
+            // Ordenar por fecha de última actualización (más recientes primero)
             state.conversations = data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
             renderConversationList(state.conversations, els.searchInput.value);
 
-            // Re-select current if open (to update last message snippet in list)
-            if (state.currentConversationId) {
-                // Determine if we need to update message list too? 
-                // We do that via separate polling for active chat
-            }
-
         } catch (e) {
-            console.error("Error fetching conversations:", e);
+            console.error("Error al obtener conversaciones:", e);
             els.conversationList.innerHTML = `<div style="padding: 20px; text-align: center; color: red;">Error de conexión</div>`;
         }
     }
@@ -143,12 +137,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const resp = await fetch(`${API_BASE_URL}/conversations/${conversationId}/messages`, {
                 headers: { "Authorization": `Bearer ${state.token}` }
             });
-            if (!resp.ok) throw new Error("Failed to load messages");
+            if (!resp.ok) throw new Error("Error al cargar mensajes");
             const messages = await resp.json();
             renderMessages(messages);
+            // Marcar conversación como leída automáticamente al entrar
             markAsRead(conversationId);
         } catch (e) {
-            console.error("Error fetching messages:", e);
+            console.error("Error detallado de mensajes:", e);
         }
     }
 
@@ -158,8 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: "PUT",
                 headers: { "Authorization": `Bearer ${state.token}` }
             });
+            // Notificar a otros componentes que los badges pueden haber cambiado
+            window.dispatchEvent(new CustomEvent('messagesUpdated'));
         } catch (e) {
-            console.error("Error marking read:", e);
+            console.error("Error al marcar como leído:", e);
         }
     }
 
@@ -183,18 +180,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             });
 
-            if (!resp.ok) throw new Error("Failed to send");
+            if (!resp.ok) throw new Error("Fallo al enviar");
 
             const msg = await resp.json();
 
-            // Append locally immediately
+            // Añadir visualmente el mensaje de inmediato para fluidez
             appendMessage(msg);
 
-            // Clear input
+            // Limpiar campo de texto
             els.messageInput.value = "";
-            els.messageInput.style.height = 'auto'; // Reset height
+            els.messageInput.style.height = 'auto';
 
-            // Refresh conversations list to show latest msg
+            // Refrescar lista lateral
             fetchConversations();
 
         } catch (e) {
@@ -207,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function createConversation(providerId) {
         try {
-            console.log("Attempting to create/open conversation with provider:", providerId);
             const resp = await fetch(`${API_BASE_URL}/conversations`, {
                 method: "POST",
                 headers: {
@@ -219,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resp.ok) {
                 const conv = await resp.json();
-                // Add to list and select
+                // Si no existe en la lista local, añadirla al principio
                 if (!state.conversations.find(c => c.id === conv.id)) {
                     state.conversations.unshift(conv);
                 }
@@ -234,27 +230,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- Core Logic ---
+    // --- Lógica de Negocio ---
 
     async function handleUrlParams() {
         const params = new URLSearchParams(window.location.search);
-        // Users might initiate chat with providerId (not userId, technically user_id of provider)
-        // Check `user-requests.html`, it sends `provider_user_id` which IS the user_id.
-        // So we use it as provider_id param for createConversation? 
-        // Wait, backend `create_conversation` expects `provider_id` or `client_id` in schema.
-        // AND checks `provider_id` from body if current user is client.
-        // This `provider_id` in schema matches `User.id` (foreign key in Conversation).
-        // So passing user_id is correct.
-
-        const providerId = params.get("providerId"); // Changed from userId to specific param if needed, or stick to userId for generic?
-        // Let's use `userId` generic param name like in provider chat for consistency in URL? 
-        // Provider chat used `userId`. User requests logic used `chatusers.html` (no param logic yet). 
-        // I will assume `userId` is passed as the target ID.
-
-        const targetId = params.get("userId") || params.get("providerId"); // Support both
+        // Soporta userId o providerId para abrir un chat automáticamente
+        const targetId = params.get("userId") || params.get("providerId");
 
         if (targetId) {
             await createConversation(targetId);
+            // Limpiar URL opcionalmente para evitar re-apertura accidental
+            // window.history.replaceState({}, document.title, window.location.pathname);
         }
     }
 
@@ -263,20 +249,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         state.currentConversationId = conv.id;
 
-        // Update UI state
-        // Sidebar active class
+        // Actualizar UI: clase activa en sidebar
         document.querySelectorAll(".conversation-item").forEach(el => el.classList.remove("active"));
         const activeItem = document.getElementById(`conv-${conv.id}`);
         if (activeItem) activeItem.classList.add("active");
 
-        // Show Chat Area
+        // Mostrar Área de Chat
         els.emptyState.style.display = "none";
         els.messagesContainer.style.display = "flex";
         els.inputArea.style.display = "block";
         els.chatHeader.style.visibility = "visible";
-        els.chatContainer.classList.add("chat-open"); // Mobile view
+        els.chatContainer.classList.add("chat-open");
 
-        // Update Header
+        // Actualizar encabezado del chat con datos del proveedor
         const otherUser = conv.participant || { full_name: "Proveedor", avatar_initials: "?" };
         els.headerName.textContent = otherUser.full_name;
 
@@ -286,22 +271,21 @@ document.addEventListener("DOMContentLoaded", () => {
             els.headerAvatar.style.overflow = "hidden";
         } else {
             els.headerAvatar.textContent = otherUser.avatar_initials || otherUser.full_name[0] || "?";
-            els.headerAvatar.style.padding = ""; // Reset
+            els.headerAvatar.style.padding = "";
         }
-        // els.headerStatus.textContent = "En línea"; // Mock
 
-        // Clear & Load Messages
+        // Cargar mensajes previos
         els.messagesContainer.innerHTML = `<div style="text-align:center; padding:20px;">Cargando mensajes...</div>`;
         fetchMessages(conv.id);
 
-        // Clear old polling
+        // Iniciar polling de mensajes para el chat abierto (cada 3s)
         if (state.pollingTimer) clearInterval(state.pollingTimer);
         state.pollingTimer = setInterval(() => {
             if (state.currentConversationId === conv.id) fetchMessages(conv.id);
-        }, 3000); // Poll messages every 3s
+        }, 3000);
     }
 
-    // --- Rendering ---
+    // --- Renderizado de UI ---
 
     function renderConversationList(list, filterText = "") {
         els.conversationList.innerHTML = "";
@@ -324,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let unreadBadge = "";
             let unreadClass = "";
+            // Mostrar badge si el último mensaje no fue nuestro y no está leído
             if (c.last_message && !c.last_message.is_read && Number(c.last_message.sender_id) !== Number(state.user.id)) {
                 unreadBadge = `<span class="unread-badge">!</span>`;
                 unreadClass = "unread";
@@ -363,11 +348,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderMessages(originalMessages) {
         const atBottom = isAtBottom();
         els.messagesContainer.innerHTML = "";
+        // Ordenar mensajes cronológicamente
         const messages = [...originalMessages].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
         messages.forEach(msg => {
             const isMine = Number(msg.sender_id) === Number(state.user.id);
-            console.log(`Msg: ${msg.id}, Sender: ${msg.sender_id} (${typeof msg.sender_id}), Me: ${state.user.id} (${typeof state.user.id}), IsMine: ${isMine}`);
             const time = formatTime(msg.created_at);
 
             const div = document.createElement("div");
@@ -381,6 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
             els.messagesContainer.appendChild(div);
         });
 
+        // Auto-scroll si el usuario estaba al final o en carga inicial
         if (atBottom || messages.length > 0) {
             scrollToBottom();
         }
@@ -401,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollToBottom();
     }
 
-    // --- Helpers ---
+    // --- Funciones de Utilidad (Helpers) ---
 
     function formatTime(isoString) {
         const date = new Date(isoString);
@@ -432,6 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/'/g, "&#039;");
     }
 
-    // Start
+    // Iniciar el script
     init();
 });

@@ -5,7 +5,13 @@ from app.schemas.report import ReportCreate, ReportUpdate
 from app.repositories.report_repository import report_repo
 
 class ReportService:
+    """
+    Servicio para manejar la lógica de reportes, incluyendo la creación y el enriquecimiento de datos para visualización por administradores.
+    """
     def create_report(self, db: Session, reporter_id: int, report_in: ReportCreate) -> Report:
+        """
+        Encapsula la creación de un nuevo reporte.
+        """
         db_obj = Report(
             reporter_id=reporter_id,
             reported_user_id=report_in.reported_user_id,
@@ -18,10 +24,13 @@ class ReportService:
         return report_repo.create(db, obj_in=db_obj)
 
     def get_all_reports(self, db: Session, *, status: Optional[str] = None, priority: Optional[str] = None) -> List[dict]:
+        """
+        Obtiene todos los reportes y enriquece la información con nombres de usuarios y títulos de servicios para facilitar la lectura en el panel.
+        """
         reports = report_repo.fetch_all(db, status=status, priority=priority)
         enriched_reports = []
         for r in reports:
-            # Enrichment
+            # Enriquecimiento de datos (obteniendo nombres de los modelos relacionados)
             reporter_name = r.reporter.full_name if r.reporter else "Desconocido"
             reported_user_name = r.reported_user.full_name if r.reported_user else "N/A"
             service_title = r.service.title if r.service else "N/A"
@@ -48,9 +57,13 @@ class ReportService:
         return enriched_reports
 
     def update_report(self, db: Session, report_id: int, report_in: ReportUpdate) -> Optional[Report]:
+        """
+        Actualiza los datos o estado de un reporte.
+        """
         db_obj = report_repo.get_by_id(db, report_id)
         if not db_obj:
             return None
         return report_repo.update(db, db_obj=db_obj, obj_in=report_in.dict(exclude_unset=True))
 
+# Instancia global del servicio de reportes
 report_service = ReportService()

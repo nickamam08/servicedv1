@@ -23,7 +23,7 @@ def create_conversation(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Create a new conversation or return existing one.
+    Inicia una nueva conversación entre cliente y proveedor o devuelve una ya existente.
     """
     return chat_service.create_conversation(db, current_user, conversation_in)
 
@@ -33,7 +33,7 @@ def get_my_conversations(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Get all conversations for the current user.
+    Obtiene el listado de todos los chats activos para el usuario autenticado.
     """
     return chat_service.get_user_conversations(db, current_user.id)
 
@@ -45,7 +45,7 @@ def send_message(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Send a message in a conversation.
+    Envía un mensaje de texto dentro de una conversación específica.
     """
     return chat_service.send_message(db, current_user.id, message_in)
 
@@ -56,7 +56,7 @@ def get_conversation(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Get a specific conversation details.
+    Recupera los detalles de una conversación, incluyendo metadatos básicos.
     """
     return chat_service.get_conversation(db, conversation_id, current_user.id)
 
@@ -69,7 +69,7 @@ def get_messages(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Get messages for a conversation.
+    Extrae el historial de mensajes de un chat, con soporte para paginación.
     """
     return chat_service.get_messages(db, conversation_id, current_user.id, skip=skip, limit=limit)
 
@@ -80,7 +80,7 @@ def mark_read(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Mark all unread messages in a conversation as read.
+    Sincroniza el estado de lectura, marcando todos los mensajes entrantes como leídos.
     """
     count = chat_service.mark_as_read(db, conversation_id, current_user.id)
     return {"marked_read": count}

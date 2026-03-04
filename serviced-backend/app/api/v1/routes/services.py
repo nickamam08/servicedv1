@@ -27,9 +27,10 @@ def get_services(
     sort_desc: bool = False
 ) -> Any:
     """
-    Get all services with improved filtering and sorting capabilities.
+    Obtiene el catálogo completo de servicios con capacidades avanzadas de filtrado y ordenamiento.
+    Permite filtrar por categoría, rango de precios, valoración mínima y ubicación del proveedor.
     """
-    # Start with base query joining ProviderProfile for location filtering if needed
+    # Iniciar con la consulta base uniendo el perfil de proveedor para permitir filtrado por ubicación
     from sqlalchemy.orm import joinedload
     query = db.query(Service).options(joinedload(Service.provider)).join(Service.provider).filter(Service.is_active == True)
 
@@ -46,10 +47,11 @@ def get_services(
         query = query.filter(Service.rating >= min_rating)
 
     if location:
-        # Filter by provider's location
+        # Filtrar por la ubicación textual definida en el perfil profesional del proveedor
         query = query.filter(ProviderProfile.location.ilike(f"%{location}%"))
         
     if search:
+        # Búsqueda global en título, descripción y ubicación del proveedor
         search_filter = or_(
             Service.title.ilike(f"%{search}%"),
             Service.description.ilike(f"%{search}%"),
@@ -57,16 +59,16 @@ def get_services(
         )
         query = query.filter(search_filter)
 
-    # Sorting
+    # Lógica de ordenamiento dinámico
     if sort_by == "price":
         query = query.order_by(Service.price.desc() if sort_desc else Service.price.asc())
     elif sort_by == "rating":
-        # Always desc for rating usually, but respect flag
+        # Generalmente las valoraciones más altas van primero
         query = query.order_by(Service.rating.desc() if sort_desc else Service.rating.asc())
     elif sort_by == "created_at":
         query = query.order_by(Service.created_at.desc() if sort_desc else Service.created_at.asc())
     else:
-        # Default sort
+        # Orden predeterminado: los más nuevos primero
         query = query.order_by(Service.created_at.desc())
 
     services = query.offset(skip).limit(limit).all()
@@ -79,13 +81,13 @@ def create_service(
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Create a new service (Provider only).
+    Registra un nuevo servicio en la plataforma. Solo accesible para usuarios con rol de PROVEEDOR.
     """
     if current_user.role != "provider":
-        raise HTTPException(status_code=403, detail="Only providers can create services")
+        raise HTTPException(status_code=403, detail="Solo los proveedores pueden crear servicios")
     
     if not current_user.provider_profile:
-        raise HTTPException(status_code=400, detail="Provider profile not found")
+        raise HTTPException(status_code=400, detail="Perfil de proveedor no encontrado")
 
     db_service = Service(
         **service.dict(),
@@ -102,12 +104,12 @@ def get_service_detail(
     db: Session = Depends(get_db)
 ) -> Any:
     """
-    Get service detail by ID.
+    Recupera la ficha detallada de un servicio específico mediante su ID único.
     """
     from sqlalchemy.orm import joinedload
     service = db.query(Service).options(joinedload(Service.provider)).filter(Service.id == id).first()
     if not service:
-        raise HTTPException(status_code=404, detail="Service not found")
+        raise HTTPException(status_code=404, detail="Servicio no encontrado")
     return service
 
 # ... (Existing Service Request routes can remain or be moved) ...

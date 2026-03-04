@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notificaciones - SERVICED</title>
+    <!-- Estilos globales de la aplicación -->
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Estilos para los elementos de notificación individual */
         .notification-item {
             padding: 20px;
             border-bottom: 1px solid var(--border);
@@ -22,6 +24,7 @@
             background-color: #F8FAFC;
         }
 
+        /* Estilo destacado para notificaciones no leídas */
         .notification-item.unread {
             background-color: #F1F5F9;
         }
@@ -36,6 +39,7 @@
             background: var(--primary);
         }
 
+        /* Contenedor del icono de la notificación */
         .notif-icon-box {
             width: 40px;
             height: 40px;
@@ -46,6 +50,7 @@
             flex-shrink: 0;
         }
 
+        /* Estado vacío cuando no hay notificaciones */
         .empty-state {
             padding: 60px 20px;
             text-align: center;
@@ -58,7 +63,7 @@
 
     <div class="app-container">
 
-        <!-- Sidebar -->
+        <!-- Barra Lateral de Navegación del Cliente -->
         <aside class="app-sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="sidebar-logo">
@@ -135,6 +140,7 @@
             </nav>
 
             <div class="sidebar-footer">
+                <!-- Enlace de salida -->
                 <a href="login.html" class="logout-link">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -147,40 +153,43 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal -->
         <main class="app-main" style="overflow-y: auto;">
 
-            <!-- Header -->
+            <!-- Cabecera de la Página -->
             <header class="app-header" style="height: auto; padding: 32px 0;">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                     <div>
                         <h1 class="text-h2">Notificaciones</h1>
                         <p class="text-body">Mantente al día con tu actividad</p>
                     </div>
+                    <!-- Avatar del usuario (Dinámico) -->
                     <div class="user-avatar"
                         style="width: 48px; height: 48px; background: #DBEAFE; color: #1E40AF; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600;">
-                        U</div>
+                        Wait</div>
                 </div>
             </header>
 
             <div class="bento-grid">
 
-                <!-- Filters/Actions -->
+                <!-- Filtros y Acciones Globales -->
                 <div class="bento-card"
                     style="grid-column: span 12; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
                     <div style="display: flex; gap: 8px;">
+                        <!-- Botones para filtrar por leídas/no leídas -->
                         <button id="btn-filter-all" class="btn"
                             style="background: var(--text-main); color: white; border-radius: 99px; font-size: 0.85rem; padding: 6px 16px;">Todas</button>
                         <button id="btn-filter-unread" class="btn"
                             style="background: var(--bg-surface-alt); color: var(--text-main); border-radius: 99px; font-size: 0.85rem; padding: 6px 16px;">No
                             leídas</button>
                     </div>
+                    <!-- Botón para limpiar todas las alertas pendientes -->
                     <button id="mark-all-read-btn" class="text-sm"
                         style="background: none; border: none; color: var(--primary); font-weight: 600; cursor: pointer;">Marcar
                         todas como leídas</button>
                 </div>
 
-                <!-- Notification List Card -->
+                <!-- Tarjeta con el Listado de Notificaciones -->
                 <div class="bento-card" style="grid-column: span 12; padding: 0; min-height: 400px;">
                     <div id="notifications-container">
                         <div class="empty-state">Cargando notificaciones...</div>
@@ -193,9 +202,15 @@
     </div>
 
     <script>
+        /**
+         * Lógica para el manejo de notificaciones del cliente.
+         * Permite visualizar alertas de solicitudes, mensajes y actualizaciones del sistema.
+         */
         document.addEventListener("DOMContentLoaded", () => {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
+
+            // Verificación de autenticación
             if (!token) {
                 window.location.href = "login.html";
                 return;
@@ -207,8 +222,11 @@
             const markAllBtn = document.getElementById("mark-all-read-btn");
 
             let allNotifications = [];
-            let filterMode = 'all';
+            let filterMode = 'all'; // Modos: 'all' o 'unread'
 
+            /**
+             * Recupera las notificaciones desde el servidor.
+             */
             async function fetchNotifications() {
                 try {
                     const resp = await fetch(`${API_BASE_URL}/dashboard/notifications`, {
@@ -222,6 +240,10 @@
                 }
             }
 
+            /**
+             * Calcula el tiempo transcurrido desde una fecha específica.
+             * @param {string} dateStr - Cadena de fecha ISO.
+             */
             function getTimeAgo(dateStr) {
                 const date = new Date(dateStr);
                 const seconds = Math.floor((new Date() - date) / 1000);
@@ -238,17 +260,25 @@
                 return "Hace pocos segundos";
             }
 
+            /**
+             * Determina el icono y color basándose en el tipo de notificación.
+             * @param {string} type - Tipo de alerta.
+             */
             function getIcon(type) {
                 if (type === 'request_update') return { bg: '#DBEAFE', color: 'var(--primary)', icon: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6' };
                 if (type === 'message') return { bg: '#F3E8FF', color: '#7C3AED', icon: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' };
                 return { bg: '#F1F5F9', color: '#64748B', icon: 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9 M13.73 21a2 2 0 0 1-3.46 0' };
             }
 
+            /**
+             * Pinta las notificaciones filtradas en el contenedor principal.
+             */
             function renderNotifications() {
                 const filtered = filterMode === 'unread'
                     ? allNotifications.filter(n => !n.is_read)
                     : allNotifications;
 
+                // Estado vacío dinámico
                 if (filtered.length === 0) {
                     container.innerHTML = `<div class="empty-state">No tienes ${filterMode === 'unread' ? 'notificaciones sin leer' : 'notificaciones'}</div>`;
                     return;
@@ -276,6 +306,10 @@
                 }).join("");
             }
 
+            /**
+             * Marca una notificación específica como leída.
+             * @param {number} id - ID de la notificación.
+             */
             window.markAsRead = async (id) => {
                 const notif = allNotifications.find(n => n.id === id);
                 if (notif && notif.is_read) return;
@@ -292,7 +326,12 @@
                 } catch (err) { console.error(err); }
             };
 
+            /**
+             * Marca todo el historial como leído globalmente.
+             */
             markAllBtn.addEventListener("click", async () => {
+                if (allNotifications.every(n => n.is_read)) return;
+
                 try {
                     const resp = await fetch(`${API_BASE_URL}/dashboard/notifications/mark-all-read`, {
                         method: "POST",
@@ -305,6 +344,7 @@
                 } catch (err) { console.error(err); }
             });
 
+            // Control de pestañas de filtrado (Estilo visual y lógica)
             filterAllBtn.addEventListener("click", () => {
                 filterMode = 'all';
                 filterAllBtn.style.background = 'var(--text-main)';
@@ -323,13 +363,15 @@
                 renderNotifications();
             });
 
-            // Initial Fetch
+            // Carga inicial
             fetchNotifications();
         });
     </script>
 
     <script>
-        // Avatar Sync
+        /**
+         * Inicialización del perfil del usuario y logout.
+         */
         (function () {
             try {
                 const user = JSON.parse(sessionStorage.getItem("serviced_user"));

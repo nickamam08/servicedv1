@@ -11,7 +11,7 @@
 
 <body>
 
-    <!-- Header / Navbar (Kept consistent with public view) -->
+    <!-- Cabecera / Barra de Navegación (Pública) -->
     <header
         style="background: var(--bg-surface); border-bottom: 1px solid var(--border); height: 80px; display: flex; align-items: center; position: sticky; top:0; z-index: 50;">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -28,7 +28,7 @@
         </div>
     </header>
 
-    <!-- Main Content Bento Grid -->
+    <!-- Contenido Principal - Rejilla Bento -->
     <div class="container" style="padding: 40px 20px;">
         <div style="margin-bottom: 24px;">
             <a href="search-services.html"
@@ -42,9 +42,10 @@
 
         <div class="bento-grid">
 
-            <!-- Hero Card (Profile) -->
+            <!-- Tarjeta Principal del Perfil (Hero) -->
             <div class="bento-card" style="grid-column: span 8; background: white;">
                 <div style="display: flex; gap: 24px; align-items: flex-start;">
+                    <!-- Imagen de perfil del proveedor -->
                     <img src="https://ui-avatars.com/api/?name=Carlos+Rodriguez&background=0D8ABC&color=fff&size=200"
                         alt="Carlos Rodriguez"
                         style="width: 120px; height: 120px; border-radius: var(--radius-lg); object-fit: cover;">
@@ -57,6 +58,7 @@
                         <p id="provider-specialty-location" class="text-body" style="margin-bottom: 16px;">Especialidad
                             • 📍 Ubicación</p>
 
+                        <!-- Estadísticas clave del proveedor -->
                         <div style="display: flex; gap: 24px;">
                             <div>
                                 <div id="rating-text" class="text-h2" style="font-size: 1.25rem;">0.0 ★</div>
@@ -75,7 +77,7 @@
                 </div>
             </div>
 
-            <!-- Sticky Action Sidebar -->
+            <!-- Barra Lateral Fija de Acción -->
             <div class="bento-card"
                 style="grid-column: span 4; grid-row: span 3; height: fit-content; position: sticky; top: 100px;">
                 <div style="margin-bottom: 24px;">
@@ -83,6 +85,7 @@
                     <div class="text-h2">~$60.000 / servicio</div>
                 </div>
 
+                <!-- Botón de anclaje a la sección de servicios -->
                 <a href="#servicios-section" class="btn"
                     style="background: var(--text-main); color: white; width: 100%; justify-content: center; height: 48px; font-size: 1rem; text-decoration: none;">
                     Solicitar Servicio
@@ -94,6 +97,7 @@
 
                 <hr style="border: 0; border-top: 1px solid var(--border); margin: 24px 0;">
 
+                <!-- Información de contacto y logística -->
                 <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
                         <h4 style="font-weight: 600; font-size: 0.9rem;">Horarios</h4>
@@ -105,6 +109,7 @@
                     </div>
                 </div>
 
+                <!-- Garantía de Protección -->
                 <div
                     style="margin-top: 24px; padding: 12px; background: var(--bg-surface-alt); border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--text-secondary); display: flex; gap: 8px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -114,12 +119,13 @@
                 </div>
             </div>
 
-            <!-- About Section -->
+            <!-- Sección "Sobre Mí" (Biografía) -->
             <div class="bento-card" style="grid-column: span 8;">
                 <h3 class="text-h3" style="margin-bottom: 16px;">Sobre mí</h3>
                 <p id="about-text" class="text-body" style="line-height: 1.6;">
                     Cargando información...
                 </p>
+                <!-- Etiquetas de habilidades (Simuladas) -->
                 <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
                     <span
                         style="background: var(--bg-surface-alt); padding: 8px 16px; border-radius: 99px; font-size: 0.85rem; font-weight: 500;">Electricista
@@ -133,11 +139,12 @@
                 </div>
             </div>
 
-            <!-- Services Section -->
+            <!-- Sección de Portafolio de Servicios -->
             <div id="servicios-section" class="bento-card"
                 style="grid-column: span 8; background: transparent; box-shadow: none; border: none; padding: 0;">
                 <h3 class="text-h3" style="margin-bottom: 16px;">Servicios</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- Los servicios se inyectarán dinámicamente aquí -->
 
                     <div class="bento-card" style="border: 1px solid var(--border);">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -179,68 +186,80 @@
     </div>
 
     <script>
+        /**
+         * Lógica de carga del perfil del proveedor.
+         * Obtiene los datos del proveedor y sus servicios asociados desde la API y los renderiza.
+         */
         document.addEventListener("DOMContentLoaded", async () => {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
+
+            // Obtener el ID del proveedor desde la URL
             const params = new URLSearchParams(window.location.search);
             const providerId = params.get("id");
 
+            // Si no hay ID, mostrar mensaje de error
             if (!providerId) {
                 document.body.innerHTML = '<div style="padding: 50px; text-align: center;"><h1>Proveedor no encontrado</h1><a href="search-services.html">Volver a buscar</a></div>';
                 return;
             }
 
             try {
+                // Petición a la API para obtener detalles del proveedor
                 const resp = await fetch(`${API_BASE_URL}/providers/${providerId}`, {
                     headers: token ? { "Authorization": "Bearer " + token } : {}
                 });
 
-                if (!resp.ok) throw new Error("Provider not found");
+                if (!resp.ok) throw new Error("Proveedor no encontrado");
 
                 const provider = await resp.json();
                 const user = provider.user || {};
 
-                // Render Header info
+                // Renderizado de información básica en la cabecera
                 document.title = `Perfil de ${user.full_name || 'Proveedor'} - SERVICED`;
                 document.querySelector(".text-h1").textContent = user.full_name || 'Proveedor';
                 document.getElementById("provider-specialty-location").innerHTML = `${provider.specialty || 'Profesional'} • 📍 ${provider.location || 'Ubicación n/a'}`;
 
-                // Stats
+                // Actualización de estadísticas (Rating y Experiencia)
                 document.getElementById("rating-text").textContent = `${provider.rating_average ? provider.rating_average.toFixed(1) : 'Nuevo'} ★`;
                 document.getElementById("experience-text").textContent = `${provider.experience_years || 0}+ años`;
 
-                // About
+                // Renderizado de la descripción/biografía
                 document.getElementById("about-text").textContent = provider.description || 'Sin descripción disponible.';
 
-                // Avatar
+                // Manejo dinámico del avatar
                 const avatarImg = document.querySelector("img[alt='Carlos Rodriguez']");
                 if (user.avatar_url) {
                     avatarImg.src = user.avatar_url;
                 } else {
+                    // Generar avatar por defecto con iniciales si no hay imagen
                     avatarImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name || 'P')}&background=0D8ABC&color=fff&size=200`;
                 }
 
-                // Services
+                // Renderizado dinámico de la lista de servicios del proveedor
                 const servicesContainer = document.querySelector("#servicios-section > div");
                 if (provider.services && provider.services.length > 0) {
                     servicesContainer.innerHTML = provider.services.map(s => `
                         <div class="bento-card" style="border: 1px solid var(--border); display: flex; flex-direction: column;">
+                            <!-- Imagen del servicio si existe -->
                             ${s.image_urls && s.image_urls[0] ? `<div style="width: 100%; height: 120px; margin-bottom: 12px; border-radius: 8px; overflow: hidden; border: 1px solid #f1f5f9;"><img src="${s.image_urls[0]}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <h4 style="font-weight: 600;">${s.title}</h4>
                                 <span style="font-weight: 600;">$${s.price.toLocaleString('es-CO')}</span>
                             </div>
                             <p class="text-sm" style="margin: 8px 0 16px; flex: 1;">${s.description}</p>
+                            <!-- Enlace al detalle del servicio -->
                             <a href="service-detail.html?id=${s.id}" class="btn" style="width: 100%; border: 1px solid var(--border); font-size: 0.85rem; text-decoration: none; justify-content: center;">Ver detalle</a>
                         </div>
                     `).join("");
                 } else {
+                    // Mensaje si el proveedor no tiene servicios activos
                     servicesContainer.innerHTML = '<p class="text-sm" style="grid-column: span 2; text-align: center; color: var(--text-tertiary);">Este proveedor aún no tiene servicios publicados.</p>';
                 }
 
             } catch (err) {
-                console.error(err);
-                // Handle error
+                console.error("Error al cargar perfil del proveedor:", err);
+                // Aquí se podría añadir un manejo de errores más visual para el usuario
             }
         });
     </script>

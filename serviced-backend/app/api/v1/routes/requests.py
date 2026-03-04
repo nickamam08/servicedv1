@@ -11,6 +11,7 @@ from app.services.request_service import RequestService
 router = APIRouter()
 
 def get_request_service(db: Session = Depends(get_db)) -> RequestService:
+    """Inyecta el servicio de gestión de solicitudes con su respectivo repositorio."""
     repository = RequestRepository(db)
     return RequestService(repository)
 
@@ -20,7 +21,7 @@ def get_my_requests(
     service: RequestService = Depends(get_request_service)
 ) -> Any:
     """
-    Get all service requests for the current user.
+    Obtiene todas las solicitudes de servicio enviadas por el usuario actual.
     """
     return service.get_user_requests(current_user.id)
 
@@ -31,7 +32,7 @@ def create_request(
     service: RequestService = Depends(get_request_service)
 ) -> Any:
     """
-    Create a new service request.
+    Crea una nueva solicitud de servicio dirigida a un proveedor.
     """
     return service.create_request(current_user.id, request_in)
 
@@ -41,7 +42,7 @@ def get_requests_root(
     service: RequestService = Depends(get_request_service)
 ) -> Any:
     """
-    Alias for /my (to maintain compatibility if needed, or redirect logic).
+    Alias para /my. Facilita la compatibilidad con rutas raíz del cliente.
     """
     return service.get_user_requests(current_user.id)
 
@@ -54,7 +55,7 @@ def update_request(
     service: RequestService = Depends(get_request_service)
 ) -> Any:
     """
-    Modify a request (e.g. scheduled_date, notes).
+    Permite al usuario modificar una solicitud existente (ej: cambiar fecha o notas).
     """
     return service.update_request(id, current_user.id, request_in)
 
@@ -66,9 +67,10 @@ def cancel_request(
     service: RequestService = Depends(get_request_service)
 ) -> Any:
     """
-    Cancel a request if it is PENDING or ACTIVE.
+    Cancela una solicitud si aún se encuentra en estado PENDIENTE o ACTIVA.
     """
     return service.cancel_request(id, current_user.id)
+
 @router.patch("/{id}/complete", response_model=ServiceRequestResponse)
 def complete_request(
     id: int,
@@ -76,6 +78,6 @@ def complete_request(
     service: RequestService = Depends(get_request_service)
 ) -> Any:
     """
-    Mark a request as COMPLETED.
+    Marca manualmente una solicitud como FINALIZADA satisfactoriamente.
     """
     return service.complete_request(id, current_user.id)

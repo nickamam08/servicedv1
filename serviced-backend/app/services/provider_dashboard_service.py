@@ -4,12 +4,18 @@ from app.repositories.provider_dashboard import ProviderDashboardRepository
 from app.schemas.provider_dashboard import DashboardOverview, UpcomingJob
 
 class ProviderDashboardService:
+    """
+    Servicio para calcular y consolidar las métricas de rendimiento y resumen de actividad para el dashboard del proveedor.
+    """
     def get_dashboard_overview(self, db: Session, current_user: User) -> DashboardOverview:
+        """
+        Consolida estadísticas de servicios, solicitudes, mensajes no leídos y próximos trabajos.
+        """
         repo = ProviderDashboardRepository(db)
         provider_profile = repo.get_provider_profile(current_user.id)
         
         if not provider_profile:
-             # If no profile, return zeros
+             # Si no hay perfil de proveedor, devolvemos valores en cero
              return DashboardOverview(
                  total_services=0, active_services=0, total_requests=0,
                  pending_requests=0, accepted_requests=0, completed_requests=0,
@@ -22,13 +28,12 @@ class ProviderDashboardService:
         upcoming = repo.get_upcoming_jobs(provider_profile.id)
         unread = repo.get_unread_messages_count(current_user.id)
         
-        # Calculate balance (Mocked for now as per instructions "NO incluir sistema de pagos")
-        # In a real system, this would sum up completed service requests prices
-        balance = 0.0 
+        # Cálculo de balance real basado en servicios completados
+        balance = repo.get_total_earnings(provider_profile.id)
         
         upcoming_jobs_response = []
         for req in upcoming:
-            # Safely get title
+            # Enriquecimiento de datos para la agenda de próximos trabajos
             svc_title = req.service.title if req.service else "Servicio eliminado"
             client_name = req.client.full_name if req.client else "Cliente desconocido"
             upcoming_jobs_response.append(UpcomingJob(
@@ -44,7 +49,7 @@ class ProviderDashboardService:
             active_services=service_stats["active"],
             total_requests=request_stats["total"],
             pending_requests=request_stats["pending"],
-            accepted_requests=request_stats["accepted"], # Mapping from ACTIVE
+            accepted_requests=request_stats["accepted"], 
             completed_requests=request_stats["completed"],
             cancelled_requests=request_stats["cancelled"],
             average_rating=provider_profile.rating_average,
@@ -54,4 +59,5 @@ class ProviderDashboardService:
             upcoming_jobs=upcoming_jobs_response
         )
 
+# Instancia global del servicio de dashboard para proveedores
 provider_dashboard_service = ProviderDashboardService()

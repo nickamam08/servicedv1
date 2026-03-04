@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel del Proveedor - SERVICED</title>
+    <!-- Configuración para evitar el almacenamiento en caché del navegador -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
+    <!-- Librerías Externas: Iconos y Mapas -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Leaflet.js for Map Integration -->
+    <!-- Leaflet.js para integración de mapas -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Estilos específicos del panel del proveedor -->
     <link rel="stylesheet" href="provider-dashboard.css?v=1.1.8">
 </head>
 
 <body>
     <div class="app-container">
-        <!-- Sidebar -->
+        <!-- Barra Lateral de Navegación del Proveedor -->
         <aside class="app-sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
@@ -30,6 +33,7 @@
             </div>
 
             <nav class="sidebar-nav">
+                <!-- Enlaces de navegación controlados por provider-dashboard.js -->
                 <a href="#" class="nav-item active" data-target="overview">
                     <i class="fas fa-home nav-icon"></i>
                     <span>Dashboard</span>
@@ -78,6 +82,7 @@
             </nav>
 
             <div class="sidebar-footer">
+                <!-- Botón de cierre de sesión -->
                 <a href="#" class="nav-item" id="logout-btn" style="color: var(--danger);">
                     <i class="fas fa-sign-out-alt nav-icon"></i>
                     <span>Cerrar Sesión</span>
@@ -85,28 +90,31 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Área Principal de Contenido -->
         <main class="app-main">
-            <!-- Header -->
+            <!-- Cabecera Dinámica -->
             <header class="app-header">
                 <div>
                     <h1 class="text-h2" id="page-title">Vista General</h1>
                     <p class="text-body" id="welcome-msg">Bienvenido a tu panel de control</p>
                 </div>
+                <!-- Avatar del Proveedor -->
                 <div style="display: flex; gap: 16px; align-items: center;">
                     <div class="user-avatar" id="header-avatar">P</div>
                 </div>
             </header>
 
-            <!-- Dynamic Content Area -->
+            <!-- Zona de Contenido Dinámico (Donde el JS inyecta las vistas) -->
             <div id="content-area">
-                <!-- Content will be injected here by JS based on View -->
+                <!-- El contenido se carga dinámicamente según la navegación -->
                 <div class="spinner"></div>
             </div>
         </main>
     </div>
 
-    <!-- Modals (Hidden by default) -->
+    <!-- Modales de Gestión (Ocultos por defecto) -->
+
+    <!-- Modal para Crear/Editar Servicios -->
     <div class="modal-overlay" id="service-modal">
         <div class="modal">
             <h3 class="text-h3" style="margin-bottom: 20px;">Gestión de Servicio</h3>
@@ -120,7 +128,6 @@
                     <label class="form-label">Descripción</label>
                     <textarea class="form-control" id="service-description" required rows="3"></textarea>
                 </div>
-                <!-- More fields injected or generic -->
                 <div class="form-group">
                     <label class="form-label">Precio</label>
                     <input type="number" class="form-control" id="service-price" step="0.01" required>
@@ -129,6 +136,7 @@
                     <label class="form-label">Categoría</label>
                     <input type="text" class="form-control" id="service-category">
                 </div>
+                <!-- Área de subida de imágenes para el servicio -->
                 <div class="form-group">
                     <label class="form-label">Imagen del Servicio</label>
                     <div id="service-drop-zone" class="drop-zone">
@@ -149,6 +157,7 @@
         </div>
     </div>
 
+    <!-- Modal para Reprogramar Solicitudes/Citas -->
     <div class="modal-overlay" id="reschedule-modal">
         <div class="modal">
             <h3 class="text-h3" style="margin-bottom: 20px;">Reprogramar Cita</h3>
@@ -166,9 +175,10 @@
         </div>
     </div>
 
-    <!-- Toast Container -->
+    <!-- Contenedor para Notificaciones Flash (Toasts) -->
     <div id="toast-container" style="position: fixed; bottom: 24px; right: 24px; z-index: 2000;"></div>
 
+    <!-- Lógica principal del Dashboard -->
     <script src="provider-dashboard.js?v=1.1.8"></script>
 </body>
 

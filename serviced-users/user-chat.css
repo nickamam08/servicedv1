@@ -1,37 +1,37 @@
 /* 
-  User Chat Specific Styles 
-  Extends styles.css
+  Estilos Específicos del Chat de Usuario
+  Extiende styles.css
 */
 
 :root {
     --chat-sidebar-width: 320px;
     --chat-header-height: 70px;
-    /* User Chat Colors - Matches User Dashboard Theme */
+    /* Colores del Chat de Usuario - Coincidentes con el tema del Dashboard */
     --msg-sent-bg: var(--primary);
     --msg-sent-text: white;
     --msg-received-bg: #E5E7EB;
-    /* Gray 200 */
+    /* Gris 200 */
     --msg-received-text: var(--text-main);
 }
 
-/* Main Layout Override for Chat */
+/* Sobreescritura del Layout Principal para el modo Chat */
 .app-main.chat-mode {
     height: 100vh;
     overflow: hidden;
     position: relative;
     padding: 0;
-    /* Remove default dashboard padding */
+    /* Elimina el padding por defecto del dashboard */
 }
 
 .chat-container {
     display: flex;
     height: 100%;
-    /* Fill app-main */
+    /* Llena todo el app-main */
     background-color: white;
     position: relative;
 }
 
-/* Chat Sidebar */
+/* Barra Lateral del Chat (Conversaciones) */
 .chat-sidebar {
     width: var(--chat-sidebar-width);
     border-right: 1px solid var(--border);
@@ -85,7 +85,7 @@
 
 .conversation-item.active {
     background-color: #EFF6FF;
-    /* Blue 50 */
+    /* Azul 50 */
     border-right: 3px solid var(--primary);
 }
 
@@ -108,6 +108,7 @@
     flex-shrink: 0;
 }
 
+/* Indicador visual de estado en línea (opcional) */
 .online-indicator {
     position: absolute;
     bottom: 2px;
@@ -115,17 +116,17 @@
     width: 12px;
     height: 12px;
     background-color: #10B981;
-    /* Green */
+    /* Verde */
     border: 2px solid white;
     border-radius: 50%;
     display: none;
-    /* Logic to show if online implemented later */
+    /* Se activa mediante lógica de servidor más adelante */
 }
 
 .conversation-info {
     flex: 1;
     min-width: 0;
-    /* Truncate fix */
+    /* Corrección para truncar texto correctamente */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -184,7 +185,7 @@
     color: var(--text-main);
 }
 
-/* Chat Area */
+/* Área Principal del Chat */
 .chat-area {
     flex: 1;
     display: flex;
@@ -193,7 +194,7 @@
     position: relative;
 }
 
-/* Empty State */
+/* Estado Vacío (Sin conversación seleccionada) */
 .chat-empty-state {
     flex: 1;
     display: flex;
@@ -211,7 +212,7 @@
     margin-bottom: 20px;
 }
 
-/* Chat Header */
+/* Cabecera del Chat Activo */
 .chat-header {
     height: var(--chat-header-height);
     padding: 0 24px;
@@ -240,13 +241,13 @@
     color: var(--text-tertiary);
 }
 
-/* Messages Container */
+/* Contenedor de Mensajes */
 .messages-container {
     flex: 1;
     padding: 24px;
     overflow-y: auto;
     background-color: #F9FAFB;
-    /* Very light gray */
+    /* Gris muy claro */
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -255,7 +256,6 @@
 .message-row {
     display: flex;
     width: 100%;
-    /* Ensure full width for alignment */
     margin-bottom: 4px;
     animation: fadeIn 0.3s ease;
 }
@@ -292,7 +292,6 @@
 
 .sent .message-bubble {
     margin-left: auto;
-    /* Fallback */
     background-color: var(--msg-sent-bg);
     color: var(--msg-sent-text);
     border-bottom-right-radius: 4px;
@@ -300,7 +299,6 @@
 
 .received .message-bubble {
     margin-right: auto;
-    /* Fallback */
     background-color: var(--msg-received-bg);
     color: var(--msg-received-text);
     border-bottom-left-radius: 4px;
@@ -323,7 +321,7 @@
     color: var(--text-secondary);
 }
 
-/* Input Area */
+/* Área de Entrada de Texto */
 .chat-input-area {
     padding: 20px;
     background-color: white;
@@ -402,7 +400,7 @@
     transform: none;
 }
 
-/* Scrollbar Customization */
+/* Personalización de la barra de desplazamiento */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -420,7 +418,7 @@
     background: #9CA3AF;
 }
 
-/* Mobile Responsive */
+/* Diseño Adaptativo para Móviles */
 .back-button {
     display: none;
     margin-right: 12px;
@@ -451,7 +449,7 @@
 
     .chat-container.chat-open .chat-sidebar {
         transform: translateX(-30%);
-        /* Subtle parallax */
+        /* Efecto de paralaje sutil */
         opacity: 0;
     }
 

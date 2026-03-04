@@ -15,7 +15,8 @@ def read_user_me(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Get current user profile.
+    Recupera el perfil completo del usuario autenticado.
+    Se utiliza para cargar la información del cliente o proveedor en sus respectivos paneles.
     """
     return current_user
 
@@ -27,7 +28,7 @@ def update_user_me(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Update current user profile.
+    Actualiza los datos personales del usuario autenticado (nombre, teléfono, ubicación, avatar).
     """
     return user_service.update_profile(db, db_obj=current_user, obj_in=user_in)
 
@@ -39,6 +40,6 @@ def update_password_me(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Update current user password.
+    Permite al usuario autenticado cambiar su contraseña, validando primero la contraseña actual.
     """
     return user_service.change_password(db, db_obj=current_user, obj_in=password_in)

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Cliente - SERVICED</title>
+    <!-- Estilos globales y específicos del dashboard -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -12,15 +13,17 @@
 
     <div class="app-container">
 
-        <!-- Sidebar -->
+        <!-- Barra Lateral de Navegación -->
         <aside class="app-sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="sidebar-logo">
+                    <!-- Logo de la aplicación -->
                     <img src="log.png" alt="SERVICED" style="height: 40px; width: auto;">
                 </a>
             </div>
 
             <nav class="sidebar-nav">
+                <!-- Enlaces de navegación con iconos SVG -->
                 <a href="#" class="nav-item active">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -31,7 +34,7 @@
                     </svg>
                     <span>Dashboard</span>
                 </a>
-                <!-- ... (other links can remain relative if within same folder, but better absolute) -->
+
                 <a href="search-services.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -40,6 +43,7 @@
                     </svg>
                     <span>Buscar Servicios</span>
                 </a>
+
                 <a href="user-requests.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -51,6 +55,7 @@
                     </svg>
                     <span>Mis Solicitudes</span>
                 </a>
+
                 <a href="notifications.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -58,16 +63,20 @@
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
                     <span>Notificaciones</span>
+                    <!-- Indicador de notificaciones no leídas -->
                     <span id="notif-badge" class="unread-badge"></span>
                 </a>
+
                 <a href="user-chat.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                     <span>Mensajes</span>
+                    <!-- Indicador de mensajes no leídos -->
                     <span id="msg-badge" class="unread-badge"></span>
                 </a>
+
                 <a href="reports.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -79,6 +88,7 @@
                     </svg>
                     <span>Reportes</span>
                 </a>
+
                 <a href="user-profile.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -90,6 +100,7 @@
             </nav>
 
             <div class="sidebar-footer">
+                <!-- Enlace para finalizar la sesión -->
                 <a href="#" class="logout-link">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,9 +113,9 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Área de Contenido Principal -->
         <main class="app-main" style="overflow-y: auto; background: var(--bg-body);">
-            <!-- Header -->
+            <!-- Cabecera de Bienvenida -->
             <header class="app-header" style="height: auto; padding: 40px 0 20px;">
                 <div
                     style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 32px;">
@@ -114,6 +125,7 @@
                         </p>
                     </div>
 
+                    <!-- Avatar del usuario actual -->
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div class="user-avatar"
                             style="width: 44px; height: 44px; background: #e0e7ff; color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600; font-size: 0.9rem; border: 2px solid white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
@@ -123,18 +135,23 @@
 
             </header>
 
-            <!-- Bento Grid -->
+            <!-- Sistema de Rejilla Bento (Contenedor para tarjetas dinámicas) -->
             <div class="bento-grid">
-                <!-- Data will be injected here by JS -->
+                <!-- Los datos se inyectarán aquí mediante JavaScript -->
                 <p style="padding: 20px;">Cargando contenido del dashboard...</p>
             </div>
         </main>
     </div>
 
     <script>
+        /**
+         * Lógica principal del Dashboard del Cliente
+         * Se encarga de validar la sesión, obtener datos del servidor y renderizar la interfaz.
+         */
         document.addEventListener("DOMContentLoaded", async () => {
             console.log("Dashboard loaded");
             try {
+                // Validación de credenciales en SessionStorage
                 const token = sessionStorage.getItem("serviced_token");
                 const userStr = sessionStorage.getItem("serviced_user");
 
@@ -145,6 +162,7 @@
                 }
 
                 const user = JSON.parse(userStr);
+                // Asegurar que el rol sea 'client'
                 if (user.role !== 'client') {
                     console.warn("Incorrect role for this dashboard, redirecting...");
                     if (user.role === 'provider') window.location.href = "/provider/provider-dashboard.html";
@@ -152,7 +170,7 @@
                     return;
                 }
 
-                // Fetch Dashboard Data
+                // Obtención de datos del resumen del dashboard desde la API
                 const api_url = "/api/v1/dashboard/summary";
                 const response = await fetch(api_url, {
                     method: "GET",
@@ -163,6 +181,7 @@
                 });
 
                 if (!response.ok) {
+                    // Manejo de expiración de sesión
                     if (response.status === 401 || response.status === 404) {
                         console.warn("Token invalido o usuario no encontrado. Redirigiendo a login...");
                         sessionStorage.removeItem("serviced_token");
@@ -177,7 +196,7 @@
                 const data = await response.json();
                 console.log("Dashboard Data:", data);
 
-                // Update Header
+                // Actualización del mensaje de bienvenida y avatar
                 const welcomeMsg = document.getElementById("welcome-msg");
                 if (welcomeMsg) welcomeMsg.textContent = `Bienvenido de nuevo, ${data.user_profile.full_name}`;
 
@@ -189,7 +208,8 @@
                         avatar.textContent = data.user_profile.avatar_initials || "U";
                     }
                 }
-                // Avatar Sync
+
+                // Función autoejecutable para sincronizar el avatar en múltiples elementos
                 (function () {
                     try {
                         const user = JSON.parse(sessionStorage.getItem("serviced_user"));
@@ -198,15 +218,17 @@
                                 if (user.avatar_url) {
                                     el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
                                 } else {
+                                    // Genera iniciales si no hay imagen
                                     el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
                                 }
                             });
                         }
                     } catch (e) { }
                 })();
+
                 const grid = document.querySelector(".bento-grid");
 
-                // Notifications HTML
+                // Construcción dinámica de HTML para Notificaciones
                 const notifHTML = data.notifications && data.notifications.length > 0
                     ? data.notifications.map(n => `
                         <div style="display: flex; gap: 12px; margin-bottom: 15px; padding: 12px; border-radius: 12px; background: white; border: 1px solid rgba(0,0,0,0.03);">
@@ -220,7 +242,7 @@
                         </div>`).join('')
                     : '<p class="text-sm" style="color: var(--text-secondary); text-align: center; padding: 20px;">No tienes nuevas notificaciones.</p>';
 
-                // Requests HTML
+                // Construcción dinámica de HTML para Solicitudes Recientes
                 const requestsHTML = data.recent_requests && data.recent_requests.length > 0
                     ? data.recent_requests.map(r => `
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.05);">
@@ -237,8 +259,9 @@
                     `).join('')
                     : '<p class="text-sm" style="color: var(--text-secondary); text-align: center; padding: 20px;">No tienes solicitudes recientes.</p>';
 
+                // Renderizado masivo de la cuadrícula Bento
                 grid.innerHTML = `
-                <!-- Categories Quick Access -->
+                <!-- Acceso Rápido a Categorías -->
                 <div class="bento-card" style="grid-column: span 12; background: transparent; box-shadow: none; border: none; padding: 0; margin-top: -16px; margin-bottom: 8px;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
                         ${['Limpieza', 'Plomería', 'Electricidad', 'Carpintería', 'Belleza', 'Mascotas'].map(cat => `
@@ -250,7 +273,7 @@
                     </div>
                 </div>
 
-                <!-- Quick Actions -->
+                <!-- Acciones Rápidas -->
                 <div class="bento-card" style="grid-column: span 12; background: white; padding: 24px;">
                     <h3 class="text-h3" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 20px;">Acciones Rápidas</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
@@ -273,7 +296,7 @@
                     </div>
                 </div>
 
-                <!-- Active Requests summary -->
+                <!-- Resumen de Solicitudes Activas -->
                 <div class="bento-card" style="grid-column: span 4; background: white; display: flex; flex-direction: column; justify-content: center;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
                         <span class="text-sm" style="font-weight: 600; color: var(--text-secondary);">Solicitudes Activas</span>
@@ -285,7 +308,7 @@
                     <p class="text-sm" style="margin-top: 8px; color: var(--text-secondary);">Pedidos en curso</p>
                 </div>
 
-                <!-- Recent Requests List -->
+                <!-- Lista de Solicitudes Recientes -->
                 <div class="bento-card" style="grid-column: span 8; background: white;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h3 class="text-h3" style="font-size: 1.1rem; font-weight: 700;">Solicitudes Recientes</h3>
@@ -296,7 +319,7 @@
                     </div>
                 </div>
                 
-                 <!-- Recent Activity / Notifications -->
+                 <!-- Actividad Reciente / Notificaciones -->
                 <div class="bento-card" style="grid-column: span 12; background: white; border: 1px solid rgba(0,0,0,0.05);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                         <h3 class="text-h3" style="font-size: 1.1rem; font-weight: 700;">Notificaciones Recientes</h3>
@@ -307,7 +330,7 @@
                     </div>
                 </div>
 
-                <!-- Recommended Services -->
+                <!-- Servicios Recomendados -->
                 <div class="bento-card" style="grid-column: span 12; background: transparent; box-shadow: none; border: none; padding: 24px 0 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h3 class="text-h3" style="font-size: 1.25rem; font-weight: 700;">Nuestras Recomendaciones</h3>
@@ -333,7 +356,7 @@
                 `;
 
 
-                // Logout
+                // Configuración del botón de cierre de sesión
                 const logoutLink = document.querySelector(".logout-link");
                 if (logoutLink) {
                     logoutLink.addEventListener("click", (e) => {
@@ -344,6 +367,7 @@
                     });
                 }
             } catch (e) {
+                // Manejo de errores visual en caso de fallo de red or servidor
                 console.error("Dashboard error:", e);
                 const grid = document.querySelector(".bento-grid");
                 if (grid) {
@@ -361,6 +385,7 @@
             }
         });
     </script>
+    <!-- Script adicional para la gestión de badges de la sidebar -->
     <script src="sidebar-badges.js"></script>
 </body>
 

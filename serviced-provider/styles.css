@@ -1,48 +1,50 @@
 /* 
-  SERVICED - Global Design System
-  Theme: Modern Minimalist Bento
-  Organized Sections:
-  1. Variables & Tokens
-  2. Global Reset & Base
-  3. Layout System (The Shell)
-  4. Navigation & Sidebar
-  5. Bento Grid System
-  6. Components (Buttons, Cards, Forms)
-  7. Typography
-  8. Chat Interface Override
+  SERVICED - Sistema de Diseño Global (Panel del Proveedor)
+  Tema: Bento Minimalista Moderno
+  Secciones Organizadas:
+  1. Variables y Tokens
+  2. Reset Global y Base
+  3. Sistema de Layout (La Estructura)
+  4. Navegación y Barra Lateral
+  5. Sistema de Rejilla Bento
+  6. Componentes (Botones, Tarjetas, Formularios)
+  7. Tipografía
 */
 
-/* 1. Variables & Tokens */
+/* 1. Variables y Tokens */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    /* Colors - Neutral Base */
+    /* Colores - Base Neutral */
     --bg-body: #FAFAFA;
-    /* Main App Background */
+    /* Fondo principal de la aplicación */
     --bg-surface: #FFFFFF;
-    /* Card Background */
+    /* Fondo de tarjetas y contenedores */
     --bg-surface-alt: #F3F4F6;
-    /* Hover/Active States */
+    /* Estados hover o activos secundarios */
 
-    /* Colors - Text */
+    /* Colores - Texto */
     --text-main: #111827;
-    /* Primary Text */
+    /* Texto primario (gris muy oscuro) */
     --text-secondary: #6B7280;
-    /* Secondary Text */
+    /* Texto secundario (gris medio) */
     --text-tertiary: #9CA3AF;
-    /* Placeholders/Icons */
+    /* Texto de menor jerarquía e iconos */
 
-    /* Colors - Accents */
+    /* Colores - Acentos y Estados */
     --primary: #2563EB;
-    /* Brand Blue */
+    /* Azul de marca */
     --primary-dark: #1D4ED8;
     --accent: #111827;
-    /* Strong Dark Accent */
+    /* Acento oscuro fuerte */
     --danger: #EF4444;
+    /* Acciones destructivas o errores */
     --success: #10B981;
+    /* Estados completados o positivos */
     --warning: #F59E0B;
+    /* Alertas y atención */
 
-    /* Metrics */
+    /* métricas de Diseño */
     --sidebar-width: 260px;
     --header-height: 80px;
     --radius-sm: 8px;
@@ -50,24 +52,24 @@
     --radius-lg: 24px;
     --radius-xl: 32px;
 
-    /* Shadows */
+    /* Sombras y Elevación */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 
-    /* Borders */
+    /* Bordes */
     --border: #E5E7EB;
     --border-hover: #D1D5DB;
 }
 
-/* 2. Global Reset & Base */
+/* 2. Reset Global y Base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Ocultar barra de desplazamiento para navegadores modernos */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 .app-main::-webkit-scrollbar,
@@ -76,14 +78,13 @@ body::-webkit-scrollbar,
     display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 html,
 body,
 .app-main,
 .sidebar-nav,
 .chat-messages {
     -ms-overflow-style: none;
-    /* IE and Edge */
+    /* IE y Edge */
     scrollbar-width: none;
     /* Firefox */
 }
@@ -97,7 +98,7 @@ body {
     font-size: 16px;
     height: 100vh;
     overflow: hidden;
-    /* App Shell controls scroll */
+    /* El scroll se gestiona internamente en .app-main */
 }
 
 a {
@@ -119,19 +120,17 @@ button {
     font-family: inherit;
 }
 
-/* 3. Layout System (The Shell) */
+/* 3. Sistema de Layout (La Estructura) */
 
-/* The main flex container holding Sidebar + Main Content */
+/* Contenedor principal que divide el panel */
 .app-container {
     display: flex;
     width: 100%;
     height: 100vh;
-    /* Full viewport height */
     overflow: hidden;
-    /* Prevent body scroll */
 }
 
-/* Sidebar Fixed Width */
+/* Barra Lateral de Navegación */
 .app-sidebar {
     width: var(--sidebar-width);
     background-color: var(--bg-surface);
@@ -139,25 +138,23 @@ button {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    /* Never shrink */
     z-index: 50;
     height: 100%;
 }
 
-/* Main Content Area - Expands to fill rest */
+/* Área de Contenido Principal: Donde se renderizan las vistas dinámicas */
 .app-main {
     flex: 1;
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow-y: auto;
-    /* SCROLLS here */
+    /* Aquí ocurre el scroll principal del dashboard */
     position: relative;
     padding: 0 40px 40px 40px;
-    /* Global Padding for dashboard content */
 }
 
-/* Helper for Landing Page (no sidebar) */
+/* Helper para páginas sin barra lateral (como landing o auth externa) */
 body.landing-page {
     overflow-y: auto;
     height: auto;
@@ -169,7 +166,7 @@ body.landing-page {
     overflow: visible;
 }
 
-/* Header within App Main */
+/* Cabecera del Contenido */
 .app-header {
     min-height: var(--header-height);
     display: flex;
@@ -180,14 +177,12 @@ body.landing-page {
     flex-shrink: 0;
 }
 
-/* 4. Navigation & Sidebar Items */
+/* 4. Navegación e Items de la Barra Lateral */
 .sidebar-header {
     height: var(--header-height);
     display: flex;
     align-items: center;
     padding: 0 24px;
-    border-bottom: 1px solid transparent;
-    /* Optional */
 }
 
 .sidebar-logo {
@@ -224,7 +219,6 @@ body.landing-page {
 
 .nav-item.active {
     background-color: var(--text-main);
-    /* Black active state */
     color: white;
 }
 
@@ -251,8 +245,8 @@ body.landing-page {
     background-color: #FEF2F2;
 }
 
-/* 5. Bento Grid System */
-/* Standard 12-column grid for dashboard widgets */
+/* 5. Sistema de Rejilla Bento */
+/* Rejilla de 12 columnas para distribución de widgets */
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -277,7 +271,7 @@ body.landing-page {
     border-color: var(--border-hover);
 }
 
-/* 6. Typography */
+/* 6. Tipografía */
 .text-h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -309,9 +303,9 @@ body.landing-page {
     color: var(--text-tertiary);
 }
 
-/* 7. Components */
+/* 7. Componentes Reutilizables */
 
-/* Buttons */
+/* Botones */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -342,7 +336,7 @@ body.landing-page {
     transform: translateY(-1px);
 }
 
-/* Forms */
+/* Formularios - Estilos de entrada */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -361,7 +355,7 @@ input:focus {
     border-color: var(--primary);
 }
 
-/* Avatar */
+/* Avatar del Proveedor */
 .user-avatar {
     width: 48px;
     height: 48px;
@@ -375,7 +369,7 @@ input:focus {
     font-size: 1rem;
 }
 
-/* Login/Auth Specifics */
+/* Envoltorio para pantallas de autenticación */
 .auth-wrapper {
     display: flex;
     justify-content: center;
@@ -385,28 +379,23 @@ input:focus {
     background: var(--bg-body);
 }
 
-/* 8. Chat Interface System */
-/* Overrides for the specific Chat Layout */
+/* 8. Sistema de Interfaz de Chat */
+/* Ajustes específicos para el módulo de mensajería del proveedor */
 
-/* The wrapper goes inside app-main, so it should fill it */
 .chat-dashboard-wrapper {
     display: flex;
     width: 100%;
     height: calc(100vh - var(--header-height));
-    /* Fill remaining vertical space manually if needed, or flex 1 */
-    /* Better approach: make app-main flex column and let this grow */
     flex: 1;
     background: white;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    /* Rounded top corners matching Bento */
     border: 1px solid var(--border);
     border-bottom: none;
     overflow: hidden;
     margin-top: 0;
-    /* Tight to header */
 }
 
-/* Reset padding for chat page's app-main if necessary to go full width/height */
+/* Reset de padding para que el chat use todo el espacio */
 body.chat-page .app-main {
     padding-bottom: 0;
 }
@@ -430,7 +419,7 @@ body.chat-page .app-main {
     display: flex;
     flex-direction: column;
     background-color: #EFEAE2;
-    /* Messenger/WA classic bg */
+    /* Fondo tipo app de mensajería */
     position: relative;
 }
 
@@ -453,7 +442,7 @@ body.chat-page .app-main {
     background: #F0F2F5;
 }
 
-/* Chat Bubbles */
+/* Burbujas y Filas de Mensajes */
 .message-row {
     display: flex;
     flex-direction: column;
@@ -514,7 +503,7 @@ body.chat-page .app-main {
     object-fit: cover;
 }
 
-/* Responsive adjustments */
+/* Ajustes Adaptativos (Responsive) */
 @media (max-width: 1200px) {
     .bento-grid {
         grid-template-columns: repeat(8, 1fr);
@@ -614,7 +603,7 @@ body.chat-page .app-main {
         padding: 16px !important;
     }
 
-    /* Form responsiveness */
+    /* Ajuste de columnas en formularios mobile */
     form div {
         grid-column: span 2 !important;
     }

@@ -108,7 +108,10 @@
     </div>
 
     <script>
-        // Script visual existente para los radios
+        /**
+         * Lógica de Interfaz para Selección de Roles.
+         * Actualiza visualmente el borde de las tarjetas de rol cuando el usuario selecciona uno.
+         */
         const radios = document.querySelectorAll('input[name="role"]');
         radios.forEach(radio => {
             radio.addEventListener('change', (e) => {
@@ -121,7 +124,10 @@
             });
         });
 
-        // Nuevo script para conectar con el backend
+        /**
+         * Lógica de Registro de Nuevos Usuarios.
+         * Valida los datos del formulario, los envía al backend y maneja la sesión inicial.
+         */
         (function () {
             const API_BASE_URL = "/api/v1";
 
@@ -133,16 +139,21 @@
             const emailInput = form.querySelector('input[type="email"]');
             const passwordInput = form.querySelector('input[type="password"]');
 
+            // Contenedor dinámico para mostrar errores de validación o del servidor
             const errorBox = document.createElement("div");
             errorBox.style.marginTop = "12px";
             errorBox.style.fontSize = "0.85rem";
             errorBox.style.color = "#DC2626";
             form.appendChild(errorBox);
 
+            /**
+             * Maneja el evento de envío del formulario de registro.
+             */
             form.addEventListener("submit", async (event) => {
                 event.preventDefault();
                 errorBox.textContent = "";
 
+                // Extracción y limpieza de datos del formulario
                 const full_name = fullNameInput && fullNameInput.value.trim();
                 const phone = phoneInput && phoneInput.value.trim();
                 const email = emailInput && emailInput.value.trim();
@@ -150,16 +161,20 @@
                 const roleInput = form.querySelector('input[name="role"]:checked');
                 const role = roleInput && roleInput.value ? roleInput.value : "client";
 
+                // --- Validaciones de Frontend ---
+
                 if (!full_name || !email || !password) {
                     errorBox.textContent = "Por favor, completa nombre, correo y contraseña.";
                     return;
                 }
 
+                // Validación de formato de teléfono (Colombia - 10 dígitos)
                 if (phone && !/^\d{10}$/.test(phone)) {
                     errorBox.textContent = "El teléfono debe tener exactamente 10 números.";
                     return;
                 }
 
+                // Políticas de seguridad de contraseña
                 if (password.length < 8) {
                     errorBox.textContent = "La contraseña debe tener al menos 8 caracteres.";
                     return;
@@ -175,6 +190,7 @@
                     return;
                 }
 
+                // Estructura de datos para la API de registro
                 const payload = {
                     full_name,
                     email,
@@ -185,6 +201,9 @@
                 };
 
                 try {
+                    /**
+                     * Envío de datos al endpoint de registro.
+                     */
                     const response = await fetch(API_BASE_URL + "/auth/register", {
                         method: "POST",
                         headers: {
@@ -193,6 +212,7 @@
                         body: JSON.stringify(payload),
                     });
 
+                    // Manejo de respuestas fallidas (ej: correo ya registrado)
                     if (!response.ok) {
                         const data = await response.json().catch(() => ({}));
                         errorBox.textContent = data.detail || "No se pudo crear la cuenta. Revisa los datos.";
@@ -201,7 +221,10 @@
 
                     const data = await response.json();
 
-                    // Guardar token y usuario en sessionStorage para aislamiento por pestaña
+                    /**
+                     * Almacenamiento inicial de sesión post-registro.
+                     * Permite al usuario entrar directamente a su dashboard.
+                     */
                     if (data.access_token) {
                         sessionStorage.setItem("serviced_token", data.access_token);
                     }
@@ -211,6 +234,9 @@
 
                     const finalRole = (data.user && data.user.role) || role || "client";
 
+                    /**
+                     * Redirección Automática según Rol.
+                     */
                     if (finalRole === "provider") {
                         window.location.href = "/provider/provider-dashboard.html?v=1.1.8";
                     } else if (finalRole === "admin") {
@@ -219,7 +245,7 @@
                         window.location.href = "/users/client-dashboard.html";
                     }
                 } catch (error) {
-                    console.error(error);
+                    console.error("Error en el proceso de registro:", error);
                     errorBox.textContent = "Error de conexión con el servidor. Intenta de nuevo más tarde.";
                 }
             });

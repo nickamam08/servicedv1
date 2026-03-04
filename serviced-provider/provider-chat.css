@@ -1,19 +1,20 @@
 /* 
-  Provider Chat Specific Styles 
-  Extends styles.css
+  Estilos Específicos del Chat del Proveedor
+  Extiende styles.css
 */
 
 :root {
     --chat-sidebar-width: 320px;
     --chat-header-height: 70px;
+    /* Colores de los mensajes del proveedor */
     --msg-sent-bg: var(--primary);
     --msg-sent-text: white;
     --msg-received-bg: var(--bg-surface-alt, #F3F4F6);
-    /* Fallback */
+    /* Fondo neutro para mensajes recibidos */
     --msg-received-text: var(--text-main);
 }
 
-/* Main Layout Override for Chat */
+/* Sobreescritura del Layout Principal para el Modo Chat */
 .app-main.chat-mode {
     height: 100vh;
     overflow: hidden;
@@ -24,12 +25,12 @@
 .chat-container {
     display: flex;
     height: 100vh;
-    /* Fill viewport */
+    /* Llena toda el área visible */
     background-color: white;
     position: relative;
 }
 
-/* Chat Sidebar */
+/* Barra Lateral del Chat (Lista de Clientes) */
 .chat-sidebar {
     width: var(--chat-sidebar-width);
     border-right: 1px solid var(--border);
@@ -83,7 +84,7 @@
 
 .conversation-item.active {
     background-color: #EFF6FF;
-    /* Blue 50 */
+    /* Azul 50 */
     border-right: 3px solid var(--primary);
 }
 
@@ -105,6 +106,7 @@
     flex-shrink: 0;
 }
 
+/* Indicador de estado en línea */
 .online-indicator {
     position: absolute;
     bottom: 2px;
@@ -112,17 +114,17 @@
     width: 12px;
     height: 12px;
     background-color: #10B981;
-    /* Green */
+    /* Verde */
     border: 2px solid white;
     border-radius: 50%;
     display: none;
-    /* Logic to show if online implemented later */
+    /* Lógica para mostrar según estado real implementada dinámicamente */
 }
 
 .conversation-info {
     flex: 1;
     min-width: 0;
-    /* Truncate fix */
+    /* Necesario para el truncamiento de texto */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -181,7 +183,7 @@
     color: var(--text-main);
 }
 
-/* Chat Area */
+/* Área Principal de Mensajes */
 .chat-area {
     flex: 1;
     display: flex;
@@ -191,7 +193,7 @@
     height: 100vh;
 }
 
-/* Empty State */
+/* Estado Inicial (Sin Chat Seleccionado) */
 .chat-empty-state {
     flex: 1;
     display: flex;
@@ -209,7 +211,7 @@
     margin-bottom: 20px;
 }
 
-/* Chat Header */
+/* Cabecera del Chat Activo */
 .chat-header {
     height: var(--chat-header-height);
     padding: 0 24px;
@@ -238,13 +240,13 @@
     color: var(--text-light);
 }
 
-/* Messages Container */
+/* Contenedor de Flujo de Mensajes */
 .messages-container {
     flex: 1;
     padding: 24px;
     overflow-y: auto;
     background-color: #F9FAFB;
-    /* Very light gray */
+    /* Fondo gris neutro suave */
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -253,7 +255,7 @@
 .message-row {
     display: flex;
     width: 100%;
-    /* Ensure it takes full width for flex alignment to work */
+    /* Permite que el alineado flex funcione correctamente */
     margin-bottom: 4px;
     animation: fadeIn 0.3s ease;
 }
@@ -278,6 +280,7 @@
     justify-content: flex-start;
 }
 
+/* Burbujas de Mensaje */
 .message-bubble {
     max-width: 65%;
     padding: 10px 16px;
@@ -288,7 +291,6 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Fallback/Reinforcement */
 .sent .message-bubble {
     margin-left: auto;
     background-color: var(--msg-sent-bg);
@@ -320,7 +322,7 @@
     color: var(--text-light);
 }
 
-/* Input Area */
+/* Área de Envío de Mensajes */
 .chat-input-area {
     padding: 20px;
     background-color: white;
@@ -399,7 +401,7 @@
     transform: none;
 }
 
-/* Scrollbar Customization */
+/* Personalización de la barra de desplazamiento interna */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -417,7 +419,7 @@
     background: #9CA3AF;
 }
 
-/* Helper for date separator if implemented */
+/* Separador de Fecha (opcional) */
 .date-separator {
     text-align: center;
     margin: 16px 0;
@@ -432,7 +434,7 @@
     border-radius: 12px;
 }
 
-/* Mobile Responsive */
+/* Adaptabilidad para Dispositivos Móviles */
 .back-button {
     display: none;
     margin-right: 12px;
@@ -463,8 +465,8 @@
 
     .chat-container.chat-open .chat-sidebar {
         transform: translateX(-30%);
-        /* Subtle parallax or just hide */
         opacity: 0;
+        /* Efecto de desvanecimiento al abrir el chat activo */
     }
 
     .chat-container.chat-open .chat-area {

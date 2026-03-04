@@ -64,3 +64,18 @@ class ProviderDashboardRepository:
         return self.db.query(Notification).filter(
             Notification.user_id == user_id
         ).order_by(Notification.created_at.desc()).offset(skip).limit(limit).all()
+
+    def get_total_earnings(self, provider_profile_id: int) -> float:
+        """
+        Calcula la suma total de los precios de servicios efectivamente completados.
+        Utiliza el precio guardado en la solicitud (price_at_purchase) o el precio actual 
+        del servicio como respaldo para solicitudes antiguas.
+        """
+        result = self.db.query(func.sum(func.coalesce(ServiceRequest.price_at_purchase, Service.price)))\
+            .join(Service)\
+            .filter(
+                Service.provider_id == provider_profile_id,
+                ServiceRequest.status == RequestStatus.COMPLETED
+            ).scalar()
+        
+        return result or 0.0

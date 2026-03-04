@@ -3,43 +3,51 @@ from pydantic import BaseModel, EmailStr, field_validator
 from datetime import datetime
 import re
 
-# Shared properties
+# Propiedades compartidas entre los distintos esquemas de usuario
 class UserBase(BaseModel):
     email: Optional[str] = None
     full_name: Optional[str] = None
     phone: Optional[str] = None
     location: Optional[str] = None
 
-# Properties to receive on creation
+# Esquema para la creación de un nuevo usuario (Registro)
 class UserCreate(UserBase):
     email: EmailStr
     full_name: str
     password: str
-    role: str = "client"
+    role: str = "client" # Por defecto, todos se registran como clientes
 
     @field_validator("phone")
     @classmethod
     def validate_phone(cls, v: Optional[str]) -> Optional[str]:
+        """
+        Limpia y valida que el número de teléfono tenga exactamente 10 dígitos.
+        """
         if v:
-            # Remove any non-digit characters just in case, though frontend should prevent it
             digits = re.sub(r"\D", "", v)
             if len(digits) != 10:
-                raise ValueError("Phone number must have exactly 10 digits")
+                raise ValueError("El número de teléfono debe tener exactamente 10 dígitos numéricos")
             return digits
         return v
 
     @field_validator("password")
     @classmethod
     def validate_password(cls, v: str) -> str:
+        """
+        Valida que la contraseña cumpla con criterios de seguridad:
+        - Mínimo 8 caracteres.
+        - Al menos una mayúscula.
+        - Al menos un carácter especial.
+        """
         if len(v) < 8:
-            raise ValueError("Password must be at least 8 characters long")
+            raise ValueError("La contraseña debe tener al menos 8 caracteres")
         if not re.search(r"[A-Z]", v):
-            raise ValueError("Password must contain at least one uppercase letter")
+            raise ValueError("La contraseña debe contener al menos una letra mayúscula")
         if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", v):
-            raise ValueError("Password must contain at least one special character")
+            raise ValueError("La contraseña debe contener al menos un carácter especial")
         return v
 
-# Properties to receive on update
+# Esquema para actualizar datos del perfil del usuario
 class UserUpdate(BaseModel):
     full_name: Optional[str] = None
     phone: Optional[str] = None
@@ -47,18 +55,21 @@ class UserUpdate(BaseModel):
     is_active: Optional[bool] = None
     avatar_url: Optional[str] = None
 
+# Esquema para el cambio de contraseña (requiere la actual por seguridad)
 class PasswordUpdate(BaseModel):
     current_password: str
     new_password: str
 
+# Esquema para solicitud de recuperación de contraseña vía email
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
 
+# Esquema para el proceso final de restablecer contraseña con token
 class ResetPassword(BaseModel):
     token: str
     new_password: str
 
-# Properties to return to client
+# Esquema de respuesta estandarizada enviada al cliente
 class UserResponse(UserBase):
     id: int
     role: str

@@ -1,25 +1,25 @@
 /* 
-  Provider Dashboard Styles
-  Extends/Overrides ../serviced-users/styles.css 
-  Context: Sibling directory import is not standard in static serving without build tool, 
-  so we will Copy-Paste the core Design System from styles.css and add Provider Specifics.
+  Estilos del Dashboard del Proveedor
+  Extiende/Sobreescribe ../serviced-users/styles.css 
+  Contexto: Dado que la importación de directorios hermanos no es estándar sin herramientas de construcción,
+  se ha copiado el Sistema de Diseño base y se han añadido las especificidades del Proveedor.
 */
 
-/* --- 1. CORE DESIGN SYSTEM (From serviced-users/styles.css) --- */
+/* --- 1. SISTEMA DE DISEÑO BASE (De serviced-users/styles.css) --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    /* Colors - Neutral Base */
+    /* Colores - Base Neutral */
     --bg-body: #FAFAFA;
     --bg-surface: #FFFFFF;
     --bg-surface-alt: #F3F4F6;
 
-    /* Colors - Text */
+    /* Colores - Texto */
     --text-main: #111827;
     --text-secondary: #6B7280;
     --text-tertiary: #9CA3AF;
 
-    /* Colors - Accents */
+    /* Colores - Acentos */
     --primary: #2563EB;
     --primary-dark: #1D4ED8;
     --accent: #111827;
@@ -27,19 +27,19 @@
     --success: #10B981;
     --warning: #F59E0B;
 
-    /* Metrics */
+    /* Métricas */
     --sidebar-width: 260px;
     --header-height: 80px;
     --radius-sm: 8px;
     --radius-md: 16px;
     --radius-lg: 24px;
 
-    /* Shadows */
+    /* Sombras */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-/* Base Reset */
+/* Reset Base */
 * {
     margin: 0;
     padding: 0;
@@ -63,7 +63,7 @@ button {
     font-family: inherit;
 }
 
-/* Layout Shell */
+/* Estructura del Layout (App Shell) */
 .app-container {
     display: flex;
     width: 100%;
@@ -102,7 +102,7 @@ button {
     flex-shrink: 0;
 }
 
-/* Sidebar Nav */
+/* Navegación de la Barra Lateral */
 .sidebar-header {
     height: var(--header-height);
     display: flex;
@@ -153,7 +153,7 @@ button {
     border-top: 1px solid #E5E7EB;
 }
 
-/* Bento Grid */
+/* Sistema de Rejilla Bento */
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -176,12 +176,12 @@ button {
     box-shadow: var(--shadow-md);
 }
 
-/* Stats Card Variant */
+/* Variante de Tarjeta de Estadísticas */
 .stat-card {
     grid-column: span 3;
 }
 
-/* Typography */
+/* Tipografía */
 .text-h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -213,7 +213,7 @@ button {
     color: var(--text-tertiary);
 }
 
-/* Components */
+/* Componentes de Interfaz */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -243,7 +243,7 @@ button {
     border: 1px solid #FECACA;
 }
 
-/* Tables (Provider Specific) */
+/* Tablas de Datos (Específicas de Proveedor) */
 .table-container {
     width: 100%;
     overflow-x: auto;
@@ -275,7 +275,7 @@ tr:hover {
     background-color: #F9FAFB;
 }
 
-/* Badges */
+/* Etiquetas de Estado (Badges) */
 .badge {
     padding: 4px 10px;
     border-radius: 99px;
@@ -305,14 +305,19 @@ tr:hover {
     color: #4B5563;
 }
 
-/* Modals */
+/* Estilos de Modales */
 .modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    /* Alineación al inicio para permitir scroll desde arriba */
+    overflow-y: auto;
+    /* Habilitar desplazamiento vertical */
+    padding: 20px;
+    /* Espacio de seguridad para el scroll */
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
@@ -338,7 +343,7 @@ tr:hover {
     transform: scale(1);
 }
 
-/* Forms */
+/* Formularios */
 .form-group {
     margin-bottom: 16px;
 }
@@ -364,7 +369,7 @@ tr:hover {
     outline: none;
 }
 
-/* Mobile */
+/* Ajustes para Móviles */
 @media (max-width: 768px) {
     .app-container {
         flex-direction: column;
@@ -408,7 +413,7 @@ tr:hover {
     }
 }
 
-/* Loader */
+/* Indicador de Carga (Spinner) */
 .spinner {
     width: 32px;
     height: 32px;
@@ -425,7 +430,7 @@ tr:hover {
     }
 }
 
-/* --- Chat Module Styles (Matches User Chat) --- */
+/* --- Estilos del Módulo de Chat (Coincidentes con el Chat de Usuario) --- */
 :root {
     --chat-sidebar-width: 320px;
     --chat-header-height: 70px;
@@ -438,7 +443,7 @@ tr:hover {
 .chat-container {
     display: flex;
     height: calc(100vh - 100px);
-    /* Adjust height for dashboard header */
+    /* Ajuste de altura para la cabecera del dashboard */
     background-color: white;
     position: relative;
     border: 1px solid #E5E7EB;
@@ -446,7 +451,7 @@ tr:hover {
     overflow: hidden;
 }
 
-/* Chat Sidebar */
+/* Barra Lateral del Chat */
 .chat-sidebar {
     width: var(--chat-sidebar-width);
     border-right: 1px solid #E5E7EB;
@@ -595,7 +600,7 @@ tr:hover {
     color: var(--text-main);
 }
 
-/* Chat Area */
+/* Área Principal del Chat */
 .chat-area {
     flex: 1;
     display: flex;
@@ -604,7 +609,7 @@ tr:hover {
     position: relative;
 }
 
-/* Empty State */
+/* Estado Vacío */
 .chat-empty-state {
     flex: 1;
     display: flex;
@@ -622,7 +627,7 @@ tr:hover {
     margin-bottom: 20px;
 }
 
-/* Chat Header */
+/* Cabecera del Chat */
 .chat-header {
     height: var(--chat-header-height);
     padding: 0 24px;
@@ -652,7 +657,7 @@ tr:hover {
     color: var(--text-tertiary);
 }
 
-/* Messages Container */
+/* Contenedor de Mensajes */
 .messages-container {
     flex: 1;
     padding: 24px;
@@ -731,7 +736,7 @@ tr:hover {
     color: var(--text-secondary);
 }
 
-/* Input Area */
+/* Área de Entrada */
 .chat-input-area {
     padding: 20px;
     background-color: white;
@@ -810,7 +815,7 @@ tr:hover {
     transform: none;
 }
 
-/* Mobile Responsive */
+/* Adaptabilidad Móvil */
 .back-button {
     display: none;
     margin-right: 12px;
@@ -821,7 +826,7 @@ tr:hover {
 @media (max-width: 768px) {
     .chat-container {
         height: calc(100vh - 80px);
-        /* Adjust for mobile header/nav */
+        /* Ajuste para cabecera/nav móvil */
         border: none;
         border-radius: 0;
     }
@@ -855,10 +860,9 @@ tr:hover {
         transform: translateX(0);
         z-index: 30;
     }
-
 }
 
-/* Profile Specific Enhancements (Global) */
+/* Mejoras Específicas del Perfil (Global) */
 #profile-map {
     height: 300px;
     width: 100%;
@@ -895,7 +899,7 @@ tr:hover {
     color: var(--danger);
 }
 
-/* Drag & Drop Zone */
+/* Zona de Arrastrar y Soltar (Upload) */
 .drop-zone {
     border: 2px dashed #E5E7EB;
     border-radius: var(--radius-md);

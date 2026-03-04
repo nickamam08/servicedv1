@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Servicios - SERVICED</title>
+    <!-- Estilos compartidos de la aplicación -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -12,7 +13,7 @@
 
     <div class="app-container">
 
-        <!-- Navigation Sidebar -->
+        <!-- Barra Lateral de Navegación del Cliente -->
         <aside class="app-sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="sidebar-logo">
@@ -89,6 +90,7 @@
             </nav>
 
             <div class="sidebar-footer">
+                <!-- Salida del sistema -->
                 <a href="login.html" class="logout-link">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,30 +103,31 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal para Búsqueda -->
         <main class="app-main search-main">
 
-            <!-- Header -->
+            <!-- Cabecera -->
             <header class="app-header" style="flex: 0 0 auto; padding: 24px 0;">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                     <div>
                         <h1 class="text-h2">Buscar Servicios</h1>
                         <p class="text-body">Encuentra al profesional ideal</p>
                     </div>
+                    <!-- Avatar del usuario actual -->
                     <div class="user-avatar"
                         style="width: 40px; height: 40px; background: #DBEAFE; color: #1E40AF; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600; font-size: 0.9rem;">
                         U</div>
                 </div>
             </header>
 
-            <!-- Search Content Grid -->
+            <!-- Cuadrícula de Contenido de Búsqueda -->
             <div class="search-container">
 
-                <!-- Filters Sidebar -->
+                <!-- Panel Lateral de Filtros -->
                 <div class="bento-card search-filters">
                     <h3 class="text-h3" style="font-size: 1.1rem; margin-bottom: 20px;">Filtros</h3>
 
-                    <!-- Search Input -->
+                    <!-- Filtro por Palabra Clave -->
                     <div style="margin-bottom: 24px;">
                         <label class="text-sm"
                             style="font-weight: 600; display: block; margin-bottom: 8px;">Buscar</label>
@@ -132,7 +135,7 @@
                             style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit;">
                     </div>
 
-                    <!-- Location Input -->
+                    <!-- Filtro por Ubicación -->
                     <div style="margin-bottom: 24px;">
                         <label class="text-sm"
                             style="font-weight: 600; display: block; margin-bottom: 8px;">Ubicación</label>
@@ -144,7 +147,7 @@
                         </div>
                     </div>
 
-                    <!-- Price Range -->
+                    <!-- Filtro por Rango de Precio -->
                     <div style="margin-bottom: 24px;">
                         <label class="text-sm" style="font-weight: 600; display: block; margin-bottom: 8px;">Rango de
                             Precio ($)</label>
@@ -157,7 +160,7 @@
                         </div>
                     </div>
 
-                    <!-- Rating -->
+                    <!-- Filtro por Calificación Mínima -->
                     <div style="margin-bottom: 24px;">
                         <label class="text-sm"
                             style="font-weight: 600; display: block; margin-bottom: 8px;">Calificación Mínima</label>
@@ -179,7 +182,7 @@
                         </div>
                     </div>
 
-                    <!-- Categories -->
+                    <!-- Filtro por Categoría -->
                     <div style="margin-bottom: 24px;">
                         <label class="text-sm"
                             style="font-weight: 600; display: block; margin-bottom: 8px;">Categoría</label>
@@ -208,7 +211,7 @@
                         style="width: 100%; justify-content: center; background: transparent; color: var(--text-secondary); margin-top: 8px; border: 1px solid var(--border);">Limpiar</button>
                 </div>
 
-                <!-- Results Area -->
+                <!-- Área de Resultados de Búsqueda -->
                 <div class="search-results-area">
 
                     <div
@@ -226,11 +229,13 @@
                         </div>
                     </div>
 
+                    <!-- Contenedor para etiquetas de filtros activos -->
                     <div id="active-filters-badges"
                         style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;"></div>
 
+                    <!-- Cuadrícula donde se inyectarán las tarjetas de servicios -->
                     <div id="services-results" class="search-results-grid">
-                        <!-- Results will be injected here -->
+                        <!-- Los resultados se cargan dinámicamente vía JavaScript -->
                     </div>
                 </div>
 
@@ -240,15 +245,21 @@
     </div>
 
     <script>
+        /**
+         * Gestión de búsqueda y filtrado de servicios.
+         * Realiza peticiones asíncronas a la API y renderiza las tarjetas de servicios.
+         */
         document.addEventListener("DOMContentLoaded", () => {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
+
+            // Validación de sesión
             if (!token) {
                 window.location.href = "login.html";
                 return;
             }
 
-            // Elements
+            // Referencias a elementos del DOM
             const resultsContainer = document.getElementById("services-results");
             const filterSearch = document.getElementById("filter-search");
             const filterLocation = document.getElementById("filter-location");
@@ -261,11 +272,13 @@
             const applyBtn = document.getElementById("apply-filters-btn");
             const resetBtn = document.getElementById("reset-filters-btn");
 
-            // Load logic
+            /**
+             * Carga servicios desde el backend aplicando los filtros seleccionados.
+             */
             async function loadServices() {
                 resultsContainer.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>Cargando servicios...</p>";
 
-                // Build Query Params
+                // Construcción de parámetros de consulta (Query Params)
                 const params = new URLSearchParams();
                 if (filterSearch.value.trim()) params.append("search", filterSearch.value.trim());
                 if (filterLocation.value.trim()) params.append("location", filterLocation.value.trim());
@@ -276,7 +289,7 @@
                 const selectedRating = document.querySelector('input[name="rating"]:checked');
                 if (selectedRating && selectedRating.value) params.append("min_rating", selectedRating.value);
 
-                // Sorting
+                // Configuración de ordenamiento
                 const sortValue = sortSelect.value;
                 if (sortValue === "price_asc") {
                     params.append("sort_by", "price");
@@ -297,12 +310,14 @@
                         headers: { "Authorization": "Bearer " + token }
                     });
 
-                    if (!resp.ok) throw new Error("API Error");
+                    if (!resp.ok) throw new Error("Error en la API");
 
                     const services = await resp.json();
 
+                    // Actualiza el contador de resultados
                     document.getElementById('results-count').textContent = `${services.length} Resultados`;
 
+                    // Manejo de estado sin resultados
                     if (!Array.isArray(services) || services.length === 0) {
                         resultsContainer.innerHTML = `
                             <div class="bento-card" style="grid-column: 1/-1; text-align: center; padding: 40px;">
@@ -319,6 +334,8 @@
                         card.className = "bento-card";
                         card.style.display = "flex";
                         card.style.flexDirection = "column";
+
+                        // Renderizado de tarjeta de servicio con precio formateado y calificación
                         card.innerHTML = `
                             ${s.image_urls && s.image_urls[0] ? `<div style="width: 100%; height: 160px; margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #f1f5f9;"><img src="${s.image_urls[0]}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
                             <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
@@ -353,35 +370,38 @@
                 }
             }
 
-            // Events
+            // Asignación de eventos globales
             applyBtn.addEventListener("click", loadServices);
             sortSelect.addEventListener("change", loadServices);
 
+            // Reseteo de filtros a valores por defecto
             resetBtn.addEventListener("click", () => {
                 filterSearch.value = "";
                 filterLocation.value = "";
                 filterMinPrice.value = "";
                 filterMaxPrice.value = "";
                 filterCategory.value = "";
-                document.querySelector('input[name="rating"][value=""]').checked = true; // Select 'All'
+                document.querySelector('input[name="rating"][value=""]').checked = true; // Selecciona 'Todas'
                 sortSelect.value = "newest";
                 loadServices();
             });
 
-            // Live search for keyword (debounce)
+            // Búsqueda en vivo para palabra clave con debounce (espera 600ms sin teclear)
             let timeout;
             filterSearch.addEventListener("input", () => {
                 clearTimeout(timeout);
                 timeout = setTimeout(loadServices, 600);
             });
 
-            // Initial Load
+            // Carga inicial al entrar a la página
             loadServices();
         });
     </script>
 
     <script>
-        // Avatar Sync
+        /**
+         * Sincronización del Avatar del Usuario en la cabecera.
+         */
         (function () {
             try {
                 const user = JSON.parse(sessionStorage.getItem("serviced_user"));
@@ -390,6 +410,7 @@
                         if (user.avatar_url) {
                             el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
                         } else {
+                            // Iniciales si no hay imagen
                             el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
                         }
                     });

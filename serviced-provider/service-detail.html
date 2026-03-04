@@ -210,19 +210,23 @@
     </div>
 
     <script>
+        /**
+         * Lógica de la Vista de Detalle de Servicio para el Proveedor.
+         * Permite visualizar métricas específicas del servicio, estado actual y realizar acciones de gestión.
+         */
         document.addEventListener("DOMContentLoaded", async () => {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
             const params = new URLSearchParams(window.location.search);
             const serviceId = params.get("id");
 
-            // Auth Check
+            // --- Validación de Autenticación ---
             if (!token) {
                 window.location.href = "../serviced-users/login.html";
                 return;
             }
 
-            // User Info Sync
+            // --- Sincronización de Información del Usuario (Cabecera) ---
             try {
                 const user = JSON.parse(sessionStorage.getItem("serviced_user"));
                 if (user) {
@@ -237,15 +241,18 @@
                         }
                     }
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.warn("Error al sincronizar datos del usuario", e);
+            }
 
+            // Validar existencia del ID de servicio en la URL
             if (!serviceId) {
-                alert("ID de servicio no especificado");
+                alert("ID de servicio no especificado. Redirigiendo...");
                 window.location.href = "manage-services.html";
                 return;
             }
 
-            // Logout
+            // --- Gestión de Cierre de Sesión ---
             const logoutLink = document.querySelector(".logout-link");
             if (logoutLink) {
                 logoutLink.addEventListener("click", (e) => {
@@ -256,25 +263,27 @@
                 });
             }
 
-            // Fetch Data
+            /**
+             * Obtiene los datos completos del servicio desde la API y actualiza la UI.
+             */
             try {
                 const resp = await fetch(`${API_BASE_URL}/services/${serviceId}`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
 
-                if (!resp.ok) throw new Error("Error al cargar servicio");
+                if (!resp.ok) throw new Error("Error al cargar los detalles del servicio");
                 const service = await resp.json();
 
-                // Fill UI
+                // Rellenar elementos de la interfaz con datos reales
                 document.querySelector(".service-title").textContent = service.title;
                 document.querySelector(".service-category").textContent = service.category || "General";
-                document.querySelector(".service-price").textContent = `$${service.price}`;
+                document.querySelector(".service-price").textContent = `$${(service.price || 0).toLocaleString('es-CO')}`;
                 document.querySelector(".service-description").textContent = service.description;
-                document.querySelector(".service-duration").textContent = service.duration || "N/A";
+                document.querySelector(".service-duration").textContent = service.duration || (service.duration_minutes ? service.duration_minutes + ' min' : "N/A");
                 document.querySelector(".service-id").textContent = `#${service.id}`;
-                document.querySelector(".service-created").textContent = new Date().toLocaleDateString(); // Mock date if not in API
+                document.querySelector(".service-created").textContent = service.created_at ? new Date(service.created_at).toLocaleDateString() : new Date().toLocaleDateString();
 
-                // Status Badge
+                // Actualizar Badge de Estado (Activo/Pausado)
                 const badge = document.querySelector(".badge-status");
                 if (service.is_active) {
                     badge.textContent = "Activo";
@@ -286,36 +295,37 @@
                     badge.style.color = "#92400E";
                 }
 
-                // Toggle Button
+                // Configuración del botón de activación/pausa (Toggle de estado)
                 const toggleBtn = document.getElementById("toggle-status-btn");
-                toggleBtn.textContent = service.is_active ? "Pausar Servicio" : "Activar Servicio";
-                toggleBtn.onclick = async () => {
-                    if (!confirm(`¿${service.is_active ? "Pausar" : "Activar"} este servicio?`)) return;
-                    try {
-                        // Mocking toggle endpoint if not strictly defined, or use update
-                        // In previous steps we saw a toggle endpoint usage or update
-                        // Assuming toggle endpoint from previous file view: /provider/dashboard/services/{id}/toggle
-                        // But let's check if it exists in backend. If not, we might need to use PUT /services/{id}
+                if (toggleBtn) {
+                    toggleBtn.textContent = service.is_active ? "Pausar Servicio" : "Activar Servicio";
+                    toggleBtn.onclick = async () => {
+                        if (!confirm(`¿Estás seguro de que deseas ${service.is_active ? "pausar" : "activar"} este servicio?`)) return;
 
-                        // Trying the specific provider dashboard toggle if it was used before, 
-                        // otherwise falling back to a generic update if needed.
-                        // Previous file had: /provider/dashboard/services/${serviceId}/toggle
-                        const actionResp = await fetch(`${API_BASE_URL}/provider/dashboard/services/${serviceId}/toggle`, {
-                            method: "PUT",
-                            headers: { "Authorization": `Bearer ${token}` }
-                        });
+                        try {
+                            // Intentar llamar al endpoint de toggle específico del dashboard de proveedores
+                            const actionResp = await fetch(`${API_BASE_URL}/provider/dashboard/services/${serviceId}/toggle`, {
+                                method: "PUT",
+                                headers: { "Authorization": `Bearer ${token}` }
+                            });
 
-                        if (actionResp.ok) window.location.reload();
-                        else alert("Error al actualizar estado");
-                    } catch (e) {
-                        console.error(e);
-                        alert("Error de conexión");
-                    }
-                };
+                            if (actionResp.ok) {
+                                window.location.reload(); // Refrescar para ver cambios
+                            } else {
+                                const errData = await actionResp.json();
+                                alert("Error al actualizar el estado: " + (errData.detail || "Error desconocido"));
+                            }
+                        } catch (e) {
+                            console.error("Error de red durante el toggle:", e);
+                            alert("Error de conexión al intentar cambiar el estado.");
+                        }
+                    };
+                }
 
             } catch (e) {
-                console.error(e);
-                document.querySelector(".service-title").textContent = "Error al cargar";
+                console.error("Fallo crítico al cargar servicio:", e);
+                document.querySelector(".service-title").textContent = "Error al cargar información";
+                document.querySelector(".service-description").textContent = "No pudimos recuperar los datos de este servicio. Por favor, verifica tu conexión o vuelve al panel.";
             }
         });
     </script>

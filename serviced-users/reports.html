@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
     <style>
+        /* Estructura de cuadrícula para el centro de reportes */
         .report-grid {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
@@ -194,7 +195,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal -->
         <main class="app-main">
             <header class="app-header">
                 <div>
@@ -255,6 +256,10 @@
     </div>
 
     <script>
+        /**
+         * Lógica para el centro de soporte y reportes.
+         * Gestiona el envío de nuevos casos y la visualización del historial.
+         */
         const API_BASE = '/api/v1';
         const token = sessionStorage.getItem('serviced_token');
         const userStr = sessionStorage.getItem('serviced_user');
@@ -375,6 +380,7 @@
             window.location.href = 'login.html';
         });
 
+        // Carga inicial de reportes
         loadMyReports();
     </script>
     <script src="sidebar-badges.js"></script>

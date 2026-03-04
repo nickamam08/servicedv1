@@ -2,9 +2,10 @@ from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
 
-# --- Dashboard Overview ---
+# --- Resumen del Dashboard (Vista General) ---
 
 class UpcomingJob(BaseModel):
+    """Información básica de un trabajo programado próximamente."""
     id: int
     client_name: str
     service_title: str
@@ -15,35 +16,39 @@ class UpcomingJob(BaseModel):
         from_attributes = True
 
 class DashboardOverview(BaseModel):
-    total_services: int
-    active_services: int
-    total_requests: int
-    pending_requests: int
-    accepted_requests: int
-    completed_requests: int
-    cancelled_requests: int
-    average_rating: float = 0.0
+    """Estadísticas consolidadas para el dashboard principal del proveedor."""
+    total_services: int # Total de servicios creados por el proveedor
+    active_services: int # Servicios actualmente visibles
+    total_requests: int # Solicitudes históricas recibidas
+    pending_requests: int # Solicitudes esperando respuesta
+    accepted_requests: int # Trabajos en curso (aceptados)
+    completed_requests: int # Trabajos finalizados
+    cancelled_requests: int # Trabajos rechazados o cancelados
+    average_rating: float = 0.0 # Calificación promedio del proveedor
     total_reviews: int
-    unread_messages: int
-    balance: float = 0.0
-    upcoming_jobs: List[UpcomingJob]
+    unread_messages: int # Mensajes de chat sin leer
+    balance: float = 0.0 # Saldo acumulado (simulado)
+    upcoming_jobs: List[UpcomingJob] # Lista de los próximos compromisos
 
-# --- Service Management ---
+# --- Gestión de Servicios (Catálogo) ---
 
 class ProviderServiceBase(BaseModel):
+    """Atributos base de un servicio compartido entre creación y respuesta."""
     title: str
     description: str
     category: Optional[str] = None
     price: float
     duration_minutes: Optional[int] = 60
-    duration: Optional[str] = "1 hora" # Legacy/Display
+    duration: Optional[str] = "1 hora" # Representación textual (ej: "45 min")
     is_active: bool = True
     image_urls: Optional[List[str]] = []
 
 class ProviderServiceCreate(ProviderServiceBase):
+    """Esquema para que el proveedor publique un nuevo servicio."""
     pass
 
 class ProviderServiceUpdate(BaseModel):
+    """Esquema para que el proveedor edite un servicio existente."""
     title: Optional[str] = None
     description: Optional[str] = None
     category: Optional[str] = None
@@ -54,6 +59,7 @@ class ProviderServiceUpdate(BaseModel):
     image_urls: Optional[List[str]] = None
 
 class ProviderServiceResponse(ProviderServiceBase):
+    """Respuesta con el detalle de un servicio del proveedor."""
     id: int
     provider_id: int
     rating: float
@@ -63,9 +69,10 @@ class ProviderServiceResponse(ProviderServiceBase):
     class Config:
         from_attributes = True
 
-# --- Request Management ---
+# --- Gestión de Solicitudes (Contrataciones) ---
 
 class ProviderRequestResponse(BaseModel):
+    """Detalle de una solicitud de servicio recibida por el proveedor."""
     id: int
     client_id: int
     client_name: str
@@ -73,20 +80,22 @@ class ProviderRequestResponse(BaseModel):
     status: str
     price: float
     scheduled_date: Optional[datetime]
-    notes: Optional[str]
+    notes: Optional[str] # Notas o instrucciones enviadas por el cliente
     created_at: datetime
 
     class Config:
         from_attributes = True
 
 class RequestStatusUpdate(BaseModel):
-    status: str # ACCEPTED, REJECTED, COMPLETED
-    scheduled_date: Optional[datetime] = None # For rescheduling
+    """Esquema para aceptar, rechazar o marcar como completada una solicitud."""
+    status: str # Estados válidos: ACCEPTED, REJECTED, COMPLETED
+    scheduled_date: Optional[datetime] = None # Opcional para reprogramar al aceptar
 
-# --- Profile Management ---
+# --- Gestión del Perfil del Proveedor ---
 
 class ProviderProfileUpdate(BaseModel):
-    description: Optional[str] = None
+    """Esquema para actualizar la información profesional y personal del proveedor."""
+    description: Optional[str] = None # Biografía profesional
     specialty: Optional[str] = None
     skills: Optional[str] = None
     social_links: Optional[dict] = None
@@ -98,12 +107,14 @@ class ProviderProfileUpdate(BaseModel):
     longitude: Optional[float] = None
     certifications: Optional[list] = None
     languages: Optional[str] = None
+    # Datos de usuario base (opcionales en la actualización del perfil)
     full_name: Optional[str] = None
     email: Optional[str] = None
     new_password: Optional[str] = None
 
 
 class ProviderProfileResponse(BaseModel):
+    """Respuesta completa con la información pública y privada del proveedor."""
     id: int
     user_id: int
     full_name: str
@@ -124,18 +135,19 @@ class ProviderProfileResponse(BaseModel):
 
     rating_average: Optional[float] = 0.0
     total_reviews: Optional[int] = 0
-    is_verified: bool
+    is_verified: bool # Indica si el administrador ha validado al proveedor
 
     class Config:
         from_attributes = True
 
-# --- Notifications ---
+# --- Notificaciones ---
 
 class NotificationResponse(BaseModel):
+    """Aviso del sistema dirigido al proveedor (ej: 'Nueva solicitud recibida')."""
     id: int
     title: str
     message: str
-    type: Optional[str]
+    type: Optional[str] # Categoría (ej: 'request_update', 'chat_message')
     is_read: bool
     created_at: datetime
 

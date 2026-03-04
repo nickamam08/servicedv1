@@ -15,6 +15,7 @@ from app.services import email_service
 
 
 class LoginRequest(BaseModel):
+    """Esquema para capturar las credenciales de inicio de sesión."""
     email: EmailStr
     password: str
 
@@ -26,18 +27,23 @@ router = APIRouter()
 def login_access_token(
     *, db: Session = Depends(get_db), credentials: LoginRequest
 ) -> Any:
+    """
+    Punto de entrada para la autenticación de usuarios.
+    Verifica credenciales y devuelve un token JWT si son válidas.
+    """
     user = user_repo.get_by_email(db, email=credentials.email)
     if not user or not security.verify_password(credentials.password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Incorrect email or password",
+            detail="Correo electrónico o contraseña incorrectos",
         )
 
     if not user.is_active:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user"
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Usuario inactivo"
         )
 
+    # Generación del token de acceso con una duración de 30 días
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = security.create_access_token(
         {"sub": user.email, "id": user.id, "role": user.role},
@@ -56,26 +62,29 @@ def register_user(
     db: Session = Depends(get_db),
     user_in: UserCreate,
 ) -> Any:
+    """
+    Registra un nuevo usuario en la plataforma.
+    Si el rol es 'provider', crea automáticamente un perfil de proveedor básico.
+    """
     existing = user_repo.get_by_email(db, email=user_in.email)
     if existing:
         raise HTTPException(
             status_code=400,
-            detail="The user with this email already exists in the system",
+            detail="Ya existe un usuario con este correo electrónico en el sistema",
         )
 
     user = user_repo.create(db, obj_in=user_in)
 
-    # Send welcome email
+    # Intento de envío de email de bienvenida
     try:
         email_service.send_welcome_email(user.email, user.full_name)
     except Exception as e:
-        # Don't fail registration if email fails
-        print(f"Failed to send welcome email: {e}")
+        # No bloqueamos el registro si el servicio de correo falla en desarrollo
+        print(f"Error enviando correo de bienvenida: {e}")
 
-    # Auto-create ProviderProfile if role is provider
+    # Creación automática del perfil si el usuario se registra como PROVEEDOR
     if user.role == "provider":
         from app.models import ProviderProfile
-        # Check if profile exists (shouldn't for new user but good practice)
         existing_profile = db.query(ProviderProfile).filter(ProviderProfile.user_id == user.id).first()
         if not existing_profile:
             profile = ProviderProfile(
@@ -109,13 +118,17 @@ def forgot_password(
     db: Session = Depends(get_db),
     req: ForgotPasswordRequest
 ) -> Any:
+    """
+    Solicita un enlace de recuperación de contraseña.
+    Envía un email con un token temporal de 15 minutos.
+    """
     try:
         user = user_repo.get_by_email(db, email=req.email)
         if not user:
-            # Silence failure for security
-            return {"message": "If the user exists, a reset email has been sent."}
+            # Por seguridad, no confirmamos si el email existe o no
+            return {"message": "Si el usuario existe, se ha enviado un correo de recuperación."}
 
-        # Create a short-lived reset token (15 mins)
+        # Generación de token de recuperación de vida corta (15 min)
         reset_token_expires = timedelta(minutes=15)
         reset_token = security.create_access_token(
             {"sub": user.email, "type": "reset"},
@@ -124,10 +137,10 @@ def forgot_password(
 
         email_service.send_password_reset_email(user.email, reset_token)
 
-        return {"message": "If the user exists, a reset email has been sent."}
+        return {"message": "Si el usuario existe, se ha enviado un correo de recuperación."}
     except Exception as e:
-        print(f"Error in forgot_password: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
+        print(f"Error en forgot_password: {e}")
+        raise HTTPException(status_code=500, detail="Error interno del servidor")
 
 
 @router.post("/reset-password")
@@ -136,12 +149,15 @@ def reset_password(
     db: Session = Depends(get_db),
     req: ResetPassword
 ) -> Any:
+    """
+    Valida el token de recuperación y actualiza la contraseña del usuario.
+    """
     try:
         payload = security.decode_token(req.token)
         if not payload or payload.get("type") != "reset":
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid or expired reset token",
+                detail="Token de recuperación inválido o expirado",
             )
 
         email = payload.get("sub")
@@ -149,18 +165,18 @@ def reset_password(
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found",
+                detail="Usuario no encontrado",
             )
 
-        # Update password
+        # Actualización de la contraseña mediante hash seguro
         user.password_hash = security.get_password_hash(req.new_password)
         db.add(user)
         db.commit()
         db.refresh(user)
 
-        return {"message": "Password updated successfully"}
+        return {"message": "Contraseña actualizada con éxito"}
     except HTTPException:
         raise
     except Exception as e:
-        print(f"Error in reset_password: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
+        print(f"Error en reset_password: {e}")
+        raise HTTPException(status_code=500, detail="Error interno del servidor")

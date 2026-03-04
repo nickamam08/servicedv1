@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Solicitudes - SERVICED</title>
+    <!-- Estilos globales de la aplicación -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Table Styles for Bento */
+        /* Estilos de Tabla Bento: Diseño moderno y minimalista */
         .bento-table {
             width: 100%;
             border-collapse: collapse;
@@ -32,6 +33,7 @@
             border-bottom: none;
         }
 
+        /* Estilos comunes para botones de acción dentro de la tabla */
         .btn-action {
             padding: 6px 12px;
             font-size: 0.8rem;
@@ -46,7 +48,7 @@
             opacity: 0.8;
         }
 
-        /* Modal Styles */
+        /* Estilos para Ventanas Modales */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -70,6 +72,7 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
+        /* Sistema de Calificación con Estrellas */
         .star-rating {
             display: flex;
             flex-direction: row-reverse;
@@ -101,7 +104,7 @@
 
     <div class="app-container">
 
-        <!-- Sidebar -->
+        <!-- Barra Lateral de Navegación del Usuario -->
         <aside class="app-sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="sidebar-logo">
@@ -178,6 +181,7 @@
             </nav>
 
             <div class="sidebar-footer">
+                <!-- Enlace para Cerrar Sesión -->
                 <a href="#" class="logout-link">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -190,10 +194,10 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal -->
         <main class="app-main" style="overflow-y: auto;">
 
-            <!-- Header -->
+            <!-- Cabecera de la Página -->
             <header class="app-header" style="height: auto; padding: 40px 0 20px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                     <div>
@@ -201,6 +205,7 @@
                         <p class="text-body" style="color: var(--text-secondary);">Portal de seguimiento de tus pedidos
                         </p>
                     </div>
+                    <!-- Avatar del Usuario (Cargado dinámicamente) -->
                     <div class="user-avatar"
                         style="width: 44px; height: 44px; background: #DBEAFE; color: #1E40AF; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600; border: 2px solid white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
                         Wait</div>
@@ -209,7 +214,7 @@
 
             <div class="bento-grid">
 
-                <!-- Stat 1 -->
+                <!-- Estadística 1: Total de Solicitudes -->
                 <div class="bento-card" style="grid-column: span 3; background: white;">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -221,7 +226,7 @@
                     <div class="text-h1" id="stat-total" style="font-size: 2rem; font-weight: 700;">-</div>
                 </div>
 
-                <!-- Stat 2 -->
+                <!-- Estadística 2: Solicitudes Pendientes o Activas -->
                 <div class="bento-card" style="grid-column: span 3; background: white;">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -234,7 +239,7 @@
                         style="font-size: 2rem; font-weight: 700; color: var(--primary);">-</div>
                 </div>
 
-                <!-- Stat 3 -->
+                <!-- Estadística 3: Solicitudes Completadas -->
                 <div class="bento-card" style="grid-column: span 3; background: white;">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -247,7 +252,7 @@
                         -</div>
                 </div>
 
-                <!-- Stat 4 -->
+                <!-- Estadística 4: Solicitudes Canceladas -->
                 <div class="bento-card" style="grid-column: span 3; background: white;">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -260,11 +265,11 @@
                         -</div>
                 </div>
 
-                <!-- Filter & Table Card -->
+                <!-- Tarjeta de Filtros y Tabla de Solicitudes -->
                 <div class="bento-card"
                     style="grid-column: span 12; min-height: 480px; padding: 0; background: white; border: 1px solid rgba(0,0,0,0.05); overflow: hidden;">
 
-                    <!-- Filters Toolbar -->
+                    <!-- Barra de Herramientas para Filtros -->
                     <div
                         style="padding: 24px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid var(--border); background: #fdfdfd;">
                         <div style="position: relative; flex: 1; max-width: 400px;">
@@ -274,11 +279,13 @@
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
+                            <!-- Buscador de solicitudes por nombre o ID -->
                             <input type="text" id="filter-requests" placeholder="Buscar por servicio o ID..."
                                 style="padding: 10px 12px 10px 42px; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; width: 100%; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
                         </div>
 
                         <div style="display: flex; gap: 10px;">
+                            <!-- Selector de estado para filtrado rápido -->
                             <select id="status-filter"
                                 style="padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; font-size: 0.85rem; color: var(--text-main); cursor: pointer; background: white;">
                                 <option value="">Todos los estados</option>
@@ -290,7 +297,7 @@
                         </div>
                     </div>
 
-                    <!-- Table Container -->
+                    <!-- Contenedor Principal de la Tabla de Datos -->
                     <div style="overflow-x: auto;">
                         <table class="bento-table">
                             <thead style="background: #fafafa;">
@@ -318,7 +325,7 @@
         </main>
     </div>
 
-    <!-- Rating Modal -->
+    <!-- Modal para Calificar el Servicio -->
     <div id="rating-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 class="text-h3" style="text-align: center; margin-bottom: 8px;">Calificar Servicio</h3>
@@ -326,9 +333,11 @@
                 ayuda a mejorar la comunidad.</p>
 
             <form id="rating-form">
+                <!-- Campos ocultos para capturar el ID de la solicitud y del proveedor -->
                 <input type="hidden" id="rate-request-id">
                 <input type="hidden" id="rate-provider-id">
 
+                <!-- Selección de estrellas (5 a 1) -->
                 <div class="star-rating">
                     <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
                     <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
@@ -356,9 +365,15 @@
     </div>
 
     <script>
+        /**
+         * Lógica principal para la gestión de solicitudes del usuario.
+         * Maneja la carga de datos, filtrado y acciones (cancelar, chatear, completar, calificar).
+         */
         (function () {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
+
+            // Redirección si no hay sesión activa
             if (!token) {
                 window.location.href = "login.html";
                 return;
@@ -371,6 +386,10 @@
 
             let allRequests = [];
 
+            /**
+             * Genera el HTML para el badge de estado con estilos consistentes.
+             * @param {string} status - El estado de la solicitud.
+             */
             function statusBadge(status) {
                 const base = "padding:6px 12px; border-radius:8px; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.025em;";
                 const s = status.toUpperCase();
@@ -381,7 +400,12 @@
                 return `<span style="${base} background:#F3F4F6; color:#374151;">${s}</span>`;
             }
 
+            /**
+             * Renderiza la lista de solicitudes en la tabla.
+             * @param {Array} requests - Datos de las solicitudes obtenidos del backend.
+             */
             function renderRequests(requests) {
+                // Manejo de estado vacío
                 if (!Array.isArray(requests) || requests.length === 0) {
                     body.innerHTML = `<tr><td colspan='6' style='text-align:center; padding:60px;'>
                         <div style="font-size: 2rem; margin-bottom: 12px;">🔍</div>
@@ -400,6 +424,7 @@
                         ? service.provider.full_name
                         : "Proveedor #" + (service.provider_id || "?");
 
+                    // Formateo de fecha y hora local
                     const displayDate = r.scheduled_date ? new Date(r.scheduled_date) : new Date(r.created_at);
                     const dateStr = displayDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
                     const timeStr = displayDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
@@ -435,6 +460,7 @@
                         <td>${statusBadge(status)}</td>
                         <td style="padding-right: 24px; text-align: right;">
                             <div style="display:flex; gap:8px; justify-content: flex-end;">
+                                <!-- Botón para abrir el chat con el proveedor -->
                                 <button class="btn btn-chat btn-action" data-provider-user-id="${service.provider_user_id || ''}" style="background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main);">
                                     Chatear
                                 </button>
@@ -456,12 +482,16 @@
                     body.appendChild(tr);
                 });
 
+                // Vinculación de eventos a los botones generados dinámicamente
                 document.querySelectorAll(".btn-cancel").forEach(btn => btn.addEventListener("click", cancelRequest));
                 document.querySelectorAll(".btn-chat").forEach(btn => btn.addEventListener("click", openChat));
                 document.querySelectorAll(".btn-complete").forEach(btn => btn.addEventListener("click", completeRequest));
                 document.querySelectorAll(".btn-rate").forEach(btn => btn.addEventListener("click", openRateModal));
             }
 
+            /**
+             * Obtiene todas las solicitudes del usuario desde la API.
+             */
             async function loadRequests() {
                 try {
                     const resp = await fetch(API_BASE_URL + "/requests/", {
@@ -490,6 +520,10 @@
                 }
             }
 
+            /**
+             * Actualiza los contadores de estadísticas en la parte superior del bento.
+             * @param {Array} requests - Lista de solicitudes.
+             */
             function updateStats(requests) {
                 const total = requests.length;
                 const active = requests.filter(r => ["PENDING", "ACTIVE", "ACCEPTED"].includes(r.status)).length;
@@ -502,6 +536,9 @@
                 document.getElementById("stat-cancelled").textContent = cancelled;
             }
 
+            /**
+             * Filtra las solicitudes basándose en el input de búsqueda y el selector de estado.
+             */
             function filterRequests() {
                 const search = filterInput.value.toLowerCase();
                 const status = statusFilter.value;
@@ -517,9 +554,13 @@
                 renderRequests(filtered);
             }
 
+            // Listeners para actualización automática al filtrar
             if (filterInput) filterInput.addEventListener("input", filterRequests);
             if (statusFilter) statusFilter.addEventListener("change", filterRequests);
 
+            /**
+             * Redirige al usuario al chat específico con el proveedor.
+             */
             async function openChat(e) {
                 const btn = e.target.closest("button");
                 const participantId = btn.getAttribute("data-provider-user-id");
@@ -530,6 +571,9 @@
                 window.location.href = `user-chat.html?userId=${participantId}`;
             }
 
+            /**
+             * Envía una petición para cancelar una solicitud pendiente.
+             */
             async function cancelRequest(e) {
                 const btn = e.target.closest("button");
                 const id = btn.getAttribute("data-id");
@@ -559,6 +603,9 @@
                 }
             }
 
+            /**
+             * Marca una solicitud activa como completada.
+             */
             async function completeRequest(e) {
                 const btn = e.target.closest("button");
                 const id = btn.getAttribute("data-id");
@@ -587,11 +634,14 @@
                 }
             }
 
-            // --- Rating Logic ---
+            // --- Lógica del Modal de Calificación ---
             const modal = document.getElementById("rating-modal");
             const rateForm = document.getElementById("rating-form");
             const closeBtn = document.getElementById("close-modal");
 
+            /**
+             * Abre el modal de calificación y prepara los IDs necesarios.
+             */
             function openRateModal(e) {
                 const btn = e.target.closest("button");
                 document.getElementById("rate-request-id").value = btn.getAttribute("data-id");
@@ -599,9 +649,13 @@
                 modal.style.display = "flex";
             }
 
+            // Control de cierre del modal
             closeBtn.onclick = () => { modal.style.display = "none"; rateForm.reset(); };
             window.onclick = (e) => { if (e.target == modal) closeBtn.onclick(); };
 
+            /**
+             * Maneja el envío del formulario de calificación al servidor.
+             */
             rateForm.onsubmit = async (e) => {
                 e.preventDefault();
                 const rating = rateForm.querySelector('input[name="rating"]:checked');
@@ -648,7 +702,9 @@
                 }
             };
 
-            // Sync User Avatar and Logout
+            /**
+             * Sincroniza la información del perfil del usuario (Avatar) y configura el logout.
+             */
             (function () {
                 const user = JSON.parse(sessionStorage.getItem("serviced_user"));
                 if (user) {
@@ -656,6 +712,7 @@
                         if (user.avatar_url) {
                             el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
                         } else {
+                            // Genera iniciales a partir del nombre completo
                             el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
                         }
                     });
@@ -672,9 +729,11 @@
                 }
             })();
 
+            // Carga inicial de datos
             loadRequests();
         })();
     </script>
+    <!-- Script para insignias/badges de notificaciones en el sidebar -->
     <script src="sidebar-badges.js"></script>
 </body>
 

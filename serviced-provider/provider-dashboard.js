@@ -1,6 +1,6 @@
 /**
- * Provider Dashboard Logic
- * Refactored to use Bento Grid System & User-Chat like Messaging
+ * Lógica del Dashboard del Proveedor
+ * Refactorizado para usar el sistema de Bento Grid y mensajería estilo chat de usuario.
  */
 
 console.log("SERVICED Provider Dashboard v1.1.8 - Fix Email/Cache");
@@ -9,33 +9,34 @@ const CHAT_API_BASE = '/api/v1/conversations';
 const AUTH_TOKEN_KEY = 'serviced_token';
 const USER_KEY = 'serviced_user';
 
-// --- Init ---
+// --- Inicialización ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Version Enforcement
+    // Control de Versión: Forzar refresco si la versión cambia para evitar problemas de caché
     const APP_VERSION = '1.1.8';
     const storedVersion = localStorage.getItem('serviced_app_version');
     if (storedVersion !== APP_VERSION) {
         localStorage.setItem('serviced_app_version', APP_VERSION);
         if (storedVersion) {
-            console.log("Version mismatch, flushing stale state...");
-            // Clear specific keys that might be stale
+            console.log("Versión desactualizada detectada, limpiando estado...");
+            // Limpiar claves específicas que puedan estar obsoletas
             localStorage.removeItem('some_hypothetical_stale_key');
             window.location.reload(true);
             return;
         }
     }
 
+    // Validar sesión y configurar eventos globales
     checkAuth();
     setupNavigation();
     setupForms();
 
-    // Routing
+    // Enrutamiento Inicial: Cargar la vista solicitada por URL o 'overview' por defecto
     const urlParams = new URLSearchParams(window.location.search);
     const view = urlParams.get('view') || 'overview';
     loadView(view);
 });
 
-// Logout
+// Botón de Cierre de Sesión
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
@@ -45,6 +46,9 @@ if (logoutBtn) {
     });
 }
 
+/**
+ * Verifica si el usuario tiene un token válido y el rol de proveedor.
+ */
 function checkAuth() {
     const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
     const userStr = sessionStorage.getItem(USER_KEY);
@@ -57,7 +61,7 @@ function checkAuth() {
     try {
         const user = JSON.parse(userStr);
         if (user.role !== 'provider') {
-            console.warn("Incorrect role for this dashboard, redirecting...");
+            console.warn("Rol incorrecto para este dashboard, redireccionando...");
             if (user.role === 'client') window.location.href = "/users/client-dashboard.html";
             else window.location.href = "/login.html";
         }
@@ -66,6 +70,9 @@ function checkAuth() {
     }
 }
 
+/**
+ * Helper para obtener las cabeceras de autorización necesarias para la API.
+ */
 function getHeaders() {
     return {
         'Content-Type': 'application/json',
@@ -73,14 +80,18 @@ function getHeaders() {
     };
 }
 
-// --- Navigation & Routing ---
+// --- Navegación y Enrutamiento ---
+
+/**
+ * Configura los clics en los elementos de la barra lateral para cambiar de vista.
+ */
 function setupNavigation() {
     document.querySelectorAll('.nav-item[data-target]').forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const view = item.dataset.target;
             loadView(view);
-            // Update URL
+            // Actualizar URL sin recargar la página para soportar botones atrás/adelante
             const newUrl = new URL(window.location);
             newUrl.searchParams.set('view', view);
             window.history.pushState({}, '', newUrl);
@@ -88,7 +99,7 @@ function setupNavigation() {
     });
 }
 
-// --- Chat State ---
+// --- Estado del Chat (dentro del dashboard) ---
 const chatState = {
     pollingInterval: null,
     currentConversationId: null,
@@ -97,27 +108,43 @@ const chatState = {
     isSending: false
 };
 
+/**
+ * Carga principal de contenido dinámico basado en la sección seleccionada.
+ * @param {string} viewName - Nombre de la vista a cargar (overview, services, requests, etc.)
+ */
 function loadView(viewName) {
-    // Cleanup Chat Polling
+    // Limpieza de estados anteriores: polleo de chats y filtros
     if (chatState.pollingInterval) clearInterval(chatState.pollingInterval);
     chatState.pollingInterval = null;
     chatState.currentConversationId = null;
 
-    // Active Nav State
+    // Resaltar ítem activo en el menú lateral
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     const activeNav = document.querySelector(`.nav-item[data-target="${viewName}"]`);
     if (activeNav) activeNav.classList.add('active');
 
-    // Title Update
-    const titles = { overview: 'Vista General', services: 'Mis Servicios', requests: 'Solicitudes', calendar: 'Calendario', reviews: 'Reseñas', notifications: 'Notificaciones', profile: 'Perfil', messages: 'Mensajes', reports: 'Reportes', statistics: 'Estadísticas' };
+    // Actualización de títulos dinámicos
+    const titles = {
+        overview: 'Vista General',
+        services: 'Mis Servicios',
+        requests: 'Solicitudes',
+        calendar: 'Calendario',
+        reviews: 'Reseñas',
+        notifications: 'Notificaciones',
+        profile: 'Perfil',
+        messages: 'Mensajes',
+        reports: 'Reportes',
+        statistics: 'Estadísticas'
+    };
     const pageTitle = document.getElementById('page-title');
     if (pageTitle) pageTitle.textContent = titles[viewName] || 'Dashboard';
 
-    // Render Content
+    // Preparar el contenedor principal con un spinner de carga
     const contentArea = document.getElementById('content-area');
     if (!contentArea) return;
     contentArea.innerHTML = '<div class="spinner"></div>';
 
+    // Despacho de renderizado según la vista
     switch (viewName) {
         case 'overview': renderOverview(); break;
         case 'services': renderServices(); break;
@@ -126,20 +153,23 @@ function loadView(viewName) {
         case 'reviews': renderReviews(); break;
         case 'notifications': renderNotifications(); break;
         case 'profile': renderProfile(); break;
-        case 'messages': initChatModule(); break;
+        case 'messages': initChatModule(); break; // El chat se inicializa como un módulo aparte
         case 'reports': renderReports(); break;
         case 'statistics': renderStatistics(); break;
         default: renderOverview();
     }
 }
 
+/**
+ * Renderiza la sección de estadísticas con gráficos de distribución y métricas de rendimiento.
+ */
 async function renderStatistics() {
     try {
         const res = await fetch(`${API_BASE}/overview`, { headers: getHeaders() });
-        if (!res.ok) throw new Error(`API Error: ${res.status}`);
+        if (!res.ok) throw new Error(`Error de API: ${res.status}`);
         const data = await res.json();
 
-        // Calculate distribution percentages
+        // Cálculo de porcentajes de distribución para la visualización visual
         const totalReq = data.total_requests || 1;
         const pendingPct = Math.round((data.pending_requests / totalReq) * 100);
         const acceptedPct = Math.round((data.accepted_requests / totalReq) * 100);
@@ -148,7 +178,7 @@ async function renderStatistics() {
 
         document.getElementById('content-area').innerHTML = `
             <div class="bento-grid">
-                <!-- Summary Stats -->
+                <!-- Tarjetas de Resumen de Estadísticas -->
                 <div class="bento-card stat-card" style="grid-column: span 3;">
                     <span class="text-sm">Ganancias Totales</span>
                     <div class="text-h2" style="margin-top: 8px; color: var(--success);">$${data.balance.toLocaleString('es-CO')}</div>
@@ -170,7 +200,7 @@ async function renderStatistics() {
                     <p class="text-xs" style="margin-top: 4px; color: var(--text-tertiary);">Desde el inicio</p>
                 </div>
 
-                <!-- Distribution Chart (Simple Bar Visualization) -->
+                <!-- Gráfico de Distribución (Visualización de barras simple) -->
                 <div class="bento-card" style="grid-column: span 7; grid-row: span 2;">
                     <h3 class="text-h3" style="margin-bottom: 24px;">Distribución de Solicitudes</h3>
                     <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -213,19 +243,19 @@ async function renderStatistics() {
                     </div>
                 </div>
 
-                <!-- Performance Insights -->
+                <!-- Análisis de Rendimiento (Insights) -->
                 <div class="bento-card" style="grid-column: span 5; grid-row: span 2;">
                     <h3 class="text-h3" style="margin-bottom: 24px;">Rendimiento</h3>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <div style="padding: 16px; background: #F0FDF4; border-radius: 12px; border: 1px solid #DCFCE7;">
                             <div style="color: #166534; font-weight: 600; font-size: 0.9rem;">Tasa de Conversión</div>
-                            <div style="font-size: 1.5rem; font-weight: 700; color: #166534; margin: 4px 0;">${Math.round((data.accepted_requests / totalReq) * 100)}%</div>
-                            <div style="font-size: 0.75rem; color: #15803D;">Solicitudes aceptadas vs recibidas</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #166534; margin: 4px 0;">${Math.round(((data.accepted_requests + data.completed_requests) / totalReq) * 100)}%</div>
+                            <div style="font-size: 0.75rem; color: #15803D;">Solicitudes aceptadas/finalizadas vs recibidas</div>
                         </div>
                         <div style="padding: 16px; background: #EFF6FF; border-radius: 12px; border: 1px solid #DBEAFE;">
                             <div style="color: #1E40AF; font-weight: 600; font-size: 0.9rem;">Eficiencia de Cierre</div>
-                            <div style="font-size: 1.5rem; font-weight: 700; color: #1E40AF; margin: 4px 0;">${data.accepted_requests > 0 ? Math.round((data.completed_requests / (data.completed_requests + data.accepted_requests)) * 100) : 0}%</div>
-                            <div style="font-size: 0.75rem; color: #1D4ED8;">Trabajos completados vs activos</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #1E40AF; margin: 4px 0;">${(data.completed_requests + data.accepted_requests) > 0 ? Math.round((data.completed_requests / (data.completed_requests + data.accepted_requests)) * 100) : 0}%</div>
+                            <div style="font-size: 0.75rem; color: #1D4ED8;">Trabajos completados vs total aceptados</div>
                         </div>
                     </div>
                 </div>
@@ -237,11 +267,16 @@ async function renderStatistics() {
     }
 }
 
+/**
+ * Renderiza la sección de reportes enviados por el proveedor y el formulario para nuevos reportes.
+ */
 async function renderReports() {
     try {
+        // Obtener historial de reportes propios del proveedor
         const res = await fetch('/api/v1/reports/my-reports', { headers: getHeaders() });
         const reports = await res.json();
 
+        // Generar HTML dinámico para cada reporte
         let reportsHtml = reports.map(r => `
             <div class="bento-card" style="grid-column: span 6; border-left: 4px solid ${r.status === 'RESOLVED' ? '#10B981' : '#F59E0B'};">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -252,6 +287,7 @@ async function renderReports() {
                     </div>
                     <span class="badge ${r.status === 'RESOLVED' ? 'badge-active' : 'badge-inactive'}">${r.status}</span>
                 </div>
+                <!-- Mostrar resolución si el reporte ya fue procesado por un administrador -->
                 ${r.resolution ? `<div style="margin-top:16px; padding:12px; background:#f9fafb; border-radius:8px; font-size:0.85rem;"><strong>Resolución:</strong> ${r.resolution}</div>` : ''}
             </div>
         `).join('');
@@ -262,28 +298,29 @@ async function renderReports() {
 
         document.getElementById('content-area').innerHTML = `
             <div class="bento-grid">
+                <!-- Formulario de creación de nuevos reportes -->
                 <div class="bento-card" style="grid-column: span 12; margin-bottom: 24px;">
                     <h3 class="text-h3" style="margin-bottom: 16px;">Enviar Nuevo Reporte</h3>
                     <form id="new-report-form" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
                         <div class="form-group" style="grid-column: span 2;">
                             <label class="form-label">Asunto</label>
-                            <input type="text" class="form-control" id="rep-title" required>
+                            <input type="text" class="form-control" id="rep-title" required placeholder="Ej: Problema con el pago del servicio #123">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Categoría</label>
                             <select class="form-control" id="rep-type" required>
-                                <option value="behavior">Comportamiento</option>
-                                <option value="payment">Pago</option>
-                                <option value="technical">Error técnico</option>
-                                <option value="other">Otro</option>
+                                <option value="behavior">Comportamiento de cliente</option>
+                                <option value="payment">Problemas de Pago</option>
+                                <option value="technical">Error técnico / App</option>
+                                <option value="other">Otro motivo</option>
                             </select>
                         </div>
                         <div class="form-group" style="grid-column: span 2;">
-                            <label class="form-label">Descripción</label>
-                            <textarea class="form-control" id="rep-desc" rows="3" required></textarea>
+                            <label class="form-label">Descripción Detallada</label>
+                            <textarea class="form-control" id="rep-desc" rows="3" required placeholder="Describe lo sucedido con el mayor detalle posible..."></textarea>
                         </div>
                         <div style="grid-column: span 2; text-align:right;">
-                            <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+                            <button type="submit" class="btn btn-primary">Enviar Reporte a Soporte</button>
                         </div>
                     </form>
                 </div>
@@ -291,6 +328,7 @@ async function renderReports() {
             </div>
         `;
 
+        // Lógica de envío del formulario
         document.getElementById('new-report-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const body = {
@@ -305,25 +343,29 @@ async function renderReports() {
                     body: JSON.stringify(body)
                 });
                 if (postRes.ok) {
-                    showToast('Reporte enviado correctamente');
-                    renderReports();
+                    showToast('Reporte enviado correctamente. El equipo de soporte lo revisará pronto.');
+                    renderReports(); // Recargar la lista
                 } else {
-                    alert('Error al enviar reporte');
+                    alert('Error al enviar el reporte. Inténtalo de nuevo.');
                 }
-            } catch (err) { alert('Error de red'); }
+            } catch (err) { alert('Error de red. Verifica tu conexión.'); }
         });
 
     } catch (e) {
-        document.getElementById('content-area').innerHTML = `<div class="bento-card">Error cargando reportes</div>`;
+        document.getElementById('content-area').innerHTML = `<div class="bento-card">Error cargando sección de reportes</div>`;
     }
 }
 
-// --- Renderers (Bento Style) ---
+// --- Renderizadores de Vista (Estilo Bento) ---
 
+/**
+ * Renderiza la Vista General (Overview) con estadísticas rápidas y próximos trabajos.
+ */
 async function renderOverview() {
     try {
         const res = await fetch(`${API_BASE}/overview`, { headers: getHeaders() });
 
+        // Caso: El usuario no tiene rol de proveedor o el token expiró
         if (res.status === 403) {
             let errDetail = 'Acceso Denegado';
             try { const errData = await res.json(); errDetail = errData.detail || 'Sin detalles'; } catch (e) { }
@@ -345,10 +387,13 @@ async function renderOverview() {
 
         document.getElementById('content-area').innerHTML = `
             <div class="bento-grid">
+                <!-- Estadísticas de Resumen -->
                 <div class="bento-card stat-card"><span class="text-sm">Total Servicios</span><div class="text-h2" style="margin-top: 8px;">${stats.total_services}</div></div>
                 <div class="bento-card stat-card"><span class="text-sm">Solicitudes Pendientes</span><div class="text-h2" style="margin-top: 8px; color: var(--warning);">${stats.pending_requests}</div></div>
                 <div class="bento-card stat-card"><span class="text-sm">Rating General</span><div class="text-h2" style="margin-top: 8px;">${stats.average_rating.toFixed(1)} <span style="font-size:1rem; color:var(--warning);">★</span></div></div>
                 <div class="bento-card stat-card"><span class="text-sm">Balance Estimado</span><div class="text-h2" style="margin-top: 8px; color: var(--success);">$${stats.balance.toLocaleString('es-CO')}</div></div>
+                
+                <!-- Lista de Próximos Trabajos Agendados -->
                 <div class="bento-card" style="grid-column: span 8; grid-row: span 2;">
                     <div style="display:flex; justify-content:space-between; margin-bottom: 16px;"><h3 class="text-h3">Próximos Trabajos</h3><button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8rem;" onclick="loadView('requests')">Ver todos</button></div>
                     <div class="table-container"><table><thead><tr><th>Cliente</th><th>Servicio</th><th>Fecha</th><th>Estado</th></tr></thead>
@@ -356,6 +401,8 @@ async function renderOverview() {
                                     <tr><td style="font-weight:500;">${job.client_name}</td><td>${job.service_title}</td><td>${new Date(job.scheduled_date).toLocaleDateString()} ${new Date(job.scheduled_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td><td><span class="badge badge-accepted">${job.status}</span></td></tr>
                                 `).join('') : '<tr><td colspan="4" style="text-align:center;">No hay trabajos próximos.</td></tr>'}
                             </tbody></table></div></div>
+                
+                <!-- Acciones Rápidas -->
                 <div class="bento-card" style="grid-column: span 4; grid-row: span 2;"><h3 class="text-h3" style="margin-bottom: 16px;">Acciones Rápidas</h3><div style="display: flex; flex-direction: column; gap: 12px;"><button class="btn btn-primary" style="width: 100%;" onclick="openCreateServiceModal()">+ Crear Nuevo Servicio</button><button class="btn btn-secondary" style="width: 100%;" onclick="loadView('profile')">Editar Perfil</button></div></div>
             </div>`;
     } catch (e) {
@@ -364,18 +411,21 @@ async function renderOverview() {
     }
 }
 
+/**
+ * Renderiza la sección de administración de servicios del proveedor.
+ */
 async function renderServices() {
     try {
         const res = await fetch(`${API_BASE}/services`, { headers: getHeaders() });
         if (!res.ok) throw new Error(`API Error: ${res.status}`);
         const services = await res.json();
         const safeServices = Array.isArray(services) ? services : [];
-        window._services = safeServices;
+        window._services = safeServices; // Cache temporal para edición
 
         document.getElementById('content-area').innerHTML = `
             <div class="bento-card" style="width: 100%;">
                  <div style="display:flex; justify-content:space-between; margin-bottom: 24px;"><h3 class="text-h3">Mis Servicios (${safeServices.length})</h3><button class="btn btn-primary" onclick="openCreateServiceModal()">Nuevo Servicio</button></div>
-                <div class="table-container"><table><thead><tr><th>Servicio</th><th>Precio</th><th>Categoria</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <div class="table-container"><table><thead><tr><th>Servicio</th><th>Precio</th><th>Categoría</th><th>Estado</th><th>Acciones</th></tr></thead>
                         <tbody>${safeServices.length > 0 ? safeServices.map(s => `
                                 <tr><td>
                                     <div style="display:flex; align-items:center; gap:12px;">
@@ -386,12 +436,15 @@ async function renderServices() {
                                         </div>
                                     </div>
                                 </td><td>$${(s.price || 0).toLocaleString('es-CO')}</td><td>${s.category || '-'}</td><td><span class="badge ${s.is_active ? 'badge-active' : 'badge-inactive'}">${s.is_active ? 'Activo' : 'Inactivo'}</span></td><td>
-                                        <button class="btn btn-secondary" style="padding:6px;" onclick="editService(${s.id})"><i class="fas fa-edit"></i></button> <button class="btn btn-secondary" style="padding:6px;" onclick="toggleService(${s.id})"><i class="fas fa-power-off"></i></button> <button class="btn btn-danger" style="padding:6px;" onclick="deleteService(${s.id})"><i class="fas fa-trash"></i></button></td></tr>
+                                        <button class="btn btn-secondary" style="padding:6px;" title="Editar" onclick="editService(${s.id})"><i class="fas fa-edit"></i></button> <button class="btn btn-secondary" style="padding:6px;" title="Activar/Desactivar" onclick="toggleService(${s.id})"><i class="fas fa-power-off"></i></button> <button class="btn btn-danger" style="padding:6px;" title="Eliminar" onclick="deleteService(${s.id})"><i class="fas fa-trash"></i></button></td></tr>
                             `).join('') : '<tr><td colspan="5" style="text-align:center;">No tienes servicios creados.</td></tr>'}
                         </tbody></table></div></div>`;
     } catch (e) { document.getElementById('content-area').innerHTML = `<div class="bento-card" style="color:red;">Error: ${e.message}</div>`; }
 }
 
+/**
+ * Renderiza la sección de solicitudes de clientes (pedidos).
+ */
 async function renderRequests() {
     try {
         const res = await fetch(`${API_BASE}/requests`, { headers: getHeaders() });
@@ -408,14 +461,21 @@ async function renderRequests() {
 }
 
 
-// --- Request Actions ---
+// --- Acciones de Solicitud ---
+
+/**
+ * Renderiza los botones de acción para una solicitud específica según su estado actual.
+ * @param {Object} req - Objeto de la solicitud.
+ */
 function renderRequestActions(req) {
     let buttons = '';
-    // Chat button (always available if client exists)
+
+    // Botón de Chat: Siempre visible si existe un cliente asociado para permitir comunicación inmediata.
     if (req.client_id) {
         buttons += `<button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem; margin-right: 4px;" onclick="openChatWithClient(${req.client_id}, '${escapeHtml(req.client_name)}')"><i class="fas fa-comment"></i> Chatear</button> `;
     }
 
+    // Acciones según el estado del flujo de trabajo (Workflow)
     if (req.status === 'PENDING') {
         buttons += `<button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="updateRequestStatus(${req.id}, 'accept')">Aceptar</button> <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="updateRequestStatus(${req.id}, 'reject')">Rechazar</button>`;
     } else if (req.status === 'ACCEPTED' || req.status === 'ACTIVE') {
@@ -424,9 +484,14 @@ function renderRequestActions(req) {
     return buttons;
 }
 
+/**
+ * Inicia o recupera una conversación con un cliente y redirige a la vista de mensajes.
+ * @param {number} clientId - ID del cliente.
+ * @param {string} clientName - Nombre del cliente para mostrar.
+ */
 async function openChatWithClient(clientId, clientName) {
     try {
-        // Create or get conversation
+        // Crear o recuperar la conversación existente desde el backend
         const res = await fetch(`${CHAT_API_BASE}`, {
             method: 'POST',
             headers: getHeaders(),
@@ -437,10 +502,10 @@ async function openChatWithClient(clientId, clientName) {
 
         const conversation = await res.json();
 
-        // Set pending conversation to open upon loading view
+        // Almacenar el ID de la conversación para abrirla automáticamente al cargar la vista de mensajes
         chatState.pendingConversationId = conversation.id;
 
-        // Switch view
+        // Cambiar dinámicamente a la vista de mensajes
         loadView('messages');
 
     } catch (e) {
@@ -453,17 +518,19 @@ async function openChatWithClient(clientId, clientName) {
 
 // ... (existing code for renderCalendar, renderReviews, renderNotifications) ...
 
+/**
+ * Renderiza el Calendario de trabajos próximos y en curso.
+ */
 async function renderCalendar() {
     try {
-        // Fetch all requests where provider is involved (backend limit might apply, but for calendar we need active ones)
-        // Since API filters by single status, we might need multiple calls or just fetch all and filter.
-        // Let's fetch all (remove status query) and filter client side for better control
+        // Obtener todas las solicitudes para filtrar las agendadas
         const res = await fetch(`${API_BASE}/requests`, { headers: getHeaders() });
         const allRequests = await res.json();
 
-        // Filter for ACCEPTED and ACTIVE (in progress)
+        // Filtrar solo las aceptadas o activas para mostrar en el calendario
         const requests = allRequests.filter(r => r.status === 'ACCEPTED' || r.status === 'ACTIVE');
 
+        // Ordenar cronológicamente
         requests.sort((a, b) => new Date(a.scheduled_date) - new Date(b.scheduled_date));
 
         document.getElementById('content-area').innerHTML = `
@@ -471,6 +538,7 @@ async function renderCalendar() {
                 ${requests.map(r => `
                     <div class="bento-card" style="grid-column: span 4; border-left: 4px solid var(--primary);">
                         <div style="display:flex; gap: 16px; align-items:center;">
+                            <!-- Indicador de Fecha Visual -->
                             <div style="background:#EFF6FF; padding: 12px; border-radius:8px; text-align:center; min-width: 60px;">
                                 <div style="font-weight:700; font-size:1.2rem; color:var(--primary);">${new Date(r.scheduled_date).getDate()}</div>
                                 <div style="font-size:0.8rem; text-transform:uppercase; color:var(--primary);">${new Date(r.scheduled_date).toLocaleString('default', { month: 'short' })}</div>
@@ -496,6 +564,9 @@ async function renderCalendar() {
     }
 }
 
+/**
+ * Renderiza la sección de Reseñas y calificaciones recibidas.
+ */
 async function renderReviews() {
     try {
         const res = await fetch(`${API_BASE}/reviews`, { headers: getHeaders() });
@@ -506,29 +577,83 @@ async function renderReviews() {
     } catch (e) { }
 }
 
+/**
+ * Renderiza el centro de Notificaciones del proveedor.
+ */
 async function renderNotifications() {
     try {
         const res = await fetch(`${API_BASE}/notifications`, { headers: getHeaders() });
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.detail || `Error del servidor: ${res.status}`);
+        }
+
         const notifs = await res.json();
-        document.getElementById('content-area').innerHTML = `<div class="bento-card" style="grid-column: span 8; margin: 0 auto; max-width: 800px;"><h3 class="text-h3" style="margin-bottom: 20px;">Notificaciones</h3><div style="display:flex; flex-direction:column; gap: 0;">${notifs.map(n => `
-                        <div style="padding: 16px; border-bottom: 1px solid #E5E7EB; border-left: 3px solid ${n.is_read ? 'transparent' : 'var(--primary)'}; background: ${n.is_read ? 'white' : '#F9FAFB'};"><div style="font-weight:600; margin-bottom: 4px;">${n.title}</div><div class="text-body">${n.message}</div><div class="text-sm" style="margin-top:8px;">${new Date(n.created_at).toLocaleString()}</div></div>
-                    `).join('')}</div></div>`;
-    } catch (e) { }
+        const safeNotifs = Array.isArray(notifs) ? notifs : [];
+        const contentArea = document.getElementById('content-area');
+
+        let html = `
+            <div class="bento-card" style="grid-column: span 10; margin: 0 auto; max-width: 900px; width: 100%;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+                    <h3 class="text-h3">Centro de Notificaciones</h3>
+                    <span class="badge badge-active">${safeNotifs.filter(n => !n.is_read).length} nuevas</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap: 12px;">
+        `;
+
+        if (safeNotifs.length === 0) {
+            html += `
+                <div style="padding: 60px 20px; text-align: center; background: #f8fafc; border-radius: 16px; border: 2px dashed #e2e8f0;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🔔</div>
+                    <div style="color: var(--text-main); font-weight: 600; font-size: 1.1rem; margin-bottom: 8px;">No hay notificaciones</div>
+                    <p style="color: var(--text-tertiary);">Te avisaremos cuando recibas nuevas solicitudes o mensajes.</p>
+                </div>
+            `;
+        } else {
+            html += safeNotifs.map(n => `
+                <div style="padding: 20px; border-radius: 12px; border: 1px solid ${n.is_read ? '#E5E7EB' : '#DBEAFE'}; background: ${n.is_read ? 'white' : '#F0F7FF'}; transition: all 0.2s;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 8px;">
+                        <div style="font-weight:700; color: var(--text-main); font-size: 1rem;">${n.title}</div>
+                        <div class="text-sm" style="white-space:nowrap;">${new Date(n.created_at).toLocaleString('es-CO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</div>
+                    </div>
+                    <div class="text-body" style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5;">${n.message}</div>
+                    ${!n.is_read ? '<div style="margin-top:12px;"><span style="font-size: 0.7rem; font-weight:800; text-transform:uppercase; color: var(--primary);">• Nueva</span></div>' : ''}
+                </div>
+            `).join('');
+        }
+
+        html += `</div></div>`;
+        contentArea.innerHTML = html;
+
+    } catch (e) {
+        console.error("Notifications Error:", e);
+        document.getElementById('content-area').innerHTML = `
+            <div class="bento-card" style="grid-column: span 10; margin: 0 auto; max-width: 900px; padding: 40px; text-align: center;">
+                <div style="color:var(--danger); font-size: 3rem; margin-bottom: 16px;">⚠️</div>
+                <h3 class="text-h3" style="color:var(--danger); margin-bottom: 8px;">Error al cargar</h3>
+                <p style="color:var(--text-secondary);">${e.message}</p>
+                <button class="btn btn-primary" style="margin-top: 20px;" onclick="renderNotifications()">Reintentar</button>
+            </div>
+        `;
+    }
 }
 
+/**
+ * Renderiza el formulario de Perfil Profesional, incluyendo mapa interactivo y configuración de cuenta.
+ */
 async function renderProfile() {
     try {
         const res = await fetch(`${API_BASE}/profile`, { headers: getHeaders() });
         if (!res.ok) throw new Error("Error al cargar perfil");
         const profile = await res.json();
 
-        // Default to Bogotá if no coordinates
+        // Coordenadas por defecto (Bogotá) si no existen en el perfil
         const defaultLat = profile.latitude || 4.6097;
         const defaultLng = profile.longitude || -74.0817;
 
         document.getElementById('content-area').innerHTML = `
             <div class="bento-grid">
-                <!-- Left Column: Professional & Bio -->
+                <!-- Columna Izquierda: Información Profesional y Biografía -->
                 <div class="bento-card" style="grid-column: span 8; grid-row: span 2;">
                     <h3 class="text-h3" style="margin-bottom: 24px;">Perfil Profesional Premium</h3>
                     <form id="profile-form">
@@ -560,7 +685,7 @@ async function renderProfile() {
                     </form>
                 </div>
 
-                <!-- Right Column: Map & Location -->
+                <!-- Columna Derecha: Mapa y Ubicación -->
                 <div class="bento-card" style="grid-column: span 4;">
                     <h3 class="text-h3" style="margin-bottom: 12px;">Ubicación Geográfica</h3>
                     <div class="text-sm" style="margin-bottom: 8px;">Mueve el marcador para precisar tu zona de servicio en Colombia.</div>
@@ -579,7 +704,7 @@ async function renderProfile() {
                     </div>
                 </div>
 
-                <!-- Right Column: Account & Security -->
+                <!-- Columna Derecha: Cuenta y Seguridad -->
                 <div class="bento-card" style="grid-column: span 4;">
                     <h3 class="text-h3" style="margin-bottom: 20px;">Cuenta y Seguridad</h3>
                     <div class="form-group">
@@ -601,7 +726,7 @@ async function renderProfile() {
                     </div>
                 </div>
 
-                <!-- Right Column: Business Metrics -->
+                <!-- Columna Derecha: Métricas de Negocio -->
                 <div class="bento-card" style="grid-column: span 4;">
                     <h3 class="text-h3" style="margin-bottom: 20px;">Información de Negocio</h3>
                     <div class="form-group">
@@ -626,7 +751,7 @@ async function renderProfile() {
             </div>
         `;
 
-        // Initialize Map with error handling
+        // Inicialización diferida del Mapa (Leaflet.js)
         setTimeout(() => {
             try {
                 const mapContainer = document.getElementById('profile-map');
@@ -644,9 +769,10 @@ async function renderProfile() {
 
                 const marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
 
+                // Evento al arrastrar el marcador para actualizar coordenadas
                 marker.on('dragend', function (e) {
                     const pos = marker.getLatLng();
-                    // Restriction to Colombia (approx bounds)
+                    // Restricción a Colombia (bordes aproximados)
                     if (pos.lat < -4.2 || pos.lat > 13.5 || pos.lng < -82 || pos.lng > -66) {
                         alert("Por favor selecciona una ubicación dentro de Colombia");
                         marker.setLatLng([defaultLat, defaultLng]);
@@ -658,7 +784,7 @@ async function renderProfile() {
                     document.getElementById('display-lng').textContent = pos.lng.toFixed(4);
                 });
 
-                // Force map resize check
+                // Forzar recalculado del tamaño del mapa tras renderizado
                 setTimeout(() => map.invalidateSize(), 200);
 
             } catch (err) {
@@ -677,11 +803,14 @@ async function renderProfile() {
     }
 }
 
+/**
+ * Procesa el envío del formulario de perfil y actualización de cuenta.
+ */
 async function handleProfileSubmit() {
     const certsRaw = document.getElementById('profile-certifications')?.value || '';
     const certsArray = certsRaw.split(',').map(s => s.trim()).filter(s => s !== '');
 
-    // Password validation
+    // Validación de contraseñas si el usuario desea cambiarla
     const password = document.getElementById('profile-password')?.value;
     const confirm = document.getElementById('profile-password-confirm')?.value;
 
@@ -716,13 +845,13 @@ async function handleProfileSubmit() {
 
         if (res.ok) {
             showToast('Perfil y cuenta actualizados correctamente');
-            // Update local user if name or email changed
+            // Actualizar datos de sesión local si cambiaron
             const user = JSON.parse(sessionStorage.getItem(USER_KEY) || '{}');
             user.full_name = body.full_name;
             user.email = body.email;
             sessionStorage.setItem(USER_KEY, JSON.stringify(user));
 
-            await renderProfile();
+            await renderProfile(); // Recargar vista
         } else {
             const err = await res.json();
             alert('Error al actualizar: ' + (err.detail || 'Error desconocido'));
@@ -757,14 +886,18 @@ function editService(id) {
 
     document.getElementById('service-modal').classList.add('open');
 }
+// Helpers de gestión de servicios y solicitudes
 async function toggleService(id) { await fetch(`${API_BASE}/services/${id}/toggle`, { method: 'PUT', headers: getHeaders() }); renderServices(); }
-async function deleteService(id) { if (confirm('¿Eliminar servicio?')) { await fetch(`${API_BASE}/services/${id}`, { method: 'DELETE', headers: getHeaders() }); renderServices(); } }
+async function deleteService(id) { if (confirm('¿Eliminar servicio permanentemente?')) { await fetch(`${API_BASE}/services/${id}`, { method: 'DELETE', headers: getHeaders() }); renderServices(); } }
 async function updateRequestStatus(id, action) { await fetch(`${API_BASE}/requests/${id}/${action}`, { method: 'PUT', headers: getHeaders() }); renderRequests(); }
 function openRescheduleModal(id) { document.getElementById('reschedule-request-id').value = id; document.getElementById('reschedule-modal').classList.add('open'); }
 function closeRescheduleModal() { document.getElementById('reschedule-modal').classList.remove('open'); }
 
+/**
+ * Configura los formularios del dashboard, incluyendo la lógica de "Drag and Drop" para imágenes.
+ */
 function setupForms() {
-    // Image Preview & Drag and Drop logic
+    // Lógica de Vista Previa de Imagen y Arrastrar/Soltar
     const imageInput = document.getElementById('service-image-input');
     const dropZone = document.getElementById('service-drop-zone');
 
@@ -797,6 +930,9 @@ function setupForms() {
         });
     }
 
+    /**
+     * Muestra una vista previa de la imagen seleccionada antes de subirla.
+     */
     function handleImageSelection(file) {
         if (file) {
             const reader = new FileReader();
@@ -809,19 +945,20 @@ function setupForms() {
         }
     }
 
+    // Procesamiento del formulario de creación/edición de servicio
     document.getElementById('service-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = document.getElementById('service-id').value;
         const imageInput = document.getElementById('service-image-input');
         let image_urls = [];
 
-        // Check for existing image if editing
+        // Recuperar imágenes existentes si estamos editando
         if (id) {
             const service = window._services.find(s => s.id == id);
             if (service && service.image_urls) image_urls = [...service.image_urls];
         }
 
-        // Upload new image if selected
+        // Subir nueva imagen al servidor si se seleccionó una
         if (imageInput.files.length > 0) {
             const formData = new FormData();
             formData.append('file', imageInput.files[0]);
@@ -833,13 +970,13 @@ function setupForms() {
                 });
                 if (uploadRes.ok) {
                     const uploadData = await uploadRes.json();
-                    image_urls = [uploadData.url]; // For now, single image
+                    image_urls = [uploadData.url]; // Por ahora, se maneja una sola imagen principal
                 } else {
-                    alert('Error al subir la imagen');
+                    alert('Error al subir la imagen al servidor');
                     return;
                 }
             } catch (err) {
-                alert('Error de red al subir imagen');
+                alert('Error de red al intentar subir la imagen');
                 return;
             }
         }
@@ -862,20 +999,30 @@ function setupForms() {
                 body: JSON.stringify(body)
             });
             if (res.ok) {
-                showToast(id ? 'Servicio actualizado' : 'Servicio creado');
+                showToast(id ? 'Servicio actualizado correctamente' : 'Servicio creado exitosamente');
                 closeServiceModal();
                 renderServices();
             } else {
                 const err = await res.json();
-                alert('Error: ' + (err.detail || 'No se pudo guardar el servicio'));
+                alert('Error en la operación: ' + (err.detail || 'No se pudo guardar el servicio'));
             }
         } catch (err) {
-            alert('Error de red');
+            alert('Error de red al conectar con el servidor');
         }
     });
 
+    // Procesamiento del formulario de reprogramación de citas
     document.getElementById('reschedule-form').addEventListener('submit', async (e) => {
-        e.preventDefault(); const id = document.getElementById('reschedule-request-id').value; const date = document.getElementById('reschedule-date').value; await fetch(`${API_BASE}/requests/${id}/reschedule`, { method: 'PUT', headers: getHeaders(), body: JSON.stringify({ status: 'ACCEPTED', scheduled_date: date }) }); closeRescheduleModal(); renderRequests();
+        e.preventDefault();
+        const id = document.getElementById('reschedule-request-id').value;
+        const date = document.getElementById('reschedule-date').value;
+        await fetch(`${API_BASE}/requests/${id}/reschedule`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify({ status: 'ACCEPTED', scheduled_date: date })
+        });
+        closeRescheduleModal();
+        renderRequests();
     });
 }
 // Consolidated handleProfileSubmit moved up.
@@ -884,32 +1031,34 @@ function showToast(msg) {
     const t = document.createElement('div'); t.style.cssText = 'background:#10B981; color:white; padding:12px 24px; border-radius:8px; margin-top:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1); animation: fadein 0.3s;'; t.textContent = msg; document.getElementById('toast-container').appendChild(t); setTimeout(() => t.remove(), 3000);
 }
 
-// --- Chat Module Logic (Mirrors User Chat) ---
+// --- Lógica del Módulo de Chat (Espejo del Chat de Usuario) ---
 
+/**
+ * Inicializa el módulo de chat dentro del área de contenido del dashboard.
+ * Configura la interfaz, enlaza eventos y comienza el polleo de mensajes.
+ */
 async function initChatModule() {
-    // ... existing check ...
     const user = chatState.user;
     if (!user || (!user.id && !user.sub)) {
         chatState.user = JSON.parse(localStorage.getItem(USER_KEY) || '{}');
     }
 
-    // Matches user-chat.html structure inside the content area
-    // Note: We use CHAT_API_BASE for chat operations
+    // Inyectar la estructura del chat (HTML dinámico) en el área de contenido
     document.getElementById('content-area').innerHTML = `
         <div class="chat-container" id="chat-container">
-            <!-- Chat Sidebar -->
+            <!-- Barra Lateral del Chat: Lista de Conversaciones -->
             <aside class="chat-sidebar">
                 <div class="chat-search-container">
                     <input type="text" class="chat-search-input" placeholder="Buscar conversación..." id="chat-search-input">
                 </div>
                 <div class="conversation-list" id="conversation-list">
-                    <div style="padding: 20px; text-align: center; color: var(--text-tertiary);">Cargando...</div>
+                    <div style="padding: 20px; text-align: center; color: var(--text-tertiary);">Cargando conversaciones...</div>
                 </div>
             </aside>
 
-            <!-- Chat Area -->
+            <!-- Área Principal del Chat -->
             <section class="chat-area">
-                <!-- Chat Header -->
+                <!-- Cabecera del Chat: Información del participante activo -->
                 <div class="chat-header" id="chat-header" style="visibility: hidden;">
                     <div class="header-user">
                         <div class="back-button" id="chat-back-btn">←</div>
@@ -921,17 +1070,17 @@ async function initChatModule() {
                     </div>
                 </div>
 
-                <!-- Empty State -->
+                <!-- Estado Vacío: Se muestra cuando no hay chat seleccionado -->
                 <div class="chat-empty-state" id="empty-state">
                     <div class="empty-icon">💬</div>
                     <h3>Tus Mensajes</h3>
-                    <p>Selecciona una conversación para hablar con tus clientes.</p>
+                    <p>Selecciona una conversación para hablar con tus clientes y coordinar servicios.</p>
                 </div>
 
-                <!-- Messages -->
+                <!-- Contenedor de Mensajes -->
                 <div class="messages-container" id="messages-container" style="display: none;"></div>
 
-                <!-- Input Area -->
+                <!-- Área de Entrada de Texto -->
                 <div class="chat-input-area" id="input-area" style="display: none;">
                     <div class="input-wrapper">
                         <textarea class="chat-input" placeholder="Escribe un mensaje..." rows="1" id="chat-input-field"></textarea>
@@ -946,7 +1095,7 @@ async function initChatModule() {
         </div>
     `;
 
-    // Bind Events
+    // Enlazar Eventos de la Interfaz de Chat
     const searchInput = document.getElementById('chat-search-input');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -959,12 +1108,14 @@ async function initChatModule() {
     const inputField = document.getElementById('chat-input-field');
 
     if (inputField) {
+        // Ajuste automático de altura del campo de texto
         inputField.addEventListener('input', () => {
             sendBtn.disabled = inputField.value.trim().length === 0;
             inputField.style.height = 'auto';
             inputField.style.height = inputField.scrollHeight + 'px';
         });
 
+        // Enviar con Enter (sin Shift)
         inputField.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -985,45 +1136,57 @@ async function initChatModule() {
         });
     }
 
-    // Initial Load
+    // Carga inicial de datos
     await fetchConversations();
 
-    // Check for pending conversation to open
+    // Abrir conversación pendiente si existe (ej. desde el botón "Chatear" en solicitudes)
     if (chatState.pendingConversationId) {
         selectConversation(chatState.pendingConversationId);
-        chatState.pendingConversationId = null; // Clear it
+        chatState.pendingConversationId = null;
     }
 
-    // Resume polling
+    // Iniciar ciclo de sincronización (polleo) cada 5 segundos
     chatState.pollingInterval = setInterval(async () => {
-        await fetchConversations(true);
+        await fetchConversations(true); // Actualización silenciosa de la lista
         if (chatState.currentConversationId) {
-            await fetchMessages(chatState.currentConversationId, true);
+            await fetchMessages(chatState.currentConversationId, true); // Actualización silenciosa del chat activo
         }
-    }, 5000); // 5s cycle
+    }, 5000);
 }
 
+/**
+ * Obtiene la lista de conversaciones activas del proveedor.
+ * @param {boolean} silent - Si es true, no actualiza la UI a menos que haya cambios de datos.
+ */
 async function fetchConversations(silent = false) {
     try {
         const res = await fetch(`${CHAT_API_BASE}`, { headers: getHeaders() });
         if (!res.ok) return;
         const data = await res.json();
 
+        // Evitar re-renderizado innecesario si los datos no han cambiado
         if (silent && JSON.stringify(data) === JSON.stringify(chatState.conversations)) return;
 
+        // Ordenar por actividad más reciente
         chatState.conversations = data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
         const term = document.getElementById('chat-search-input')?.value || '';
         renderConversationList(chatState.conversations, term);
     } catch (e) {
-        if (!silent) console.error('Error loading conversations', e);
+        if (!silent) console.error('Error al cargar conversaciones', e);
     }
 }
 
+/**
+ * Renderiza la lista de conversaciones en la barra lateral del chat.
+ * @param {Array} list - Lista de objetos de conversación.
+ * @param {string} filterText - Texto para filtrar por nombre de cliente.
+ */
 function renderConversationList(list, filterText = "") {
     const container = document.getElementById('conversation-list');
     if (!container) return;
 
+    // Filtrar conversaciones por el nombre del participante
     const filtered = list.filter(c => {
         const name = c.participant?.full_name || 'Usuario';
         return name.toLowerCase().includes(filterText.toLowerCase());
@@ -1042,7 +1205,7 @@ function renderConversationList(list, filterText = "") {
         const lastMsg = c.last_message ? c.last_message.content : 'Sin mensajes';
         const time = c.last_message ? new Date(c.last_message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
 
-        // Unread logic
+        // Lógica de mensajes no leídos: Resaltar si el último mensaje no es mío y no ha sido leído
         let unreadClass = '';
         let unreadBadge = '';
         if (c.last_message && !c.last_message.is_read && Number(c.last_message.sender_id) !== Number(myId)) {
@@ -1074,11 +1237,15 @@ function renderConversationList(list, filterText = "") {
     }).join('');
 }
 
+/**
+ * Selecciona una conversación y carga su historial de mensajes.
+ * @param {number} id - ID de la conversación.
+ */
 async function selectConversation(id) {
     if (chatState.currentConversationId === id) return;
     chatState.currentConversationId = id;
 
-    // UI Updates
+    // Actualizar UI para reflejar la selección activa
     renderConversationList(chatState.conversations, document.getElementById('chat-search-input').value);
 
     document.getElementById('empty-state').style.display = 'none';
@@ -1088,7 +1255,7 @@ async function selectConversation(id) {
     document.getElementById('chat-header').style.visibility = 'visible';
     document.getElementById('chat-container').classList.add('chat-open');
 
-    // Header Info
+    // Actualizar información de la cabecera con los datos del cliente
     const conv = chatState.conversations.find(c => c.id === id);
     if (conv) {
         const user = conv.participant || {};
@@ -1098,10 +1265,15 @@ async function selectConversation(id) {
         else { avatarEl.textContent = user.avatar_initials || '?'; avatarEl.innerHTML = user.avatar_initials || '?'; }
     }
 
-    msgsContainer.innerHTML = '<div style="text-align:center; padding:20px;">Cargando...</div>';
+    msgsContainer.innerHTML = '<div style="text-align:center; padding:20px;">Cargando mensajes...</div>';
     await fetchMessages(id);
 }
 
+/**
+ * Obtiene y renderiza los mensajes de una conversación específica.
+ * @param {number} id - ID de la conversación.
+ * @param {boolean} silent - Si es true, actualiza sin desplazar el scroll (para polleo).
+ */
 async function fetchMessages(id, silent = false) {
     try {
         const res = await fetch(`${CHAT_API_BASE}/${id}/messages`, { headers: getHeaders() });
@@ -1126,6 +1298,7 @@ async function fetchMessages(id, silent = false) {
             `;
         }).join('');
 
+        // Solo actualizar el DOM si el contenido ha cambiado (para el polleo silencioso)
         if (silent) {
             if (container.innerHTML !== html) container.innerHTML = html;
         } else {
@@ -1133,9 +1306,12 @@ async function fetchMessages(id, silent = false) {
             scrollToBottom();
         }
 
-    } catch (e) { console.error('Error loading messages', e); }
+    } catch (e) { console.error('Error al cargar mensajes', e); }
 }
 
+/**
+ * Envía un nuevo mensaje en la conversación actual.
+ */
 async function sendChatMessage() {
     const input = document.getElementById('chat-input-field');
     const content = input.value.trim();
@@ -1157,25 +1333,33 @@ async function sendChatMessage() {
 
         if (res.ok) {
             input.value = '';
-            input.style.height = 'auto';
-            await fetchMessages(chatState.currentConversationId); // Refresh to show new msg
-            await fetchConversations(true); // Update list
+            input.style.height = 'auto'; // Resetear altura del textarea
+            await fetchMessages(chatState.currentConversationId); // Recargar para mostrar el nuevo mensaje
+            await fetchConversations(true); // Actualizar lista de conversaciones para actualizar el preview
             scrollToBottom();
         } else {
             alert('Error al enviar mensaje');
         }
-    } catch (e) { console.error('Error sending', e); }
+    } catch (e) { console.error('Error al enviar', e); }
     finally {
         chatState.isSending = false;
         sendBtn.disabled = false;
     }
 }
 
+/**
+ * Desplaza el contenedor de mensajes hacia el final (más reciente).
+ */
 function scrollToBottom() {
     const c = document.getElementById('messages-container');
     if (c) c.scrollTop = c.scrollHeight;
 }
 
+/**
+ * Escapa caracteres HTML para prevenir ataques XSS.
+ * @param {string} text - Texto plano.
+ * @returns {string} - Texto escapado.
+ */
 function escapeHtml(text) {
     if (!text) return "";
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");

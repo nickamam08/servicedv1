@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensajes - SERVICED PROVEEDOR</title>
-    <!-- Global Styles -->
+    <!-- Estilos Globales de la Aplicación -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Chat Specific Styles -->
+    <!-- Estilos Específicos del Chat para Proveedor -->
     <link rel="stylesheet" href="provider-chat.css">
 </head>
 
@@ -15,10 +15,11 @@
 
     <div class="app-container">
 
-        <!-- Sidebar (Global Navigation) -->
+        <!-- Barra Lateral de Navegación (Igual al Dashboard de Proveedor) -->
         <aside class="app-sidebar">
             <div class="sidebar-header">
                 <a href="../serviced-users/index.html" class="sidebar-logo">
+                    <!-- Referencia al logo en la carpeta de usuarios -->
                     <img src="../serviced-users/log.png" alt="SERVICED" style="height: 40px; width: auto;">
                 </a>
             </div>
@@ -111,21 +112,22 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal -->
         <main class="app-main chat-mode">
 
-            <!-- Chat App Container -->
+            <!-- Contenedor de la Aplicación de Chat -->
             <div class="chat-container" id="chat-container">
 
-                <!-- Chat Sidebar (Conversation List) -->
+                <!-- Barra Lateral del Chat (Conversaciones) -->
                 <aside class="chat-sidebar">
                     <div class="chat-search-container">
+                        <!-- Buscador de chats -->
                         <input type="text" class="chat-search-input" placeholder="Buscar conversación..."
                             id="search-input">
                     </div>
 
                     <div class="conversation-list" id="conversation-list">
-                        <!-- Example Loading State -->
+                        <!-- Estado de carga inicial -->
                         <div style="padding: 20px; text-align: center; color: var(--text-light);">
                             <span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span>
                             Cargando...
@@ -133,12 +135,13 @@
                     </div>
                 </aside>
 
-                <!-- Chat Area -->
+                <!-- Área de Conversación -->
                 <section class="chat-area">
 
-                    <!-- Chat Header -->
+                    <!-- Cabecera del Chat (Nombre del Cliente, Avatar) -->
                     <div class="chat-header" id="chat-header" style="visibility: hidden;">
                         <div class="header-user">
+                            <!-- Botón Atrás (Móvil) -->
                             <div class="back-button" id="back-button">←</div>
                             <div class="avatar" id="header-avatar">?</div>
                             <div class="header-info">
@@ -147,28 +150,30 @@
                             </div>
                         </div>
                         <div class="header-actions">
-                            <!-- Optional actions like menu, call, etc -->
+                            <!-- Acciones adicionales -->
                         </div>
                     </div>
 
-                    <!-- Empty State (Default) -->
+                    <!-- Estado Inicial (Sin chat seleccionado) -->
                     <div class="chat-empty-state" id="empty-state">
                         <div class="empty-icon">💬</div>
                         <h3>Tus Mensajes</h3>
                         <p>Selecciona una conversación para comenzar a chatear.</p>
                     </div>
 
-                    <!-- Messages (Hidden by default) -->
+                    <!-- Historial de Mensajes -->
                     <div class="messages-container" id="messages-container" style="display: none;">
-                        <!-- Messages inserted here via JS -->
+                        <!-- Inyectado por provider-chat.js -->
                     </div>
 
-                    <!-- Input Area (Hidden by default) -->
+                    <!-- Entrada de Mensajes -->
                     <div class="chat-input-area" id="input-area" style="display: none;">
                         <div class="input-wrapper">
+                            <!-- Adjuntar archivo -->
                             <button class="btn-icon" title="Adjuntar archivo (Demo)">📎</button>
                             <textarea class="chat-input" placeholder="Escribe un mensaje..." rows="1"
                                 id="message-input"></textarea>
+                            <!-- Botón Enviar -->
                             <button class="btn-send" id="send-btn" disabled>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                     viewBox="0 0 16 16">
@@ -186,7 +191,7 @@
         </main>
     </div>
 
-    <!-- Scripts -->
+    <!-- Scripts de Lógica del Proveedor -->
     <script src="provider-chat.js"></script>
 </body>
 

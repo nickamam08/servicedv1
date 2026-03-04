@@ -1,14 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import Any
+from typing import Any, List
+from sqlalchemy import desc
 
 from app.db.session import get_db
 from app.models import Order, OrderStatus, Service, User
 from app.schemas.order import OrderCreate, OrderResponse
 from app.dependencies.deps import get_current_user
-
-from typing import Any, List
-from sqlalchemy import desc
 
 router = APIRouter()
 
@@ -20,7 +18,8 @@ def get_orders(
     limit: int = 20
 ) -> Any:
     """
-    Get all orders for the current user.
+    Recupera el historial de órdenes de compra del usuario autenticado.
+    Ordenado por fecha de creación descendente.
     """
     orders = db.query(Order).filter(
         Order.client_id == current_user.id
@@ -34,23 +33,24 @@ def create_order(
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Create a new hiring order.
+    Inicia el proceso de contratación de un servicio mediante la creación de una orden.
+    Valida la existencia del servicio y previene la auto-contratación.
     """
-    # 1. Validate Service exists and is active
+    # 1. Validar que el servicio existe y está marcado como activo
     service = db.query(Service).filter(Service.id == order_in.service_id).first()
     if not service:
-        raise HTTPException(status_code=404, detail="Service not found")
+        raise HTTPException(status_code=404, detail="Servicio no encontrado")
     if not service.is_active:
-        raise HTTPException(status_code=400, detail="Service is not active")
+        raise HTTPException(status_code=400, detail="El servicio no está activo")
 
-    # 2. Prevent self-hiring
+    # 2. Impedir que un proveedor contrate sus propios servicios
     if current_user.provider_profile and service.provider_id == current_user.provider_profile.id:
-        raise HTTPException(status_code=400, detail="You cannot hire your own service")
+        raise HTTPException(status_code=400, detail="No puedes contratar tu propio servicio")
 
-    # 3. Calculate Total Price (Just base price for now, could add quantities later)
+    # 3. Calcular el precio total (Por ahora solo el precio base del servicio)
     total_price = service.price
 
-    # 4. Create Order
+    # 4. Registrar la orden en la base de datos con estado PENDIENTE
     db_order = Order(
         client_id=current_user.id,
         service_id=service.id,

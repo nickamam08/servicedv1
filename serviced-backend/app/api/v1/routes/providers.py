@@ -21,21 +21,20 @@ def get_provider_availability(
     current_user: User = Depends(get_current_active_user)
 ) -> Any:
     """
-    Get provider availability for a specific month.
-    Returns busy slots.
+    Calcula la disponibilidad de un proveedor para un mes y año específicos.
+    Devuelve las fechas y horas que ya están ocupadas por otros servicios aceptados.
     """
-    # Verify provider exists
+    # Verificar la existencia del proveedor
     provider = db.query(ProviderProfile).filter(ProviderProfile.id == provider_id).first()
     if not provider:
-        raise HTTPException(status_code=404, detail="Provider not found")
+        raise HTTPException(status_code=404, detail="Proveedor no encontrado")
 
-    # Get requests for this provider in the given month/year
-    # Join ServiceRequest -> Service -> ProviderProfile
+    # Obtener solicitudes activas o aceptadas para bloquear el calendario
     requests = db.query(ServiceRequest).join(ServiceRequest.service).filter(
         Service.provider_id == provider_id,
         extract('month', ServiceRequest.scheduled_date) == month,
         extract('year', ServiceRequest.scheduled_date) == year,
-        ServiceRequest.status.in_([RequestStatus.ACCEPTED, RequestStatus.ACTIVE, RequestStatus.PENDING]) # Pending also blocks? Maybe.
+        ServiceRequest.status.in_([RequestStatus.ACCEPTED, RequestStatus.ACTIVE, RequestStatus.PENDING])
     ).all()
 
     busy_slots = []
@@ -56,11 +55,12 @@ def get_provider_profile(
     db: Session = Depends(get_db)
 ) -> Any:
     """
-    Get public provider professional profile by ID.
+    Recupera el perfil profesional público de un proveedor mediante su ID.
+    Visible para cualquier cliente que desee contratar sus servicios.
     """
     profile = db.query(ProviderProfile).filter(ProviderProfile.id == provider_id).first()
     if not profile:
-        raise HTTPException(status_code=404, detail="Provider not found")
+        raise HTTPException(status_code=404, detail="Proveedor no encontrado")
     return profile
 
 @router.get("/me", response_model=ProviderResponse)
@@ -69,17 +69,17 @@ def read_provider_me(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Get current provider professional profile.
+    Permite al proveedor autenticado recuperar su propio perfil profesional.
+    Si no tiene un perfil creado, el sistema lo genera automáticamente.
     """
     if current_user.role != UserRole.PROVIDER:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Current user is not a provider",
+            detail="El usuario actual no es un proveedor",
         )
     
     profile = provider_service.get_profile(db, user_id=current_user.id)
     if not profile:
-        # Auto-create if not exists but user is provider
         profile = provider_service.create_profile(db, user_id=current_user.id)
         
     return profile
@@ -92,17 +92,16 @@ def update_provider_me(
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
     """
-    Update current provider professional profile.
+    Actualiza la información profesional del proveedor autenticado (especialidades, tarifas, disponibilidad).
     """
     if current_user.role != UserRole.PROVIDER:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Current user is not a provider",
+            detail="El usuario actual no es un proveedor",
         )
     
     profile = provider_service.get_profile(db, user_id=current_user.id)
     if not profile:
-        # Auto-create if not exists
         profile = provider_service.create_profile(db, user_id=current_user.id)
     
     return provider_service.update_profile(db, db_obj=profile, obj_in=profile_in)

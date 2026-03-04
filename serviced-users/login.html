@@ -58,6 +58,10 @@
     </div>
 
     <script>
+        /**
+         * Lógica de Autenticación de SERVICED.
+         * Maneja el envío de credenciales al backend, almacenamiento de tokens y redirección según el rol.
+         */
         (function () {
             const API_BASE_URL = "/api/v1";
 
@@ -67,13 +71,16 @@
             const emailInput = form.querySelector('input[type="email"]');
             const passwordInput = form.querySelector('input[type="password"]');
 
-            // Crear contenedor de error reutilizable
+            // Crear contenedor de error reutilizable para mostrar mensajes de fallo al usuario
             const errorBox = document.createElement("div");
             errorBox.style.marginTop = "12px";
             errorBox.style.fontSize = "0.85rem";
             errorBox.style.color = "#DC2626";
             form.appendChild(errorBox);
 
+            /**
+             * Maneja el evento de envío del formulario de inicio de sesión.
+             */
             form.addEventListener("submit", async (event) => {
                 event.preventDefault();
                 errorBox.textContent = "";
@@ -81,16 +88,17 @@
                 const email = emailInput && emailInput.value.trim();
                 const password = passwordInput && passwordInput.value.trim();
 
+                // Validación básica de campos vacíos
                 if (!email || !password) {
                     errorBox.textContent = "Por favor, introduce tu correo y contraseña.";
                     return;
                 }
 
                 try {
-                    // Try to detect if we are running locally (file://) or via server
-                    // If file://, we might have CORS issues if backend doesn't allow *.
-                    // But assume user is running via backend static mount if possible.
-
+                    /**
+                     * Envío de credenciales al endpoint de login.
+                     * Se asume que el backend está corriendo en la misma raíz o mediante proxy.
+                     */
                     const response = await fetch(API_BASE_URL + "/auth/login", {
                         method: "POST",
                         headers: {
@@ -99,6 +107,7 @@
                         body: JSON.stringify({ email, password }),
                     });
 
+                    // Manejo de errores de autenticación (401, 404, etc.)
                     if (!response.ok) {
                         const data = await response.json().catch(() => ({}));
                         errorBox.textContent = data.detail || "No se pudo iniciar sesión. Revisa tus credenciales.";
@@ -107,7 +116,12 @@
 
                     const data = await response.json();
 
-                    // Guardar token y usuario en sessionStorage para aislamiento por pestaña
+                    /**
+                     * Almacenamiento Seguro de Sesión.
+                     * 'serviced_token': JWT para autorizar peticiones futuras.
+                     * 'serviced_user' : Objeto con datos básicos del perfil (nombre, rol, id).
+                     * Usamos sessionStorage para mayor seguridad (se limpia al cerrar la pestaña).
+                     */
                     if (data.access_token) {
                         sessionStorage.setItem("serviced_token", data.access_token);
                     }
@@ -117,21 +131,23 @@
 
                     const role = (data.user && data.user.role) || "client";
 
-                    // Redirecciones Absolutas (Works best when served via FastAPI StaticFiles)
+                    /**
+                     * Enrutamiento Basado en Roles.
+                     * Redirige al usuario al panel correspondiente según su perfil en el sistema.
+                     */
                     if (role === "provider") {
-                        // /provider is mounted to serviced-provider
+                        // El panel de proveedores está montado usualmente en /provider
                         window.location.href = "/provider/provider-dashboard.html?v=1.1.8";
                     } else if (role === "admin") {
-                        // /admin is mounted to serviced-admin
+                        // El panel administrativo se encuentra en /admin
                         window.location.href = "/admin/admin-dashboard.html";
                     } else {
-                        // /users is mounted to serviced-users
-                        // If we are already in /users/login.html, relative works too, but absolute is safer.
+                        // Flujo por defecto: Dashboard del cliente final
                         window.location.href = "/users/client-dashboard.html";
                     }
                 } catch (error) {
-                    console.error(error);
-                    errorBox.textContent = "Error de conexión. Asegúrate de que el servidor (backend) esté corriendo en puerto 8000.";
+                    console.error("Error en el proceso de login:", error);
+                    errorBox.textContent = "Error de conexión. Asegúrate de que el servidor esté accesible y funcionando.";
                 }
             });
         })();

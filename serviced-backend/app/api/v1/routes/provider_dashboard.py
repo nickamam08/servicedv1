@@ -25,10 +25,11 @@ from app.repositories.provider_dashboard import ProviderDashboardRepository
 router = APIRouter()
 
 def check_provider_role(current_user: User = Depends(get_current_user)):
+    """Verifica que el usuario tenga el rol de PROVEEDOR antes de permitir el acceso."""
     if current_user.role != UserRole.PROVIDER:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Access restricted to providers"
+            detail="Acceso restringido a proveedores"
         )
     return current_user
 
@@ -37,9 +38,10 @@ def get_dashboard_overview(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Obtiene el resumen de métricas (ingresos, servicios, solicitudes) para el proveedor."""
     return provider_dashboard_service.get_dashboard_overview(db, current_user)
 
-# --- Services Management ---
+# --- Gestión de Servicios del Proveedor ---
 
 @router.get("/services", response_model=List[ProviderServiceResponse])
 def get_provider_services(
@@ -48,6 +50,7 @@ def get_provider_services(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Lista todos los servicios creados por el proveedor actual."""
     return provider_service_management.get_services(db, current_user.id, skip, limit)
 
 @router.post("/services", response_model=ProviderServiceResponse)
@@ -56,6 +59,7 @@ def create_provider_service(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Permite al proveedor publicar un nuevo servicio en la plataforma."""
     return provider_service_management.create_service(db, current_user.id, service_in)
 
 @router.put("/services/{service_id}", response_model=ProviderServiceResponse)
@@ -65,6 +69,7 @@ def update_provider_service(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Modifica los detalles (precio, descripción, etc.) de un servicio específico."""
     return provider_service_management.update_service(db, service_id, current_user.id, service_in)
 
 @router.delete("/services/{service_id}", response_model=ProviderServiceResponse)
@@ -73,6 +78,7 @@ def delete_provider_service(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Elimina permanentemente un servicio del catálogo del proveedor."""
     return provider_service_management.delete_service(db, service_id, current_user.id)
 
 @router.put("/services/{service_id}/toggle", response_model=ProviderServiceResponse)
@@ -81,6 +87,7 @@ def toggle_service_status(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Activa o desactiva la visibilidad de un servicio sin eliminarlo."""
     return provider_service_management.toggle_service_status(db, service_id, current_user.id)
 
 @router.post("/services/upload-image")
@@ -88,57 +95,52 @@ async def upload_service_image(
     file: UploadFile = File(...),
     current_user: User = Depends(check_provider_role)
 ):
-    # Verify file is an image
+    """Gestiona la carga de imágenes para los servicios, guardándolas en el servidor."""
+    # Verificar que el archivo sea efectivamente una imagen
     if not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="File must be an image")
+        raise HTTPException(status_code=400, detail="El archivo debe ser una imagen")
     
-    # Create directory if not exists
+    # Asegurar la existencia del directorio de destino
     upload_dir = Path("static/uploads/services")
     upload_dir.mkdir(parents=True, exist_ok=True)
     
-    # Generate unique filename
+    # Generar un nombre de archivo único mediante UUID para evitar colisiones
     ext = os.path.splitext(file.filename)[1]
     filename = f"{uuid.uuid4()}{ext}"
     file_path = upload_dir / filename
     
-    # Save file
+    # Guardar el contenido del archivo en el disco
     try:
         with file_path.open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Could not save image: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"No se pudo guardar la imagen: {str(e)}")
     
     return {"url": f"/static/uploads/services/{filename}"}
 
 
-# --- Requests Management ---
+# --- Gestión de Solicitudes Recibidas ---
 
 @router.get("/requests", response_model=List[ProviderRequestResponse])
 def get_provider_requests(
-    status: Optional[str] = Query(None), # PENDING, ACCEPTED...
+    status: Optional[str] = Query(None),
     skip: int = 0,
     limit: int = 100,
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
-    # Need to map RequestResponse schema in service or here.
-    # The service returns ORM objects. Schema config from_attributes=True handles it.
-    
-    # ProviderRequestResponse requires client_name and service_title which are redundant in ORM but needed in schema
-    # We might need a transformer or updated schema.
-    # Actually, ORM relationships allow `request.client.full_name` but Pydantic alias paths are needed OR custom getter.
-    # Let's fix schema or add properties to model?
-    # Better: return list of dicts constructed manually here for simplicity, OR use Pydantic validators.
-    # Let's use simple manual construction for now to ensure robustness.
-    
+    """
+    Lista las solicitudes de contratación recibidas por el proveedor.
+    Construye la respuesta enriquecida con datos del cliente y el servicio.
+    """
     requests = provider_request_service.get_provider_requests(db, current_user.id, status, skip, limit)
     results = []
     for r in requests:
         results.append({
             "id": r.id,
             "client_id": r.client_id,
-            "client_name": r.client.full_name if r.client else "Unknown",
-            "service_title": r.service.title if r.service else "Unknown",
+            "client_name": r.client.full_name if r.client else "Desconocido",
+            "service_title": r.service.title if r.service else "Sin título",
             "status": r.status,
             "price": r.price_at_purchase or (r.service.price if r.service else 0),
             "scheduled_date": r.scheduled_date,
@@ -153,7 +155,8 @@ def accept_request(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
-    return provider_request_service.update_status(db, request_id, current_user.id, RequestStatus.ACTIVE) # ACCEPTED
+    """Cambia el estado de una solicitud a ACTIVA (Aceptada)."""
+    return provider_request_service.update_status(db, request_id, current_user.id, RequestStatus.ACTIVE)
 
 @router.put("/requests/{request_id}/reject")
 def reject_request(
@@ -161,13 +164,7 @@ def reject_request(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
-    # "REJECTED" isn't in enum, using CANCELLED as per user prompt mapping or adding REJECTED to enum?
-    # User prompt said: status (PENDING, ACCEPTED, REJECTED, COMPLETED, CANCELLED)
-    # Existing model uses RequestStatus enum: PENDING, ACTIVE, COMPLETED, CANCELLED
-    # I will map REJECTED to CANCELLED for now or assume I should have updated enum.
-    # User asked for REJECTED in prompt "3 ServiceRequest".
-    # I didn't update enum in models because changing enum via SQLAlchemy is tricky without migration.
-    # I will stick to CANCELLED as rejection for now.
+    """Rechaza una solicitud de servicio (mapeado a CANCELADA en el modelo)."""
     return provider_request_service.update_status(db, request_id, current_user.id, RequestStatus.CANCELLED)
 
 @router.put("/requests/{request_id}/complete")
@@ -176,31 +173,34 @@ def complete_request(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Marca una solicitud aceptada como FINALIZADA con éxito."""
     return provider_request_service.update_status(db, request_id, current_user.id, RequestStatus.COMPLETED)
 
 @router.put("/requests/{request_id}/reschedule")
 def reschedule_request(
     request_id: int,
-    retry_data: RequestStatusUpdate, # reusing schema for body even if only date needed
+    retry_data: RequestStatusUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Permite al proveedor proponer una nueva fecha para el servicio."""
     if not retry_data.scheduled_date:
-        raise HTTPException(status_code=400, detail="scheduled_date is required")
+        raise HTTPException(status_code=400, detail="La fecha programada es obligatoria")
     return provider_request_service.reschedule_request(db, request_id, current_user.id, retry_data.scheduled_date)
 
 
-# --- Profile, Reviews, Notifications ---
+# --- Perfil Profesional y Notificaciones ---
 
 @router.get("/profile", response_model=ProviderProfileResponse)
 def get_current_provider_profile(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Obtiene los detalles del perfil profesional del proveedor logueado."""
     repo = ProviderDashboardRepository(db)
     profile = repo.get_provider_profile(current_user.id)
     if not profile:
-        raise HTTPException(status_code=404, detail="Profile not found")
+        raise HTTPException(status_code=404, detail="Perfil no encontrado")
     
     return {
         "id": profile.id,
@@ -231,19 +231,19 @@ def update_provider_profile(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Actualiza la información profesional y personal (del usuario base) simultáneamente."""
     from app.core.security import get_password_hash
     repo = ProviderDashboardRepository(db)
     profile = repo.get_provider_profile(current_user.id)
     if not profile:
-        raise HTTPException(status_code=404, detail="Profile not found")
+        raise HTTPException(status_code=404, detail="Perfil no encontrado")
     
-    # Update User Fields
+    # Actualización de campos en el modelo User
     if profile_in.full_name is not None:
         current_user.full_name = profile_in.full_name
     if profile_in.email is not None:
         new_email = profile_in.email.strip().lower()
         if new_email != current_user.email.lower():
-            # Check if email is already taken by ANOTHER user
             user_check = db.query(User).filter(User.email == new_email, User.id != current_user.id).first()
             if user_check:
                 raise HTTPException(status_code=400, detail="El correo electrónico ya está en uso")
@@ -251,7 +251,7 @@ def update_provider_profile(
     if profile_in.new_password:
         current_user.password_hash = get_password_hash(profile_in.new_password)
     
-    # Update Profile Fields
+    # Actualización de campos en el perfil profesional (ProviderProfile)
     if profile_in.description is not None:
         profile.description = profile_in.description
     if profile_in.specialty is not None:
@@ -306,15 +306,15 @@ def update_provider_profile(
         "is_verified": profile.is_verified
     }
 
-@router.get("/reviews") # , response_model=List[ReviewResponse]
+@router.get("/reviews")
 def get_provider_reviews(
     skip: int = 0,
     limit: int = 20,
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Muestra todas las reseñas recibidas por el proveedor."""
     repo = ProviderDashboardRepository(db)
-    # Return simple list or schema
     return repo.get_provider_reviews(current_user.id, skip, limit)
 
 @router.get("/notifications", response_model=List[NotificationResponse])
@@ -324,6 +324,7 @@ def get_notifications(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Recupera las notificaciones específicas para este proveedor."""
     repo = ProviderDashboardRepository(db)
     return repo.get_provider_notifications(current_user.id, skip, limit)
 
@@ -332,12 +333,13 @@ def get_provider_clients(
     db: Session = Depends(get_db),
     current_user: User = Depends(check_provider_role)
 ):
+    """Obtiene una lista única de clientes que han contratado al proveedor."""
     from app.models import ServiceRequest, Service
     
     if not current_user.provider_profile:
         return []
         
-    # Get unique clients who have Requests with this provider
+    # Obtener usuarios distintos vinculados mediante solicitudes a servicios de este proveedor
     clients = db.query(User).join(ServiceRequest, ServiceRequest.client_id == User.id)\
         .join(Service, Service.id == ServiceRequest.service_id)\
         .filter(Service.provider_id == current_user.provider_profile.id)\
@@ -345,8 +347,7 @@ def get_provider_clients(
         
     results = []
     for client in clients:
-        # Calculate stats (optional but nice)
-        total_spent = 0 # Placeholder or calc
+        # Calcular el número de veces que el cliente ha solicitado servicios
         requests_count = db.query(ServiceRequest).join(Service).filter(
             ServiceRequest.client_id == client.id,
             Service.provider_id == current_user.provider_profile.id

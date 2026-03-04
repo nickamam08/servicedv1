@@ -9,9 +9,15 @@ from app.models.all_models import (
 )
 
 class AdminRepository:
+    """
+    Repositorio especializado en consultas globales y estadísticas para el panel de Administración.
+    """
     def fetch_all_users(
         self, db: Session, *, role: Optional[str] = None, is_active: Optional[bool] = None, search: Optional[str] = None
     ) -> List[User]:
+        """
+        Obtiene la lista de usuarios con filtros opcionales por rol, estado de actividad y búsqueda por nombre/email.
+        """
         query = db.query(User)
         if role:
             query = query.filter(User.role == role)
@@ -24,12 +30,18 @@ class AdminRepository:
         return query.all()
 
     def fetch_all_providers(self, db: Session) -> List[ProviderProfile]:
+        """
+        Obtiene todos los perfiles de proveedores registrados.
+        """
         return db.query(ProviderProfile).all()
 
     def fetch_all_services(
         self, db: Session, *, category: Optional[str] = None, is_active: Optional[bool] = None, 
         provider_id: Optional[int] = None, search: Optional[str] = None
     ) -> List[Service]:
+        """
+        Obtiene todos los servicios de la plataforma con filtros por categoría, estado, proveedor y búsqueda textual.
+        """
         query = db.query(Service)
         if category:
             query = query.filter(Service.category == category)
@@ -47,11 +59,14 @@ class AdminRepository:
         self, db: Session, *, status: Optional[str] = None, provider_id: Optional[int] = None, 
         client_id: Optional[int] = None, date_from: Optional[datetime] = None, date_to: Optional[datetime] = None
     ) -> List[ServiceRequest]:
+        """
+        Obtiene todas las solicitudes de servicio con filtros detallados por estado, participantes y rango de fechas.
+        """
         query = db.query(ServiceRequest)
         if status:
             query = query.filter(ServiceRequest.status == status)
         if provider_id:
-            # Need to join with Service to filter by provider
+            # Requiere JOIN con Service para filtrar por el proveedor que ofrece el servicio
             query = query.join(Service).filter(Service.provider_id == provider_id)
         if client_id:
             query = query.filter(ServiceRequest.client_id == client_id)
@@ -62,9 +77,15 @@ class AdminRepository:
         return query.all()
 
     def fetch_all_reviews(self, db: Session) -> List[Review]:
+        """
+        Obtiene todas las reseñas de la plataforma, de la más reciente a la más antigua.
+        """
         return db.query(Review).order_by(Review.created_at.desc()).all()
 
     def fetch_platform_statistics(self, db: Session) -> Dict[str, Any]:
+        """
+        Calcula y retorna estadísticas globales clave del rendimiento de la plataforma.
+        """
         thirty_days_ago = datetime.utcnow() - timedelta(days=30)
         
         total_users = db.query(func.count(User.id)).filter(User.role == UserRole.CLIENT).scalar() or 0
@@ -93,6 +114,10 @@ class AdminRepository:
         }
 
     def fetch_all_categories(self, db: Session) -> List[Category]:
+        """
+        Obtiene la lista completa de categorías de servicios.
+        """
         return db.query(Category).all()
 
+# Instancia global del repositorio administrativo
 admin_repo = AdminRepository()

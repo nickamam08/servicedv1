@@ -25,15 +25,17 @@
 
     <div class="app-container">
 
-        <!-- Sidebar (Simulated import) -->
+        <!-- Barra Lateral de Navegación -->
         <aside class="app-sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="sidebar-logo">
+                    <!-- Logo de la plataforma -->
                     <img src="log.png" alt="SERVICED" style="height: 40px; width: auto;">
                 </a>
             </div>
 
             <nav class="sidebar-nav">
+                <!-- Enlaces de navegación con iconos SVG -->
                 <a href="client-dashboard.html" class="nav-item">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,6 +103,7 @@
                 </a>
             </nav>
             <div class="sidebar-footer">
+                <!-- Enlace para cerrar sesión -->
                 <a href="login.html" class="logout-link">
                     <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -113,8 +116,9 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal -->
         <main class="app-main" style="overflow-y: auto;">
+            <!-- Cabecera del Detalle -->
             <header class="app-header" style="height: auto; padding: 32px 0;">
                 <a href="search-services.html"
                     style="display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; margin-bottom: 16px; font-weight: 500;">
@@ -126,27 +130,29 @@
                 <h1 class="text-h2" id="service-title">Cargando servicio...</h1>
             </header>
 
+            <!-- Rejilla de Detalles del Servicio -->
             <div id="service-content" class="detail-grid" style="display: none;">
-                <!-- Left Column: Details -->
+                <!-- Columna Izquierda: Información Detallada -->
                 <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <!-- Image -->
+                    <!-- Imagen del Servicio -->
                     <div class="bento-card" style="padding: 0; overflow: hidden; height: 300px;">
                         <img id="service-image" src="" alt="Service Image"
                             style="width: 100%; height: 100%; object-fit: cover; background: #f0f0f0; display: block;">
+                        <!-- Marcador de posición si no hay imagen -->
                         <div id="no-image-placeholder"
                             style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg-surface-alt); color: var(--text-secondary); display: none;">
                             Sin Imagen
                         </div>
                     </div>
 
-                    <!-- Description -->
+                    <!-- Descripción del Servicio -->
                     <div class="bento-card">
                         <h3 class="text-h3" style="margin-bottom: 16px;">Descripción</h3>
                         <p class="text-body" id="service-desc"
                             style="white-space: pre-wrap; color: var(--text-secondary); line-height: 1.6;"></p>
                     </div>
 
-                    <!-- FAQs -->
+                    <!-- Preguntas Frecuentes (FAQs) -->
                     <div class="bento-card">
                         <h3 class="text-h3" style="margin-bottom: 16px;">Preguntas Frecuentes</h3>
                         <div id="service-faqs">
@@ -155,21 +161,21 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Premium Action Card -->
+                <!-- Columna Derecha: Tarjeta de Acción y Resumen -->
                 <div style="display: flex; flex-direction: column; gap: 24px;">
                     <div class="bento-card"
                         style="padding: 32px; border: 1px solid rgba(0,0,0,0.05); position: sticky; top: 24px;">
                         <span class="text-sm" style="color: var(--text-tertiary); font-weight: 500;">Precio
                             promedio</span>
+                        <!-- Visualización del precio -->
                         <div class="text-h1"
                             style="font-size: 2.25rem; font-weight: 700; margin: 4px 0 24px; color: var(--text-main);">
-                            ~<span
-                                style="font-size: 1.1rem; color: var(--text-tertiary); font-weight: 700;">$</span><span
-                                id="service-price-val">0</span> <span
-                                style="font-size: 1.1rem; color: var(--text-tertiary); font-weight: 500;">/
+                            ~<span id="service-price-val">0</span> <span
+                                style="font-size: 1.1rem; color: var(--text-tertiary); font-weight: 500;"> COP /
                                 servicio</span>
                         </div>
 
+                        <!-- Botón para iniciar el proceso de contratación -->
                         <button id="hire-btn-main" class="btn"
                             style="width: 100%; justify-content: space-between; background: #0f172a; color: white; padding: 18px 24px; border-radius: 16px; font-size: 1.1rem; font-weight: 600; margin-bottom: 32px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
                             Solicitar Servicio
@@ -180,6 +186,7 @@
                             </svg>
                         </button>
 
+                        <!-- Detalles adicionales: Horarios y Zona -->
                         <div
                             style="padding-top: 24px; border-top: 1px solid #f1f5f9; display: flex; flex-direction: column; gap: 20px;">
                             <div>
@@ -199,7 +206,7 @@
                             </div>
                         </div>
 
-                        <!-- Satisfaction Guarantee -->
+                        <!-- Garantía de Satisfacción -->
                         <div
                             style="margin-top: 32px; padding: 14px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; gap: 12px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -209,7 +216,7 @@
                             Garantía de satisfacción SERVICED
                         </div>
 
-                        <!-- Provider Quick Link -->
+                        <!-- Enlace rápido al perfil del proveedor -->
                         <div
                             style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px;">
                             <div id="mini-provider-avatar"
@@ -223,6 +230,7 @@
                                     style="color: var(--primary); font-size: 0.85rem; font-weight: 600; text-decoration: none;">Ver
                                     perfil completo</a>
                             </div>
+                            <!-- Botón de contacto rápido (abre chat) -->
                             <button id="contact-btn-mini"
                                 style="background: none; border: none; color: var(--text-secondary); cursor: pointer;"
                                 title="Contactar">
@@ -236,12 +244,13 @@
                 </div>
             </div>
 
+            <!-- Mensaje de error si la carga falla -->
             <div id="error-msg" style="text-align: center; margin-top: 40px; display: none;">
                 <p class="text-h3">No se pudo cargar el servicio.</p>
                 <a href="search-services.html" class="btn" style="display: inline-flex; margin-top: 16px;">Volver</a>
             </div>
 
-            <!-- Booking Modal -->
+            <!-- Modal de Reserva (Booking) -->
             <div id="booking-modal"
                 style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
                 <div class="bento-card" style="width: 90%; max-width: 400px; padding: 24px;">
@@ -283,15 +292,21 @@
     </div>
 
     <script>
+        /**
+         * Lógica principal de la página de detalle del servicio.
+         * Maneja la carga de datos del servicio, el proceso de reserva y la mensajería con el proveedor.
+         */
         document.addEventListener("DOMContentLoaded", async () => {
             const API_BASE_URL = "/api/v1";
             const token = sessionStorage.getItem("serviced_token");
+
+            // Redirección si no hay sesión activa
             if (!token) {
                 window.location.href = "login.html";
                 return;
             }
 
-            // Get ID from URL
+            // Obtener el ID del servicio desde los parámetros de la URL
             const params = new URLSearchParams(window.location.search);
             const serviceId = params.get("id");
 
@@ -300,10 +315,11 @@
                 return;
             }
 
+            // Referencias a elementos del DOM para visualización y errores
             const contentDiv = document.getElementById("service-content");
             const errorDiv = document.getElementById("error-msg");
 
-            // Modal Elements
+            // Elementos del Modal de Reserva
             const bookingModal = document.getElementById("booking-modal");
             const cancelBookingBtn = document.getElementById("cancel-booking-btn");
             const confirmBookingBtn = document.getElementById("confirm-booking-btn");
@@ -313,23 +329,25 @@
 
             let currentService = null;
 
-            // Fetch Service Data
+            /**
+             * Obtiene y renderiza los datos detallados del servicio.
+             */
             try {
                 const resp = await fetch(`${API_BASE_URL}/services/${serviceId}`, {
                     headers: { "Authorization": "Bearer " + token }
                 });
 
-                if (!resp.ok) throw new Error("Service not found");
+                if (!resp.ok) throw new Error("Servicio no encontrado");
 
                 const service = await resp.json();
                 currentService = service;
 
-                // Render Data
+                // Actualizar textos básicos en la interfaz
                 document.getElementById("service-title").textContent = service.title;
                 document.getElementById("service-desc").textContent = service.description;
                 document.getElementById("service-price-val").textContent = service.price ? service.price.toLocaleString('es-CO') : "0";
 
-                // Provider Info
+                // Renderizar información del proveedor asociado
                 if (service.provider) {
                     document.getElementById("mini-provider-name").textContent = service.provider.full_name || "Proveedor Verificado";
                     document.getElementById("service-horarios").textContent = service.provider.availability || "Lun - Vie: 09:00 - 18:00";
@@ -342,11 +360,12 @@
                         avatarEl.textContent = (service.provider.full_name || "P").charAt(0).toUpperCase();
                     }
 
+                    // Enlace Dinámico al perfil del proveedor
                     const profileLink = document.getElementById("view-profile-link");
                     profileLink.href = `provider-profile.html?id=${service.provider.id}`;
                 }
 
-                // Image
+                // Manejo de la imagen principal del servicio
                 const imgEl = document.getElementById("service-image");
                 const placeholderEl = document.getElementById("no-image-placeholder");
                 if (service.image_urls && service.image_urls.length > 0) {
@@ -356,7 +375,7 @@
                     placeholderEl.style.display = "flex";
                 }
 
-                // FAQs
+                // Renderizado dinámico de FAQs (Preguntas Frecuentes)
                 const faqContainer = document.getElementById("service-faqs");
                 if (service.faqs && service.faqs.length > 0) {
                     faqContainer.innerHTML = service.faqs.map(faq => `
@@ -367,18 +386,21 @@
                     `).join("");
                 }
 
+                // Mostrar el contenido principal tras la carga exitosa
                 contentDiv.style.display = "grid";
 
             } catch (err) {
-                console.error(err);
+                console.error("Error al cargar servicio:", err);
                 document.getElementById("service-title").textContent = "Error";
                 errorDiv.style.display = "block";
             }
 
-            // Booking Modal (Hire Button)
+            // --- Lógica del Proceso de Reserva ---
+
             const hireBtn = document.getElementById("hire-btn-main");
             if (hireBtn) {
                 hireBtn.addEventListener("click", () => {
+                    // Configurar fecha mínima (mañana) para nuevas reservas
                     const tomorrow = new Date();
                     tomorrow.setDate(tomorrow.getDate() + 1);
                     bookingDateInput.min = tomorrow.toISOString().split("T")[0];
@@ -386,10 +408,14 @@
                 });
             }
 
+            // Cerrar modal de reserva
             cancelBookingBtn.addEventListener("click", () => {
                 bookingModal.style.display = "none";
             });
 
+            /**
+             * Envía la solicitud de reserva al servidor.
+             */
             confirmBookingBtn.addEventListener("click", async () => {
                 const dateVal = bookingDateInput.value;
                 const timeVal = bookingTimeInput.value;
@@ -400,6 +426,7 @@
                     return;
                 }
 
+                // Construcción de la fecha en formato ISO para el backend
                 const scheduledDate = `${dateVal}T${timeVal}:00`;
                 confirmBookingBtn.disabled = true;
                 confirmBookingBtn.textContent = "Reservando...";
@@ -420,22 +447,24 @@
 
                     if (resp.ok) {
                         const request = await resp.json();
-                        alert(`¡Reserva confirmada! ID: ${request.id}`);
+                        alert(`¡Reserva confirmada! ID de solicitud: ${request.id}`);
                         window.location.href = "user-requests.html";
                     } else {
                         const errData = await resp.json();
                         alert(`Error: ${errData.detail || "No se pudo realizar la reserva"}`);
                     }
                 } catch (err) {
-                    console.error(err);
-                    alert("Error de conexión");
+                    console.error("Error en reserva:", err);
+                    alert("Error de conexión al intentar reservar.");
                 } finally {
                     confirmBookingBtn.disabled = false;
                     confirmBookingBtn.textContent = "Confirmar Reserva";
                 }
             });
 
-            // Handle Contact
+            /**
+             * Manejo del botón de contacto rápido (inicia chat con el proveedor).
+             */
             const contactBtnMini = document.getElementById("contact-btn-mini");
             if (contactBtnMini) {
                 contactBtnMini.addEventListener("click", async () => {
@@ -444,10 +473,11 @@
                     contactBtnMini.disabled = true;
                     try {
                         if (!currentService.provider_user_id) {
-                            alert("No se puede contactar a este proveedor.");
+                            alert("No se puede contactar a este proveedor en este momento.");
                             return;
                         }
 
+                        // Intentar crear o recuperar una conversación existente
                         const resp = await fetch(`${API_BASE_URL}/conversations`, {
                             method: "POST",
                             headers: {
@@ -461,14 +491,15 @@
                         });
 
                         if (resp.ok) {
+                            // Redirigir al chat pasando el ID del usuario destino
                             window.location.href = `user-chat.html?userId=${currentService.provider_user_id}`;
                         } else {
                             const errData = await resp.json();
                             alert(`Error: ${errData.detail || "No se pudo iniciar el chat"}`);
                         }
                     } catch (err) {
-                        console.error(err);
-                        alert("Error de conexión");
+                        console.error("Error de contacto:", err);
+                        alert("Error de conexión al intentar contactar.");
                     } finally {
                         contactBtnMini.disabled = false;
                     }
@@ -477,7 +508,9 @@
         });
     </script>
     <script>
-        // Avatar Sync
+        /**
+         * Sincronización del avatar del usuario actual en la interfaz.
+         */
         (function () {
             try {
                 const user = JSON.parse(sessionStorage.getItem("serviced_user"));
@@ -486,6 +519,7 @@
                         if (user.avatar_url) {
                             el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
                         } else {
+                            // Generar iniciales si no hay foto
                             el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
                         }
                     });

@@ -15,9 +15,10 @@ def create_review(
     db: Session = Depends(get_db)
 ) -> Any:
     """
-    Create a new review for a provider after a service is completed.
+    Crea una nueva reseña para un proveedor después de que un servicio ha sido finalizado.
+    Valida pertenencia, estado de la solicitud y previene duplicados.
     """
-    # 1. Verify that the service request exists and belongs to the client
+    # 1. Verificar que la solicitud de servicio existe y pertenece al cliente actual
     request = db.query(ServiceRequest).filter(
         ServiceRequest.id == review_in.service_request_id,
         ServiceRequest.client_id == current_user.id
@@ -26,27 +27,27 @@ def create_review(
     if not request:
         raise HTTPException(
             status_code=404, 
-            detail="Service request not found or does not belong to you"
+            detail="Solicitud de servicio no encontrada o no te pertenece"
         )
     
-    # 2. Verify that the request is COMPLETED
+    # 2. Verificar que el servicio esté marcado como COMPLETADO antes de permitir calificar
     if request.status != RequestStatus.COMPLETED:
         raise HTTPException(
             status_code=400, 
-            detail=f"Cannot rate a service that is in status {request.status}. Only COMPLETED services can be rated."
+            detail=f"No se puede calificar un servicio que está en estado {request.status}. Solo los servicios FINALIZADOS pueden ser calificados."
         )
         
-    # 3. Check if a review already exists for this request
+    # 3. Comprobar si ya existe una reseña previa para esta solicitud específica
     existing_review = db.query(Review).filter(
         Review.service_request_id == review_in.service_request_id
     ).first()
     if existing_review:
         raise HTTPException(
             status_code=400, 
-            detail="You have already rated this service request."
+            detail="Ya has calificado esta solicitud de servicio anteriormente."
         )
 
-    # 4. Create the review
+    # 4. Registrar la nueva valoración en la base de datos
     db_review = Review(
         client_id=current_user.id,
         provider_id=review_in.provider_id,
@@ -67,6 +68,6 @@ def get_provider_reviews(
     db: Session = Depends(get_db)
 ) -> Any:
     """
-    Get all reviews for a specific provider.
+    Obtiene todas las reseñas y comentarios asociados a un proveedor específico.
     """
     return db.query(Review).filter(Review.provider_id == provider_id).all()

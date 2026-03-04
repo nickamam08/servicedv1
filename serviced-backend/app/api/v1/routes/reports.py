@@ -17,7 +17,8 @@ def create_report(
     current_user: User = Depends(get_current_user)
 ):
     """
-    Create a new report. Can be called by any authenticated user.
+    Crea un nuevo reporte (queja o incidencia). 
+    Puede ser ejecutado por cualquier usuario autenticado.
     """
     return report_service.create_report(db, reporter_id=current_user.id, report_in=report_in)
 
@@ -27,8 +28,7 @@ def get_my_reports(
     current_user: User = Depends(get_current_user)
 ):
     """
-    Get all reports made by the current user.
+    Obtiene el listado de todos los reportes realizados por el usuario actual.
     """
-    # We could add a fetch_by_reporter in repo, but for now we filter here or add it
     from app.models.all_models import Report
     return db.query(Report).filter(Report.reporter_id == current_user.id).all()
