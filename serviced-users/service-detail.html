@@ -13,9 +13,158 @@
             gap: 24px;
         }
 
+        /* Modern Calendar Styles */
+        .calendar-container {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav-btn {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--bg-surface-alt);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .calendar-month-year {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+
+        .calendar-weekday {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .calendar-day:not(.empty):not(.disabled):hover {
+            background: #EFF6FF;
+            color: var(--primary);
+        }
+
+        .calendar-day.selected {
+            background: var(--text-main) !important;
+            color: white !important;
+            font-weight: 700;
+        }
+
+        .calendar-day.disabled {
+            color: var(--text-tertiary);
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.today {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .calendar-day.today::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        /* Time Slots Styles */
+        .time-slots-container {
+            margin-top: 24px;
+        }
+
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            color: var(--text-secondary);
+        }
+
+        .time-slot:hover:not(.disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #EFF6FF;
+        }
+
+        .time-slot.selected {
+            background: var(--text-main) !important;
+            color: white !important;
+            border-color: var(--text-main) !important;
+        }
+
+        .time-slot.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #f8fafc;
+        }
+
         @media (max-width: 768px) {
             .detail-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .time-slots-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -252,38 +401,68 @@
 
             <!-- Modal de Reserva (Booking) -->
             <div id="booking-modal"
-                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-                <div class="bento-card" style="width: 90%; max-width: 400px; padding: 24px;">
-                    <h3 class="text-h3" style="margin-bottom: 16px;">Programar Cita</h3>
-                    <div class="form-group">
-                        <label class="form-label">Fecha</label>
-                        <input type="date" id="booking-date" class="form-input" required>
+                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+                <div class="bento-card"
+                    style="width: 95%; max-width: 480px; padding: 32px; max-height: 90vh; overflow-y: auto;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                        <h3 class="text-h2" style="font-size: 1.5rem;">Programar Cita</h3>
+                        <button id="close-modal-btn"
+                            style="background: none; border: none; cursor: pointer; color: var(--text-secondary);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
+
+                    <!-- Nuevo Componente de Calendario -->
                     <div class="form-group">
-                        <label class="form-label">Hora</label>
-                        <select id="booking-time" class="form-input" required>
-                            <option value="">Selecciona una hora</option>
-                            <option value="09:00">09:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="13:00">01:00 PM</option>
-                            <option value="14:00">02:00 PM</option>
-                            <option value="15:00">03:00 PM</option>
-                            <option value="16:00">04:00 PM</option>
-                            <option value="17:00">05:00 PM</option>
-                        </select>
+                        <label class="form-label" style="font-weight: 700; margin-bottom: 12px; display: block;">1.
+                            Selecciona el día</label>
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <button class="calendar-nav-btn" id="prev-month">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M15 18l-6-6 6-6" />
+                                    </svg>
+                                </button>
+                                <div class="calendar-month-year" id="current-month-year">Marzo 2024</div>
+                                <button class="calendar-nav-btn" id="next-month">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M9 18l6-6-6-6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="calendar-grid" id="calendar-days">
+                                <!-- Días generados dinámicamente -->
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Notas adicionales</label>
-                        <textarea id="booking-notes" class="form-input" rows="3"
-                            placeholder="Detalles extra..."></textarea>
+
+                    <!-- Selección de Horas -->
+                    <div class="time-slots-container" id="time-selection-area" style="display: none;">
+                        <label class="form-label" style="font-weight: 700; margin-bottom: 12px; display: block;">2.
+                            Elige la hora</label>
+                        <div class="time-slots-grid" id="time-slots">
+                            <!-- Horas generadas dinámicamente -->
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 12px; margin-top: 24px;">
-                        <button id="cancel-booking-btn" class="btn"
-                            style="flex: 1; background: var(--bg-surface-alt); color: var(--text-main);">Cancelar</button>
+
+                    <div class="form-group" style="margin-top: 24px;">
+                        <label class="form-label" style="font-weight: 700; margin-bottom: 12px; display: block;">3.
+                            Notas adicionales</label>
+                        <textarea id="booking-notes" class="form-input" rows="2"
+                            placeholder="Ej: Código de edificio, detalles del problema..."
+                            style="resize: none; border-radius: 12px;"></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-top: 32px;">
                         <button id="confirm-booking-btn" class="btn"
-                            style="flex: 1; background: var(--text-main); color: white;">Confirmar Reserva</button>
+                            style="flex: 1; background: var(--text-main); color: white; justify-content: center; padding: 16px; border-radius: 12px; font-weight: 700;"
+                            disabled>Confirmar Reserva</button>
                     </div>
                 </div>
             </div>
@@ -395,41 +574,171 @@
                 errorDiv.style.display = "block";
             }
 
-            // --- Lógica del Proceso de Reserva ---
-
+            // --- Lógica del Proceso de Reserva Modernizado ---
             const hireBtn = document.getElementById("hire-btn-main");
+            const closeModalBtn = document.getElementById("close-modal-btn");
+            const currentMonthYear = document.getElementById("current-month-year");
+            const calendarDays = document.getElementById("calendar-days");
+            const prevMonthBtn = document.getElementById("prev-month");
+            const nextMonthBtn = document.getElementById("next-month");
+            const timeSelectionArea = document.getElementById("time-selection-area");
+            const timeSlotsGrid = document.getElementById("time-slots");
+
+            let selectedDate = null;
+            let selectedTime = null;
+            let viewingDate = new Date(); // Mes actual en el calendario
+
             if (hireBtn) {
                 hireBtn.addEventListener("click", () => {
-                    // Configurar fecha mínima (mañana) para nuevas reservas
-                    const tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    bookingDateInput.min = tomorrow.toISOString().split("T")[0];
+                    resetBookingState();
+                    renderCalendar();
                     bookingModal.style.display = "flex";
                 });
             }
 
-            // Cerrar modal de reserva
-            cancelBookingBtn.addEventListener("click", () => {
-                bookingModal.style.display = "none";
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener("click", () => {
+                    bookingModal.style.display = "none";
+                });
+            }
+
+            // Navegación del Calendario
+            prevMonthBtn.addEventListener("click", () => {
+                viewingDate.setMonth(viewingDate.getMonth() - 1);
+                renderCalendar();
             });
+
+            nextMonthBtn.addEventListener("click", () => {
+                viewingDate.setMonth(viewingDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+            function resetBookingState() {
+                selectedDate = null;
+                selectedTime = null;
+                viewingDate = new Date();
+                timeSelectionArea.style.display = "none";
+                confirmBookingBtn.disabled = true;
+                bookingNotesInput.value = "";
+            }
+
+            function renderCalendar() {
+                const year = viewingDate.getFullYear();
+                const month = viewingDate.getMonth();
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                currentMonthYear.textContent = `${monthNames[month]} ${year}`;
+
+                // Limpiar días anteriores
+                calendarDays.innerHTML = "";
+
+                // Cabecera de días de la semana
+                ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"].forEach(day => {
+                    const el = document.createElement("div");
+                    el.className = "calendar-weekday";
+                    el.textContent = day;
+                    calendarDays.appendChild(el);
+                });
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                // Espacios vacíos al inicio (relleno del mes anterior)
+                for (let i = 0; i < firstDay; i++) {
+                    const empty = document.createElement("div");
+                    empty.className = "calendar-day empty";
+                    calendarDays.appendChild(empty);
+                }
+
+                // Generar los días del mes
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const dateObj = new Date(year, month, d);
+                    const dayEl = document.createElement("div");
+                    dayEl.className = "calendar-day";
+                    dayEl.textContent = d;
+
+                    // Validar si el día es pasado (bloqueado)
+                    if (dateObj < today) {
+                        dayEl.classList.add("disabled");
+                    } else {
+                        if (dateObj.getTime() === today.getTime()) dayEl.classList.add("today");
+
+                        // Marcar el día seleccionado
+                        if (selectedDate && dateObj.toDateString() === selectedDate.toDateString()) {
+                            dayEl.classList.add("selected");
+                        }
+
+                        dayEl.addEventListener("click", () => {
+                            selectDay(dateObj);
+                        });
+                    }
+                    calendarDays.appendChild(dayEl);
+                }
+            }
+
+            function selectDay(date) {
+                selectedDate = date;
+                selectedTime = null; // Reiniciar hora al cambiar día
+                confirmBookingBtn.disabled = true;
+                renderCalendar();
+                renderTimeSlots();
+                timeSelectionArea.style.display = "block";
+
+                // Scroll suave a la sección de horas si es móvil
+                if (window.innerWidth < 768) {
+                    timeSelectionArea.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            function renderTimeSlots() {
+                timeSlotsGrid.innerHTML = "";
+                const hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"];
+
+                hours.forEach(time => {
+                    const slot = document.createElement("div");
+                    slot.className = "time-slot";
+                    slot.textContent = formatAMPM(time);
+
+                    if (selectedTime === time) slot.classList.add("selected");
+
+                    slot.addEventListener("click", () => {
+                        document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+                        slot.classList.add("selected");
+                        selectedTime = time;
+                        confirmBookingBtn.disabled = false;
+                    });
+                    timeSlotsGrid.appendChild(slot);
+                });
+            }
+
+            function formatAMPM(time) {
+                let [h, m] = time.split(':');
+                let ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12;
+                h = h ? h : 12;
+                return `${h}:${m} ${ampm}`;
+            }
 
             /**
              * Envía la solicitud de reserva al servidor.
              */
             confirmBookingBtn.addEventListener("click", async () => {
-                const dateVal = bookingDateInput.value;
-                const timeVal = bookingTimeInput.value;
                 const notesVal = bookingNotesInput.value;
 
-                if (!dateVal || !timeVal) {
+                if (!selectedDate || !selectedTime) {
                     alert("Por favor selecciona fecha y hora.");
                     return;
                 }
 
-                // Construcción de la fecha en formato ISO para el backend
-                const scheduledDate = `${dateVal}T${timeVal}:00`;
+                // Formatear fecha para el backend (YYYY-MM-DDTHH:MM:SS)
+                const offsetDate = new Date(selectedDate.getTime() - (selectedDate.getTimezoneOffset() * 60000));
+                const isoDate = offsetDate.toISOString().split('T')[0];
+                const scheduledDate = `${isoDate}T${selectedTime}:00`;
+
                 confirmBookingBtn.disabled = true;
-                confirmBookingBtn.textContent = "Reservando...";
+                confirmBookingBtn.textContent = "Procesando...";
 
                 try {
                     const resp = await fetch(`${API_BASE_URL}/requests/`, {
@@ -440,7 +749,7 @@
                         },
                         body: JSON.stringify({
                             service_id: Number(serviceId),
-                            notes: notesVal || "Reserva programada",
+                            notes: notesVal || "Reserva programada vía dashboard",
                             scheduled_date: scheduledDate
                         })
                     });

@@ -66,13 +66,15 @@ def register_user(
     Registra un nuevo usuario en la plataforma.
     Si el rol es 'provider', crea automáticamente un perfil de proveedor básico.
     """
+    print(f"DEBUG: Registering user with email: {user_in.email}")
     existing = user_repo.get_by_email(db, email=user_in.email)
     if existing:
+        print(f"DEBUG: User already exists: {user_in.email}")
         raise HTTPException(
             status_code=400,
             detail="Ya existe un usuario con este correo electrónico en el sistema",
         )
-
+    print(f"DEBUG: Creating user in repo...")
     user = user_repo.create(db, obj_in=user_in)
 
     # Intento de envío de email de bienvenida

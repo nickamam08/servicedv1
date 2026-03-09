@@ -9,7 +9,7 @@ def random_string(length=10):
 
 def test_provider_registration():
     email = f"provider_{random_string()}@test.com"
-    password = "password123"
+    password = "Password123!"
     payload = {
         "email": email,
         "password": password,

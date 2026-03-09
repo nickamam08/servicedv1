@@ -12,7 +12,7 @@ const USER_KEY = 'serviced_user';
 // --- Inicialización ---
 document.addEventListener('DOMContentLoaded', () => {
     // Control de Versión: Forzar refresco si la versión cambia para evitar problemas de caché
-    const APP_VERSION = '1.1.8';
+    const APP_VERSION = '1.1.9';
     const storedVersion = localStorage.getItem('serviced_app_version');
     if (storedVersion !== APP_VERSION) {
         localStorage.setItem('serviced_app_version', APP_VERSION);
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
     setupNavigation();
     setupForms();
+    setupLogout();
 
     // Enrutamiento Inicial: Cargar la vista solicitada por URL o 'overview' por defecto
     const urlParams = new URLSearchParams(window.location.search);
@@ -36,14 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
     loadView(view);
 });
 
-// Botón de Cierre de Sesión
-const logoutBtn = document.getElementById('logout-btn');
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        sessionStorage.removeItem(AUTH_TOKEN_KEY);
-        window.location.href = '/login.html';
-    });
+/**
+ * Configura el botón de cierre de sesión de forma segura.
+ */
+function setupLogout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        console.log("Logout button detected and listener attached.");
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log("Logging out...");
+            sessionStorage.clear(); // Limpiar todo por seguridad
+            localStorage.removeItem('serviced_token'); // Por si acaso
+            localStorage.removeItem('serviced_user');
+            window.location.href = '/users/login.html';
+        });
+    } else {
+        console.error("Logout button (#logout-btn) not found in DOM.");
+    }
 }
 
 /**
@@ -54,7 +65,7 @@ function checkAuth() {
     const userStr = sessionStorage.getItem(USER_KEY);
 
     if (!token || !userStr) {
-        window.location.href = '/login.html';
+        window.location.href = '/users/login.html';
         return;
     }
 
@@ -63,10 +74,10 @@ function checkAuth() {
         if (user.role !== 'provider') {
             console.warn("Rol incorrecto para este dashboard, redireccionando...");
             if (user.role === 'client') window.location.href = "/users/client-dashboard.html";
-            else window.location.href = "/login.html";
+            else window.location.href = "/users/login.html";
         }
     } catch (e) {
-        window.location.href = '/login.html';
+        window.location.href = '/users/login.html';
     }
 }
 
@@ -375,7 +386,7 @@ async function renderOverview() {
                     <h3 class="text-h2">Acceso Denegado</h3>
                     <p class="text-body" style="margin-top: 16px; margin-bottom: 24px;">Tu cuenta actual no tiene permisos de Proveedor.</p>
                     <div style="font-family:monospace; background:#f3f4f6; padding:8px; border-radius:4px; margin-bottom:16px;">Error: ${errDetail}</div>
-                    <button class="btn btn-primary" onclick="sessionStorage.removeItem('${AUTH_TOKEN_KEY}'); window.location.href = '/login.html';">Cerrar Sesión</button>
+                    <button class="btn btn-primary" onclick="sessionStorage.removeItem('${AUTH_TOKEN_KEY}'); sessionStorage.removeItem('${USER_KEY}'); window.location.href = '/users/login.html';">Cerrar Sesión</button>
                 </div>`;
             return;
         }
