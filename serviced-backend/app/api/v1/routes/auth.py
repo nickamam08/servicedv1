@@ -1,7 +1,7 @@
 from datetime import timedelta
-from typing import Any
+from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Form, Request, Body
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 
@@ -14,6 +14,8 @@ from app.repositories import user as user_repo
 from app.services import email_service
 
 
+from fastapi.security import OAuth2PasswordRequestForm
+
 class LoginRequest(BaseModel):
     """Esquema para capturar las credenciales de inicio de sesión."""
     email: EmailStr
@@ -24,15 +26,50 @@ router = APIRouter()
 
 
 @router.post("/login", response_model=AuthResponse)
-def login_access_token(
-    *, db: Session = Depends(get_db), credentials: LoginRequest
+async def login_access_token(
+    request: Request,
+    db: Session = Depends(get_db),
+    credentials: Optional[LoginRequest] = Body(None)
 ) -> Any:
     """
     Punto de entrada para la autenticación de usuarios.
-    Verifica credenciales y devuelve un token JWT si son válidas.
+    Soporta JSON (LoginRequest) y Form Data (para Swagger Authorize).
     """
-    user = user_repo.get_by_email(db, email=credentials.email)
-    if not user or not security.verify_password(credentials.password, user.password_hash):
+    email = None
+    password = None
+
+    # Intentar obtener de los datos ya parseados por FastAPI (JSON Body en Swagger)
+    if credentials:
+        email = credentials.email
+        password = credentials.password
+    else:
+        # Intentar obtener datos según Content-Type (fallback para otros formatos)
+        content_type = request.headers.get("content-type", "")
+        
+        if "application/json" in content_type:
+            try:
+                data = await request.json()
+                email = data.get("email")
+                password = data.get("password")
+            except Exception:
+                pass
+        else:
+            # Intentar obtener de Form (Swagger o peticiones directas)
+            try:
+                form_data = await request.form()
+                email = form_data.get("username") or form_data.get("email")
+                password = form_data.get("password")
+            except Exception:
+                pass
+
+    if not email or not password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Credenciales faltantes",
+        )
+
+    user = user_repo.get_by_email(db, email=email)
+    if not user or not security.verify_password(password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Correo electrónico o contraseña incorrectos",
@@ -43,7 +80,6 @@ def login_access_token(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Usuario inactivo"
         )
 
-    # Generación del token de acceso con una duración de 30 días
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = security.create_access_token(
         {"sub": user.email, "id": user.id, "role": user.role},

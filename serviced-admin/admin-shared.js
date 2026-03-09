@@ -45,11 +45,6 @@ async function apiFetch(endpoint, options = {}) {
 
         console.log(`Admin API Response (${response.status}): ${url}`);
 
-        // Handle 204 No Content (like successful DELETE)
-        if (response.status === 204) {
-            return null;
-        }
-
         if (response.status === 401 || response.status === 403) {
             console.warn('Authentication error or unauthorized. Redirecting to login.');
             sessionStorage.removeItem('serviced_token');
@@ -57,23 +52,35 @@ async function apiFetch(endpoint, options = {}) {
             return null;
         }
 
+        // Handle successful 204 No Content
+        if (response.status === 204) {
+            return null;
+        }
+
         if (!response.ok) {
-            let errorMessage = 'API Error';
+            let errorMessage = `API Error (${response.status})`;
+            let detail = '';
             try {
                 const error = await response.json();
-                errorMessage = error.detail || errorMessage;
+                detail = error.detail || '';
+                if (detail) errorMessage += `: ${detail}`;
             } catch (e) {
-                errorMessage = response.statusText;
+                detail = response.statusText;
+                errorMessage += `: ${detail}`;
             }
-            console.error('API Error Response:', errorMessage);
-            alert(`Error: ${errorMessage}`);
+            console.error('Full API Error Context:', { url, status: response.status, detail });
+            alert(errorMessage);
             throw new Error(errorMessage);
         }
 
-        if (response.status === 204) return null;
-        return await response.json();
+        const text = await response.text();
+        return text ? JSON.parse(text) : null;
     } catch (err) {
         console.error(`Fetch error for ${url}:`, err);
+        // If it's a network error (not an API error already alert()ed)
+        if (!err.message.includes('API Error')) {
+            alert(`Error de conexión al servidor: ${err.message}`);
+        }
         throw err;
     }
 }
