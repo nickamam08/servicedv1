@@ -1,0 +1,631 @@
+/* 
+  SERVICED - Sistema de Diseño Global (Panel del Proveedor)
+  Tema: Bento Minimalista Moderno
+  Secciones Organizadas:
+  1. Variables y Tokens
+  2. Reset Global y Base
+  3. Sistema de Layout (La Estructura)
+  4. Navegación y Barra Lateral
+  5. Sistema de Rejilla Bento
+  6. Componentes (Botones, Tarjetas, Formularios)
+  7. Tipografía
+*/
+
+/* 1. Variables y Tokens */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Colores - Base Neutral */
+    --bg-body: #FAFAFA;
+    /* Fondo principal de la aplicación */
+    --bg-surface: #FFFFFF;
+    /* Fondo de tarjetas y contenedores */
+    --bg-surface-alt: #F3F4F6;
+    /* Estados hover o activos secundarios */
+
+    /* Colores - Texto */
+    --text-main: #111827;
+    /* Texto primario (gris muy oscuro) */
+    --text-secondary: #6B7280;
+    /* Texto secundario (gris medio) */
+    --text-tertiary: #9CA3AF;
+    /* Texto de menor jerarquía e iconos */
+
+    /* Colores - Acentos y Estados */
+    --primary: #2563EB;
+    /* Azul de marca */
+    --primary-dark: #1D4ED8;
+    --accent: #111827;
+    /* Acento oscuro fuerte */
+    --danger: #EF4444;
+    /* Acciones destructivas o errores */
+    --success: #10B981;
+    /* Estados completados o positivos */
+    --warning: #F59E0B;
+    /* Alertas y atención */
+
+    /* métricas de Diseño */
+    --sidebar-width: 260px;
+    --header-height: 80px;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+
+    /* Sombras y Elevación */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+    /* Bordes */
+    --border: #E5E7EB;
+    --border-hover: #D1D5DB;
+}
+
+/* 2. Reset Global y Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ocultar barra de desplazamiento para navegadores modernos */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.app-main::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.chat-messages::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body,
+.app-main,
+.sidebar-nav,
+.chat-messages {
+    -ms-overflow-style: none;
+    /* IE y Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    height: 100vh;
+    overflow: hidden;
+    /* El scroll se gestiona internamente en .app-main */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* 3. Sistema de Layout (La Estructura) */
+
+/* Contenedor principal que divide el panel */
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Barra Lateral de Navegación */
+.app-sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 50;
+    height: 100%;
+}
+
+/* Área de Contenido Principal: Donde se renderizan las vistas dinámicas */
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    /* Aquí ocurre el scroll principal del dashboard */
+    position: relative;
+    padding: 0 40px 40px 40px;
+}
+
+/* Helper para páginas sin barra lateral (como landing o auth externa) */
+body.landing-page {
+    overflow-y: auto;
+    height: auto;
+}
+
+.landing-page .app-container {
+    display: block;
+    height: auto;
+    overflow: visible;
+}
+
+/* Cabecera del Contenido */
+.app-header {
+    min-height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+/* 4. Navegación e Items de la Barra Lateral */
+.sidebar-header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.sidebar-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--text-main);
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 24px 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background-color: var(--bg-surface-alt);
+    color: var(--text-main);
+}
+
+.nav-item.active {
+    background-color: var(--text-main);
+    color: white;
+}
+
+.nav-icon {
+    flex-shrink: 0;
+}
+
+.sidebar-footer {
+    padding: 24px 16px;
+    border-top: 1px solid var(--border);
+}
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--danger);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+}
+
+.logout-link:hover {
+    background-color: #FEF2F2;
+}
+
+/* 5. Sistema de Rejilla Bento */
+/* Rejilla de 12 columnas para distribución de widgets */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.bento-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.bento-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+}
+
+/* 6. Tipografía */
+.text-h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.text-h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.text-h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.text-body {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
+/* 7. Componentes Reutilizables */
+
+/* Botones */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--text-main);
+    color: white;
+}
+
+.btn-outline {
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Formularios - Estilos de entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+/* Avatar del Proveedor */
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    background: #DBEAFE;
+    color: #1E40AF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Envoltorio para pantallas de autenticación */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: var(--bg-body);
+}
+
+/* 8. Sistema de Interfaz de Chat */
+/* Ajustes específicos para el módulo de mensajería del proveedor */
+
+.chat-dashboard-wrapper {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    flex: 1;
+    background: white;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+/* Reset de padding para que el chat use todo el espacio */
+body.chat-page .app-main {
+    padding-bottom: 0;
+}
+
+.chat-window {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.chat-sidebar {
+    width: 350px;
+    border-right: 1px solid var(--border);
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #EFEAE2;
+    /* Fondo tipo app de mensajería */
+    position: relative;
+}
+
+.chat-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-input-area {
+    padding: 16px;
+    background: #F0F2F5;
+}
+
+/* Burbujas y Filas de Mensajes */
+.message-row {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    margin-bottom: 4px;
+}
+
+.message-row.sent {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.message-row.received {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.msg-bubble {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.message-row.sent .msg-bubble {
+    background: #D9FDD3;
+    color: #111;
+}
+
+.message-row.received .msg-bubble {
+    background: #FFF;
+    color: #111;
+}
+
+.chat-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+}
+
+.chat-item:hover {
+    background: #F5F6F6;
+}
+
+.chat-item.active {
+    background: #F0F2F5;
+    border-left: 4px solid var(--primary);
+}
+
+.chat-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Ajustes Adaptativos (Responsive) */
+@media (max-width: 1200px) {
+    .bento-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+    .bento-card {
+        grid-column: span 8 !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .bento-card {
+        grid-column: span 6 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        height: 100vh;
+        height: -webkit-fill-available;
+    }
+
+    .app-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: white;
+    }
+
+    .sidebar-header {
+        padding: 12px 16px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 5px 10px;
+        gap: 5px;
+        scrollbar-width: none;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-item {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.65rem;
+    }
+
+    .nav-item span {
+        display: block;
+        font-size: 0.65rem;
+    }
+
+    .nav-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    .app-main {
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .app-header {
+        padding: 16px 0 !important;
+    }
+
+    .text-h2 {
+        font-size: 1.5rem;
+    }
+
+    .bento-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .bento-card {
+        padding: 16px !important;
+    }
+
+    /* Ajuste de columnas en formularios mobile */
+    form div {
+        grid-column: span 2 !important;
+    }
+
+    .chat-container {
+        flex-direction: column;
+    }
+
+    .chat-sidebar {
+        width: 100%;
+        height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item span {
+        display: none;
+    }
+
+    .nav-item {
+        padding: 10px;
+    }
+}

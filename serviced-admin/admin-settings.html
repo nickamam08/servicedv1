@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Admin SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboard.html" class="sidebar-logo">SERVICED <span
+                        style="font-weight: 400; opacity: 0.7;">Admin</span></a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-users.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="admin-services.html" class="nav-item">
+                    <span class="nav-icon">🛠️</span>
+                    <span>Servicios</span>
+                </a>
+                <a href="admin-requests.html" class="nav-item">
+                    <span class="nav-icon">📩</span>
+                    <span>Solicitudes</span>
+                </a>
+                <a href="admin-categories.html" class="nav-item">
+                    <span class="nav-icon">🏷️</span>
+                    <span>Categorías</span>
+                </a>
+                <a href="admin-reports.html" class="nav-item">
+                    <span class="nav-icon">⚠️</span>
+                    <span>Reportes</span>
+                </a>
+                <a href="admin-settings.html" class="nav-item active">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../serviced-users/login.html" class="logout-link">
+                    <span class="nav-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div>
+                    <h1 class="text-h2">Configuración</h1>
+                    <p class="text-body" style="font-size: 0.9rem;">Parámetros generales del sistema.</p>
+                </div>
+
+                <div class="user-avatar" style="background: #111827; color: white;">AD</div>
+            </header>
+
+            <div class="bento-grid">
+
+                <!-- 1. General Settings -->
+                <div class="bento-card" style="grid-column: span 12;">
+                    <h2 class="text-h3" style="margin-bottom: 20px;">Configuración General</h2>
+                    <form action="#" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem;">Nombre
+                                de la Plataforma</label>
+                            <input type="text" value="SERVICED" placeholder="Nombre visible">
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem;">Correo
+                                de Soporte</label>
+                            <input type="email" value="support@serviced.com" placeholder="Email de contacto">
+                        </div>
+                        <div style="grid-column: span 2;">
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem;">Estado
+                                del Sitio</label>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-body" style="font-size: 0.9rem;">Plataforma Activa (Visible para
+                                    usuarios)</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 2. System Rules & Roles -->
+                <div class="bento-card" style="grid-column: span 6;">
+                    <h2 class="text-h3" style="margin-bottom: 20px;">Reglas del Sistema</h2>
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem;">Moderación
+                                Automática</label>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-body" style="font-size: 0.9rem;">Requerir aprobación manual para
+                                    servicios</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem;">Máximo
+                                de Servicios (Plan Gratuito)</label>
+                            <input type="number" value="3" style="width: 100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 6;">
+                    <h2 class="text-h3" style="margin-bottom: 20px;">Roles y Permisos</h2>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+                        <!-- Role Item -->
+                        <div style="border: 1px solid var(--border); padding: 16px; border-radius: 8px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-weight: 600;">Cliente</span>
+                                <span class="badge badge-primary">Default</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <span
+                                    style="background: #F3F4F6; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #4B5563;">Buscar</span>
+                                <span
+                                    style="background: #F3F4F6; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #4B5563;">Contactar</span>
+                                <span
+                                    style="background: #F3F4F6; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #4B5563;">Calificar</span>
+                            </div>
+                        </div>
+
+                        <!-- Role Item -->
+                        <div style="border: 1px solid var(--border); padding: 16px; border-radius: 8px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-weight: 600;">Proveedor</span>
+                                <span class="badge badge-purple">Verificado</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <span
+                                    style="background: #F3F4F6; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #4B5563;">Publicar</span>
+                                <span
+                                    style="background: #F3F4F6; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #4B5563;">Gestionar
+                                    Agenda</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 3. Categories -->
+                <div class="bento-card" style="grid-column: span 12;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 class="text-h3">Categorías de Servicios</h2>
+                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.85rem;">+ Nueva
+                            Categoría</button>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Category Item 1 -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-surface-alt);">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div style="font-size: 1.5rem;">🧹</div>
+                                <div>
+                                    <div style="font-weight: 600;">Hogar y Limpieza</div>
+                                    <div class="text-sm">slug: /hogar</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="action-link">Editar</button>
+                                <button class="action-link danger">Desactivar</button>
+                            </div>
+                        </div>
+
+                        <!-- Category Item 2 -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-surface-alt);">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div style="font-size: 1.5rem;">💻</div>
+                                <div>
+                                    <div style="font-weight: 600;">Tecnología</div>
+                                    <div class="text-sm">slug: /tecnologia</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="action-link">Editar</button>
+                                <button class="action-link danger">Desactivar</button>
+                            </div>
+                        </div>
+
+                        <!-- Category Item 3 -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-surface-alt);">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div style="font-size: 1.5rem;">🔨</div>
+                                <div>
+                                    <div style="font-weight: 600;">Reparaciones</div>
+                                    <div class="text-sm">slug: /reparaciones</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="action-link">Editar</button>
+                                <button class="action-link danger">Desactivar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="bento-card"
+                    style="grid-column: span 12; flex-direction: row; justify-content: flex-end; gap: 16px; border: none; background: transparent; padding: 0;">
+                    <button class="btn btn-outline">Restablecer Valores</button>
+                    <button class="btn btn-primary">Guardar Cambios</button>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+    <script src="admin-shared.js"></script>
+    <script src="admin-settings.js"></script>
+</body>
+
+</html>

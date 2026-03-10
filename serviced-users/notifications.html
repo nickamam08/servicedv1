@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones - SERVICED</title>
+    <!-- Estilos globales de la aplicación -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para los elementos de notificación individual */
+        .notification-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-item:hover {
+            background-color: #F8FAFC;
+        }
+
+        /* Estilo destacado para notificaciones no leídas */
+        .notification-item.unread {
+            background-color: #F1F5F9;
+        }
+
+        .notification-item.unread::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+        }
+
+        /* Contenedor del icono de la notificación */
+        .notif-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Estado vacío cuando no hay notificaciones */
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Barra Lateral de Navegación del Cliente -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <img src="log.png" alt="SERVICED" style="height: 40px; width: auto;">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="client-dashboard.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="search-services.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Buscar Servicios</span>
+                </a>
+                <a href="user-requests.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Mis Solicitudes</span>
+                </a>
+                <a href="notifications.html" class="nav-item active">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span>Notificaciones</span>
+                    <span id="notif-badge" class="unread-badge"></span>
+                </a>
+                <a href="user-chat.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Mensajes</span>
+                    <span id="msg-badge" class="unread-badge"></span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+                <a href="user-profile.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <!-- Enlace de salida -->
+                <a href="login.html" class="logout-link">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="app-main" style="overflow-y: auto;">
+
+            <!-- Cabecera de la Página -->
+            <header class="app-header" style="height: auto; padding: 32px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div>
+                        <h1 class="text-h2">Notificaciones</h1>
+                        <p class="text-body">Mantente al día con tu actividad</p>
+                    </div>
+                    <!-- Avatar del usuario (Dinámico) -->
+                    <div class="user-avatar"
+                        style="width: 48px; height: 48px; background: #DBEAFE; color: #1E40AF; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600;">
+                        Wait</div>
+                </div>
+            </header>
+
+            <div class="bento-grid">
+
+                <!-- Filtros y Acciones Globales -->
+                <div class="bento-card"
+                    style="grid-column: span 12; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; gap: 8px;">
+                        <!-- Botones para filtrar por leídas/no leídas -->
+                        <button id="btn-filter-all" class="btn"
+                            style="background: var(--text-main); color: white; border-radius: 99px; font-size: 0.85rem; padding: 6px 16px;">Todas</button>
+                        <button id="btn-filter-unread" class="btn"
+                            style="background: var(--bg-surface-alt); color: var(--text-main); border-radius: 99px; font-size: 0.85rem; padding: 6px 16px;">No
+                            leídas</button>
+                    </div>
+                    <!-- Botón para limpiar todas las alertas pendientes -->
+                    <button id="mark-all-read-btn" class="text-sm"
+                        style="background: none; border: none; color: var(--primary); font-weight: 600; cursor: pointer;">Marcar
+                        todas como leídas</button>
+                </div>
+
+                <!-- Tarjeta con el Listado de Notificaciones -->
+                <div class="bento-card" style="grid-column: span 12; padding: 0; min-height: 400px;">
+                    <div id="notifications-container">
+                        <div class="empty-state">Cargando notificaciones...</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        /**
+         * Lógica para el manejo de notificaciones del cliente.
+         * Permite visualizar alertas de solicitudes, mensajes y actualizaciones del sistema.
+         */
+        document.addEventListener("DOMContentLoaded", () => {
+            const API_BASE_URL = "/api/v1";
+            const token = sessionStorage.getItem("serviced_token");
+
+            // Verificación de autenticación
+            if (!token) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const container = document.getElementById("notifications-container");
+            const filterAllBtn = document.getElementById("btn-filter-all");
+            const filterUnreadBtn = document.getElementById("btn-filter-unread");
+            const markAllBtn = document.getElementById("mark-all-read-btn");
+
+            let allNotifications = [];
+            let filterMode = 'all'; // Modos: 'all' o 'unread'
+
+            /**
+             * Recupera las notificaciones desde el servidor.
+             */
+            async function fetchNotifications() {
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/dashboard/notifications`, {
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (!resp.ok) throw new Error("API Error");
+                    allNotifications = await resp.json();
+                    renderNotifications();
+                } catch (err) {
+                    container.innerHTML = `<div class="empty-state" style="color:red">Error al cargar notificaciones</div>`;
+                }
+            }
+
+            /**
+             * Calcula el tiempo transcurrido desde una fecha específica.
+             * @param {string} dateStr - Cadena de fecha ISO.
+             */
+            function getTimeAgo(dateStr) {
+                const date = new Date(dateStr);
+                const seconds = Math.floor((new Date() - date) / 1000);
+                let interval = seconds / 31536000;
+                if (interval > 1) return "Hace " + Math.floor(interval) + " años";
+                interval = seconds / 2592000;
+                if (interval > 1) return "Hace " + Math.floor(interval) + " meses";
+                interval = seconds / 86400;
+                if (interval > 1) return "Hace " + Math.floor(interval) + " días";
+                interval = seconds / 3600;
+                if (interval > 1) return "Hace " + Math.floor(interval) + " horas";
+                interval = seconds / 60;
+                if (interval > 1) return "Hace " + Math.floor(interval) + " minutos";
+                return "Hace pocos segundos";
+            }
+
+            /**
+             * Determina el icono y color basándose en el tipo de notificación.
+             * @param {string} type - Tipo de alerta.
+             */
+            function getIcon(type) {
+                if (type === 'request_update') return { bg: '#DBEAFE', color: 'var(--primary)', icon: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6' };
+                if (type === 'message') return { bg: '#F3E8FF', color: '#7C3AED', icon: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' };
+                return { bg: '#F1F5F9', color: '#64748B', icon: 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9 M13.73 21a2 2 0 0 1-3.46 0' };
+            }
+
+            /**
+             * Pinta las notificaciones filtradas en el contenedor principal.
+             */
+            function renderNotifications() {
+                const filtered = filterMode === 'unread'
+                    ? allNotifications.filter(n => !n.is_read)
+                    : allNotifications;
+
+                // Estado vacío dinámico
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="empty-state">No tienes ${filterMode === 'unread' ? 'notificaciones sin leer' : 'notificaciones'}</div>`;
+                    return;
+                }
+
+                container.innerHTML = filtered.map(n => {
+                    const style = getIcon(n.type);
+                    return `
+                        <div class="notification-item ${n.is_read ? '' : 'unread'}" onclick="markAsRead(${n.id})">
+                            <div class="notif-icon-box" style="background: ${style.bg}; color: ${style.color};">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="${style.icon}"></path>
+                                </svg>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <h4 class="text-h1" style="font-size: 1rem; margin-bottom: 4px; font-weight:700;">${n.title}</h4>
+                                    <span class="text-sm" style="color: var(--text-tertiary);">${getTimeAgo(n.created_at)}</span>
+                                </div>
+                                <p class="text-body" style="font-size: 0.9rem; color: var(--text-secondary);">${n.message}</p>
+                            </div>
+                            ${n.is_read ? '' : '<div style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; margin-top: 6px;"></div>'}
+                        </div>
+                    `;
+                }).join("");
+            }
+
+            /**
+             * Marca una notificación específica como leída.
+             * @param {number} id - ID de la notificación.
+             */
+            window.markAsRead = async (id) => {
+                const notif = allNotifications.find(n => n.id === id);
+                if (notif && notif.is_read) return;
+
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/dashboard/notifications/${id}/read`, {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (resp.ok) {
+                        if (notif) notif.is_read = true;
+                        renderNotifications();
+                    }
+                } catch (err) { console.error(err); }
+            };
+
+            /**
+             * Marca todo el historial como leído globalmente.
+             */
+            markAllBtn.addEventListener("click", async () => {
+                if (allNotifications.every(n => n.is_read)) return;
+
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/dashboard/notifications/mark-all-read`, {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (resp.ok) {
+                        allNotifications.forEach(n => n.is_read = true);
+                        renderNotifications();
+                    }
+                } catch (err) { console.error(err); }
+            });
+
+            // Control de pestañas de filtrado (Estilo visual y lógica)
+            filterAllBtn.addEventListener("click", () => {
+                filterMode = 'all';
+                filterAllBtn.style.background = 'var(--text-main)';
+                filterAllBtn.style.color = 'white';
+                filterUnreadBtn.style.background = 'var(--bg-surface-alt)';
+                filterUnreadBtn.style.color = 'var(--text-main)';
+                renderNotifications();
+            });
+
+            filterUnreadBtn.addEventListener("click", () => {
+                filterMode = 'unread';
+                filterUnreadBtn.style.background = 'var(--text-main)';
+                filterUnreadBtn.style.color = 'white';
+                filterAllBtn.style.background = 'var(--bg-surface-alt)';
+                filterAllBtn.style.color = 'var(--text-main)';
+                renderNotifications();
+            });
+
+            // Carga inicial
+            fetchNotifications();
+        });
+    </script>
+
+    <script>
+        /**
+         * Inicialización del perfil del usuario y logout.
+         */
+        (function () {
+            try {
+                const user = JSON.parse(sessionStorage.getItem("serviced_user"));
+                if (user) {
+                    document.querySelectorAll(".user-avatar").forEach(el => {
+                        if (user.avatar_url) {
+                            el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                        } else {
+                            el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                        }
+                    });
+                }
+            } catch (e) { }
+        })();
+    </script>
+    <script src="sidebar-badges.js"></script>
+</body>
+
+</html>

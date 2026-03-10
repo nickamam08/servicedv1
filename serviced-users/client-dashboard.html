@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Cliente - SERVICED</title>
+    <!-- Estilos globales y específicos del dashboard -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Barra Lateral de Navegación -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <!-- Logo de la aplicación -->
+                    <img src="log.png" alt="SERVICED" style="height: 40px; width: auto;">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Enlaces de navegación con iconos SVG -->
+                <a href="#" class="nav-item active">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="search-services.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Buscar Servicios</span>
+                </a>
+
+                <a href="user-requests.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Mis Solicitudes</span>
+                </a>
+
+                <a href="notifications.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span>Notificaciones</span>
+                    <!-- Indicador de notificaciones no leídas -->
+                    <span id="notif-badge" class="unread-badge"></span>
+                </a>
+
+                <a href="user-chat.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Mensajes</span>
+                    <!-- Indicador de mensajes no leídos -->
+                    <span id="msg-badge" class="unread-badge"></span>
+                </a>
+
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+
+                <a href="user-profile.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <!-- Enlace para finalizar la sesión -->
+                <a href="#" class="logout-link">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Área de Contenido Principal -->
+        <main class="app-main" style="overflow-y: auto; background: var(--bg-body);">
+            <!-- Cabecera de Bienvenida -->
+            <header class="app-header" style="height: auto; padding: 40px 0 20px;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 32px;">
+                    <div>
+                        <h1 class="text-h2" style="font-size: 1.75rem; font-weight: 700;">Dashboard</h1>
+                        <p class="text-body" id="welcome-msg" style="color: var(--text-secondary);">Bienvenido de nuevo
+                        </p>
+                    </div>
+
+                    <!-- Avatar del usuario actual -->
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="user-avatar"
+                            style="width: 44px; height: 44px; background: #e0e7ff; color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600; font-size: 0.9rem; border: 2px solid white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                            Wait</div>
+                    </div>
+                </div>
+
+            </header>
+
+            <!-- Sistema de Rejilla Bento (Contenedor para tarjetas dinámicas) -->
+            <div class="bento-grid">
+                <!-- Los datos se inyectarán aquí mediante JavaScript -->
+                <p style="padding: 20px;">Cargando contenido del dashboard...</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        /**
+         * Lógica principal del Dashboard del Cliente
+         * Se encarga de validar la sesión, obtener datos del servidor y renderizar la interfaz.
+         */
+        document.addEventListener("DOMContentLoaded", async () => {
+            console.log("Dashboard loaded");
+            try {
+                // Validación de credenciales en SessionStorage
+                const token = sessionStorage.getItem("serviced_token");
+                const userStr = sessionStorage.getItem("serviced_user");
+
+                if (!token || !userStr) {
+                    console.warn("No token/user found, redirecting...");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const user = JSON.parse(userStr);
+                // Asegurar que el rol sea 'client'
+                if (user.role !== 'client') {
+                    console.warn("Incorrect role for this dashboard, redirecting...");
+                    if (user.role === 'provider') window.location.href = "/provider/provider-dashboard.html";
+                    else window.location.href = "login.html";
+                    return;
+                }
+
+                // Obtención de datos del resumen del dashboard desde la API
+                const api_url = "/api/v1/dashboard/summary";
+                const response = await fetch(api_url, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    // Manejo de expiración de sesión
+                    if (response.status === 401 || response.status === 404) {
+                        console.warn("Token invalido o usuario no encontrado. Redirigiendo a login...");
+                        sessionStorage.removeItem("serviced_token");
+                        sessionStorage.removeItem("serviced_user");
+                        window.location.href = "login.html";
+                        return;
+                    }
+                    console.error("Dashboard fetch error:", response.status, response.statusText);
+                    throw new Error(`Failed to fetch dashboard data (${response.status} ${response.statusText})`);
+                }
+
+                const data = await response.json();
+                console.log("Dashboard Data:", data);
+
+                // Actualización del mensaje de bienvenida y avatar
+                const welcomeMsg = document.getElementById("welcome-msg");
+                if (welcomeMsg) welcomeMsg.textContent = `Bienvenido de nuevo, ${data.user_profile.full_name}`;
+
+                const avatar = document.querySelector(".user-avatar");
+                if (avatar) {
+                    if (data.user_profile.avatar_url) {
+                        avatar.innerHTML = `<img src="${data.user_profile.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                    } else {
+                        avatar.textContent = data.user_profile.avatar_initials || "U";
+                    }
+                }
+
+                // Función autoejecutable para sincronizar el avatar en múltiples elementos
+                (function () {
+                    try {
+                        const user = JSON.parse(sessionStorage.getItem("serviced_user"));
+                        if (user) {
+                            document.querySelectorAll(".user-avatar").forEach(el => {
+                                if (user.avatar_url) {
+                                    el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                                } else {
+                                    // Genera iniciales si no hay imagen
+                                    el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                                }
+                            });
+                        }
+                    } catch (e) { }
+                })();
+
+                const grid = document.querySelector(".bento-grid");
+
+                // Construcción dinámica de HTML para Notificaciones
+                const notifHTML = data.notifications && data.notifications.length > 0
+                    ? data.notifications.map(n => `
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; padding: 12px; border-radius: 12px; background: white; border: 1px solid rgba(0,0,0,0.03);">
+                            <div style="width: 32px; height: 32px; background: #DBEAFE; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm" style="color: var(--text-main); font-weight: 600; margin-bottom: 2px;">${n.title}</p>
+                                <p class="text-sm" style="font-size: 0.75rem; color: var(--text-secondary);">${n.message}</p>
+                            </div>
+                        </div>`).join('')
+                    : '<p class="text-sm" style="color: var(--text-secondary); text-align: center; padding: 20px;">No tienes nuevas notificaciones.</p>';
+
+                // Construcción dinámica de HTML para Solicitudes Recientes
+                const requestsHTML = data.recent_requests && data.recent_requests.length > 0
+                    ? data.recent_requests.map(r => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <div>
+                                <p class="text-sm" style="font-weight: 600; color: var(--text-main);">${r.service_title || 'Servicio'}</p>
+                                <p class="text-sm" style="font-size: 0.75rem; color: var(--text-secondary);">${new Date(r.created_at).toLocaleDateString('es-CO')}</p>
+                            </div>
+                            <span style="font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; ${r.status === 'PENDING' ? 'background: #FEF3C7; color: #92400E;' :
+                            r.status === 'ACTIVE' ? 'background: #DBEAFE; color: var(--primary);' :
+                                r.status === 'COMPLETED' ? 'background: #D1FAE5; color: #065F46;' :
+                                    'background: #F3F4F6; color: var(--text-tertiary);'
+                        }">${r.status}</span>
+                        </div>
+                    `).join('')
+                    : '<p class="text-sm" style="color: var(--text-secondary); text-align: center; padding: 20px;">No tienes solicitudes recientes.</p>';
+
+                // Renderizado masivo de la cuadrícula Bento
+                grid.innerHTML = `
+                <!-- Acceso Rápido a Categorías -->
+                <div class="bento-card" style="grid-column: span 12; background: transparent; box-shadow: none; border: none; padding: 0; margin-top: -16px; margin-bottom: 8px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
+                        ${['Limpieza', 'Plomería', 'Electricidad', 'Carpintería', 'Belleza', 'Mascotas'].map(cat => `
+                            <a href="search-services.html?category=${cat}" class="bento-card" style="padding: 12px; text-align: center; text-decoration: none; transition: transform 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                                <div style="font-size: 1.25rem; margin-bottom: 4px;">${cat === 'Limpieza' ? '🧹' : cat === 'Plomería' ? '🔧' : cat === 'Electricidad' ? '⚡' : cat === 'Carpintería' ? '🔨' : cat === 'Belleza' ? '✨' : '🐾'}</div>
+                                <div class="text-sm" style="font-weight: 600; color: var(--text-main); font-size: 0.75rem;">${cat}</div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Acciones Rápidas -->
+                <div class="bento-card" style="grid-column: span 12; background: white; padding: 24px;">
+                    <h3 class="text-h3" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 20px;">Acciones Rápidas</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                        <a href="search-services.html" class="btn" style="background: var(--bg-body); color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); justify-content: center; font-weight: 600;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            Buscar Profesionales
+                        </a>
+                        <a href="user-requests.html" class="btn" style="background: var(--bg-body); color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); justify-content: center; font-weight: 600;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                            Mis Solicitudes
+                        </a>
+                        <a href="user-chat.html" class="btn" style="background: var(--bg-body); color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); justify-content: center; font-weight: 600;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            Mis Mensajes
+                        </a>
+                        <a href="user-profile.html" class="btn" style="background: var(--bg-body); color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); justify-content: center; font-weight: 600;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Mi Perfil
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resumen de Solicitudes Activas -->
+                <div class="bento-card" style="grid-column: span 4; background: white; display: flex; flex-direction: column; justify-content: center;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <span class="text-sm" style="font-weight: 600; color: var(--text-secondary);">Solicitudes Activas</span>
+                        <div style="width: 36px; height: 36px; background: #EEF2FF; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                    </div>
+                    <div class="text-h2" style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">${data.active_requests_count || 0}</div>
+                    <p class="text-sm" style="margin-top: 8px; color: var(--text-secondary);">Pedidos en curso</p>
+                </div>
+
+                <!-- Lista de Solicitudes Recientes -->
+                <div class="bento-card" style="grid-column: span 8; background: white;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 class="text-h3" style="font-size: 1.1rem; font-weight: 700;">Solicitudes Recientes</h3>
+                        <a href="user-requests.html" style="color: var(--primary); font-size: 0.8rem; text-decoration: none; font-weight: 600;">Ver historial</a>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        ${requestsHTML}
+                    </div>
+                </div>
+                
+                 <!-- Actividad Reciente / Notificaciones -->
+                <div class="bento-card" style="grid-column: span 12; background: white; border: 1px solid rgba(0,0,0,0.05);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                        <h3 class="text-h3" style="font-size: 1.1rem; font-weight: 700;">Notificaciones Recientes</h3>
+                        <a href="notifications.html" style="color: var(--primary); font-size: 0.8rem; text-decoration: none; font-weight: 600;">Ver todas</a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                        ${notifHTML}
+                    </div>
+                </div>
+
+                <!-- Servicios Recomendados -->
+                <div class="bento-card" style="grid-column: span 12; background: transparent; box-shadow: none; border: none; padding: 24px 0 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 class="text-h3" style="font-size: 1.25rem; font-weight: 700;">Nuestras Recomendaciones</h3>
+                        <a href="search-services.html" style="color: var(--primary); font-size: 0.85rem; text-decoration: none; font-weight: 600;">Explorar más →</a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                         ${data.recommended_services && data.recommended_services.length > 0 ?
+                        data.recommended_services.map(s => `
+                            <div class="bento-card" style="padding: 20px; border: 1px solid rgba(0,0,0,0.05); background: white; display: flex; flex-direction: column;">
+                                ${s.image_urls && s.image_urls[0] ? `<div style="width: 100%; height: 140px; margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #f1f5f9;"><img src="${s.image_urls[0]}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
+                                <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                                    <span style="background: #EEF2FF; color: var(--primary); font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase;">${s.category || 'Servicio'}</span>
+                                    <div style="font-weight:700; color: var(--text-main);">$${(s.price ?? 0).toLocaleString('es-CO')}</div>
+                                </div>
+                                <h4 style="font-weight: 700; margin-bottom: 8px; font-size: 1.05rem; flex: 1; color: var(--text-main);">${s.title}</h4>
+                                <p class="text-sm" style="margin-bottom: 20px; color: var(--text-secondary); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.85rem; line-height: 1.5;">${s.description}</p>
+                                <a href="service-detail.html?id=${s.id}" class="btn" style="background: var(--text-main); color: white; width: 100%; justify-content: center; text-decoration: none; border-radius: 8px; font-size: 0.85rem; height: 40px;">Contratar Ahora</a>
+                            </div>
+                            `).join('')
+                        : '<p class="text-sm" style="color:var(--text-secondary); grid-column: 1/-1; text-align: center; padding: 40px; background: white; border-radius: var(--radius-md); border: 1px dashed var(--border);">No hay recomendaciones por el momento.</p>'}
+                    </div>
+                </div>
+                `;
+
+
+                // Configuración del botón de cierre de sesión
+                const logoutLink = document.querySelector(".logout-link");
+                if (logoutLink) {
+                    logoutLink.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        sessionStorage.removeItem("serviced_token");
+                        sessionStorage.removeItem("serviced_user");
+                        window.location.href = "login.html";
+                    });
+                }
+            } catch (e) {
+                // Manejo de errores visual en caso de fallo de red or servidor
+                console.error("Dashboard error:", e);
+                const grid = document.querySelector(".bento-grid");
+                if (grid) {
+                    grid.innerHTML = `
+                        <div class="bento-card" style="grid-column: span 12; background: #FEF2F2; color: #991B1B;">
+                            <h3 class="text-h3">Error de Conexión</h3>
+                            <p class="text-body" style="margin-top: 8px;">No se pudo conectar con el servidor.</p>
+                            <p class="text-sm" style="margin-top: 8px; font-family: monospace;">Detalle: ${e.message}</p>
+                             <p class="text-sm" style="margin-top: 4px; color: var(--text-tertiary);">Intentando conectar al servidor...</p>
+                             <p class="text-sm" style="margin-top: 8px;">Asegúrate de que el backend esté ejecutándose correctamente.</p>
+                            <button class="btn" style="margin-top: 16px; background: #DC2626; color: white;" onclick="window.location.reload()">Reintentar</button>
+                        </div>
+                    `;
+                }
+            }
+        });
+    </script>
+    <!-- Script adicional para la gestión de badges de la sidebar -->
+    <script src="sidebar-badges.js"></script>
+</body>
+
+</html>

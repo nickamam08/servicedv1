@@ -1,0 +1,25 @@
+# Logs and test outputs
+*.log
+ids.txt
+ids_error.txt
+test_credentials.txt
+test_out.txt
+test_err_v2.txt
+
+# VS Code and OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Node.js
+node_modules/
+dist/
+build/
+.npm

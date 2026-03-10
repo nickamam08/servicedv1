@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes - SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <img src="logo.png" alt="SERVICED" style="height: 40px; width: auto;">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="client-dashboard.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="search-services.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Buscar Servicios</span>
+                </a>
+                <a href="user-requests.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Mis Solicitudes</span>
+                </a>
+                <a href="favorites.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                    <span>Favoritos</span>
+                </a>
+                <!-- Chat (Active) -->
+                <a href="#" class="nav-item active">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Mensajes</span>
+                    <span class="unread-badge"
+                        style="margin-left:auto; width:20px; height:20px; font-size:0.75rem;">2</span>
+                </a>
+                <a href="user-profile.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-link">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main" style="height: 100vh; overflow: hidden;">
+
+            <!-- Top Header -->
+            <header class="app-header">
+                <h1 class="page-title">Mensajes</h1>
+
+                <div class="user-menu">
+                    <div class="user-name">Hola, Alejandro</div>
+                    <div class="user-avatar">AL</div>
+                </div>
+            </header>
+
+            <!-- Chat Wrapper (Replaces Dashboard Content) -->
+            <div class="chat-dashboard-wrapper">
+
+                <div class="chat-window">
+
+                    <!-- Sidebar: Conversation List -->
+                    <aside class="chat-sidebar">
+                        <div class="chat-sidebar-header">
+                            <div class="chat-search">
+                                <span class="chat-search-icon">🔍</span>
+                                <input type="text" placeholder="Buscar conversación...">
+                            </div>
+                        </div>
+
+                        <div id="conversation-list" class="chat-list">
+                            <p style="padding: 20px; text-align: center; color: var(--text-tertiary);">Cargando
+                                conversaciones...</p>
+                        </div>
+                    </aside>
+
+                    <!-- Main Chat Area -->
+                    <main class="chat-main">
+
+                        <!-- Chat Header -->
+                        <div class="chat-header">
+                            <div class="chat-contact-info">
+                                <img src="https://ui-avatars.com/api/?name=Carlos+Rodriguez&background=0D8ABC&color=fff"
+                                    alt="User" class="chat-avatar" style="width: 40px; height: 40px;">
+                                <div class="contact-name">
+                                    <h3>Carlos Rodriguez</h3>
+                                    <span class="contact-status">En línea</span>
+                                </div>
+                            </div>
+                            <div class="chat-actions">
+                                ⋮
+                            </div>
+                        </div>
+
+                        <!-- Messages History -->
+                        <div id="messages-container" class="chat-messages">
+                            <div
+                                style="height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-tertiary);">
+                                Selecciona una conversación para empezar
+                            </div>
+                        </div>
+
+                        <!-- Input Area -->
+                        <div class="chat-input-area">
+                            <div class="input-wrapper">
+                                <div class="chat-actions-left">
+                                    <span>😊</span>
+                                    <span>➕</span>
+                                </div>
+                                <input type="text" class="chat-input" placeholder="Escribe un mensaje aquí">
+                                <button class="btn-send-voice">
+                                    🎤
+                                </button>
+                            </div>
+                        </div>
+
+                    </main>
+
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        (function () {
+            const API_BASE_URL = "/api/v1";
+            const token = localStorage.getItem("serviced_token");
+            const userRaw = localStorage.getItem("serviced_user");
+            const user = userRaw ? JSON.parse(userRaw) : null;
+
+            if (!token || !user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const conversationList = document.getElementById("conversation-list");
+            const messagesContainer = document.getElementById("messages-container");
+            const chatHeader = document.querySelector(".chat-header");
+            const input = document.querySelector(".chat-input");
+
+            let currentConversationId = null;
+            let pollingInterval = null;
+
+            function renderConversationItem(conv) {
+                const item = document.createElement("div");
+                item.className = "chat-item" + (currentConversationId === conv.id ? " active" : "");
+
+                const otherUser = conv.participant || { full_name: "Usuario", id: 0 };
+                const lastMsg = conv.last_message ? conv.last_message.content : "Sin mensajes";
+                const time = conv.last_message ? new Date(conv.last_message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+
+                item.innerHTML = `
+                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(otherUser.full_name)}&background=random" alt="User" class="chat-avatar">
+                    <div class="chat-item-content">
+                        <div class="chat-item-top">
+                            <span class="chat-name">${otherUser.full_name}</span>
+                            <span class="chat-time">${time}</span>
+                        </div>
+                        <div class="chat-preview">
+                            <span class="last-msg">${lastMsg}</span>
+                        </div>
+                    </div>
+                `;
+                item.addEventListener("click", () => selectConversation(conv));
+                return item;
+            }
+
+            function renderMessage(msg) {
+                const isMine = msg.sender_id === user.id;
+                const row = document.createElement("div");
+                row.className = "message-row " + (isMine ? "sent" : "received");
+                row.innerHTML = `
+                    <div class="msg-content-wrapper">
+                        <div class="msg-bubble">
+                            <span class="msg-text">${msg.content}</span>
+                            <span class="msg-meta">
+                                ${new Date(msg.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                return row;
+            }
+
+            async function fetchConversations() {
+                try {
+                    console.log("Fetching conversations from:", `${API_BASE_URL}/conversations`);
+                    const resp = await fetch(`${API_BASE_URL}/conversations`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if (!resp.ok) {
+                        const errText = await resp.text();
+                        console.error("Fetch error:", resp.status, errText);
+                        if (resp.status === 401 || resp.status === 403) {
+                            alert("Tu sesión ha expirado. Por favor inicia sesión nuevamente.");
+                            localStorage.removeItem("serviced_token");
+                            localStorage.removeItem("serviced_user");
+                            window.location.href = "login.html";
+                            return;
+                        }
+                        throw new Error(`Error ${resp.status}: ${errText}`);
+                    }
+                    const conversations = await resp.json();
+
+                    conversationList.innerHTML = "";
+                    if (conversations.length === 0) {
+                        conversationList.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-tertiary);">No tienes conversaciones</p>';
+                    } else {
+                        conversations.forEach(c => conversationList.appendChild(renderConversationItem(c)));
+                    }
+
+                    // Check for details from URL
+                    const params = new URLSearchParams(window.location.search);
+                    const initialId = params.get("id");
+                    if (initialId && !currentConversationId) {
+                        const targetConv = conversations.find(c => c.id == initialId);
+                        if (targetConv) {
+                            selectConversation(targetConv);
+                            // Clean URL without reload
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        }
+                    }
+
+                } catch (e) {
+                    console.error(e);
+                    conversationList.innerHTML = `<p style="padding: 20px; text-align: center; color: red;">Error al cargar: ${e.message}</p>`;
+                }
+            }
+
+            async function selectConversation(conv) {
+                currentConversationId = conv.id;
+                const otherUser = conv.participant;
+
+                // Update UI state
+                document.querySelectorAll(".chat-item").forEach(el => el.classList.remove("active"));
+
+                // Update Header
+                chatHeader.innerHTML = `
+                    <div class="chat-contact-info">
+                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(otherUser.full_name)}&background=random" alt="User" class="chat-avatar" style="width: 40px; height: 40px;">
+                        <div class="contact-name">
+                            <h3>${otherUser.full_name}</h3>
+                            <span class="contact-status">Conversación #${conv.id}</span>
+                        </div>
+                    </div>
+                `;
+
+                loadMessages(conv.id);
+
+                // Start polling
+                clearInterval(pollingInterval);
+                pollingInterval = setInterval(() => loadMessages(conv.id, true), 3000);
+            }
+
+            async function loadMessages(convId, isPolling = false) {
+                if (currentConversationId !== convId) return;
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/conversations/${convId}/messages`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if (!resp.ok) return;
+                    const msgs = await resp.json();
+
+                    // Only re-render if count changed or not polling
+                    const currentCount = messagesContainer.querySelectorAll(".message-row").length;
+                    if (!isPolling || msgs.length !== currentCount) {
+                        messagesContainer.innerHTML = "";
+                        msgs.forEach(m => messagesContainer.appendChild(renderMessage(m)));
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            async function sendMessage(content) {
+                if (!currentConversationId) return;
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/conversations/messages/send`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            conversation_id: currentConversationId,
+                            content: content
+                        })
+                    });
+                    if (!resp.ok) {
+                        const errText = await resp.text();
+                        console.error("Send message error:", resp.status, errText);
+                        if (resp.status === 401 || resp.status === 403) {
+                            alert("Tu sesión ha expirado.");
+                            window.location.href = "login.html";
+                            return;
+                        }
+                        alert(`Error al enviar: ${errText}`);
+                        return;
+                    }
+                    const msg = await resp.json();
+                    messagesContainer.appendChild(renderMessage(msg));
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    input.value = "";
+                } catch (e) {
+                    console.error(e);
+                    alert(`Error de conexión al enviar mensaje: ${e.message}`);
+                }
+            }
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    const text = input.value.trim();
+                    if (!text) return;
+                    sendMessage(text);
+                }
+            });
+
+            fetchConversations();
+
+            // Auto refresh list
+            setInterval(fetchConversations, 10000);
+        })();
+    </script>
+
+</body>
+
+</html>

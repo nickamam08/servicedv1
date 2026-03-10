@@ -1,0 +1,43 @@
+﻿
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    .app-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    .nav-item span {
+        display: none;
+    }
+
+    /* Icon only on mobile nav? Or stack? */
+    .app-main {
+        padding: 20px;
+        height: auto;
+        overflow: visible;
+    }
+
+    .bento-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-sidebar {
+        display: none;
+    }
+
+    /* Hide chat list on mobile view for now */
+}

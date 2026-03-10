@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bento-card" style="width: 100%; max-width: 400px; padding: 40px; text-align: center;">
+
+        <a href="index.html" style="display: flex; justify-content: center; margin-bottom: 24px;">
+            <img src="log.png" alt="SERVICED" style="height: 56px; width: auto;">
+        </a>
+
+        <h1 class="text-h2" style="font-size: 1.5rem; margin-bottom: 8px;">Bienvenido de nuevo</h1>
+        <p class="text-body" style="font-size: 0.95rem; margin-bottom: 32px;">Ingresa a tu cuenta para continuar</p>
+
+        <form action="client-dashboard.html">
+            <div style="margin-bottom: 16px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Correo
+                    Electrónico</label>
+                <input type="email" placeholder="nombre@ejemplo.com"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+            </div>
+
+            <div style="margin-bottom: 24px; text-align: left;">
+                <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 500;">Contraseña</label>
+                <input type="password" placeholder="••••••••"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+                <div style="text-align: right; margin-top: 8px;">
+                    <a href="forgot-password.html" class="text-sm"
+                        style="color: var(--primary); text-decoration: none;">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="btn"
+                style="width: 100%; background: var(--primary); color: white; justify-content: center; font-size: 1rem;">Iniciar
+                Sesión</button>
+        </form>
+
+        <p class="text-sm" style="margin-top: 24px;">
+            ¿No tienes cuenta? <a href="register.html"
+                style="color: var(--primary); font-weight: 600; text-decoration: none;">Regístrate</a>
+        </p>
+    </div>
+
+    <script>
+        /**
+         * Lógica de Autenticación de SERVICED.
+         * Maneja el envío de credenciales al backend, almacenamiento de tokens y redirección según el rol.
+         */
+        (function () {
+            const API_BASE_URL = "/api/v1";
+
+            const form = document.querySelector("form");
+            if (!form) return;
+
+            const emailInput = form.querySelector('input[type="email"]');
+            const passwordInput = form.querySelector('input[type="password"]');
+
+            // Crear contenedor de error reutilizable para mostrar mensajes de fallo al usuario
+            const errorBox = document.createElement("div");
+            errorBox.style.marginTop = "12px";
+            errorBox.style.fontSize = "0.85rem";
+            errorBox.style.color = "#DC2626";
+            form.appendChild(errorBox);
+
+            /**
+             * Maneja el evento de envío del formulario de inicio de sesión.
+             */
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                errorBox.textContent = "";
+
+                const email = emailInput && emailInput.value.trim();
+                const password = passwordInput && passwordInput.value.trim();
+
+                // Validación básica de campos vacíos
+                if (!email || !password) {
+                    errorBox.textContent = "Por favor, introduce tu correo y contraseña.";
+                    return;
+                }
+
+                try {
+                    /**
+                     * Envío de credenciales al endpoint de login.
+                     * Se asume que el backend está corriendo en la misma raíz o mediante proxy.
+                     */
+                    const response = await fetch(API_BASE_URL + "/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+
+                    // Manejo de errores de autenticación (401, 404, etc.)
+                    if (!response.ok) {
+                        const data = await response.json().catch(() => ({}));
+                        errorBox.textContent = data.detail || "No se pudo iniciar sesión. Revisa tus credenciales.";
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    /**
+                     * Almacenamiento Seguro de Sesión.
+                     * 'serviced_token': JWT para autorizar peticiones futuras.
+                     * 'serviced_user' : Objeto con datos básicos del perfil (nombre, rol, id).
+                     * Usamos sessionStorage para mayor seguridad (se limpia al cerrar la pestaña).
+                     */
+                    if (data.access_token) {
+                        sessionStorage.setItem("serviced_token", data.access_token);
+                    }
+                    if (data.user) {
+                        sessionStorage.setItem("serviced_user", JSON.stringify(data.user));
+                    }
+
+                    const role = (data.user && data.user.role) || "client";
+
+                    /**
+                     * Enrutamiento Basado en Roles.
+                     * Redirige al usuario al panel correspondiente según su perfil en el sistema.
+                     */
+                    if (role === "provider") {
+                        // El panel de proveedores está montado usualmente en /provider
+                        window.location.href = "/provider/provider-dashboard.html?v=1.1.8";
+                    } else if (role === "admin") {
+                        // El panel administrativo se encuentra en /admin
+                        window.location.href = "/admin/admin-dashboard.html";
+                    } else {
+                        // Flujo por defecto: Dashboard del cliente final
+                        window.location.href = "/users/client-dashboard.html";
+                    }
+                } catch (error) {
+                    console.error("Error en el proceso de login:", error);
+                    errorBox.textContent = "Error de conexión. Asegúrate de que el servidor esté accesible y funcionando.";
+                }
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

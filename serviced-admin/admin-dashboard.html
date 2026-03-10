@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-logo">SERVICED <span style="font-weight: 400; opacity: 0.7;">Admin</span></a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-users.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="admin-services.html" class="nav-item">
+                    <span class="nav-icon">🛠️</span>
+                    <span>Servicios</span>
+                </a>
+                <a href="admin-requests.html" class="nav-item">
+                    <span class="nav-icon">📩</span>
+                    <span>Solicitudes</span>
+                </a>
+                <a href="admin-categories.html" class="nav-item">
+                    <span class="nav-icon">🏷️</span>
+                    <span>Categorías</span>
+                </a>
+                <a href="admin-reports.html" class="nav-item">
+                    <span class="nav-icon">⚠️</span>
+                    <span>Reportes</span>
+                </a>
+                <a href="admin-settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../serviced-users/login.html" class="logout-link">
+                    <span class="nav-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div>
+                    <h1 class="text-h2">Vista General</h1>
+                    <p class="text-body" style="font-size: 0.9rem;">Bienvenido al panel de control.</p>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="btn btn-outline" style="padding: 8px 16px; font-size: 0.85rem;">
+                        <span>🔔</span> Novedades
+                    </button>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="user-avatar" style="background: #111827; color: white;">AD</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Administrador</div>
+                            <div class="text-sm">Super Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="bento-grid">
+
+                <!-- KPI Cards -->
+                <div class="bento-card" style="grid-column: span 3; justify-content: space-between;">
+                    <div>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <span
+                                style="background: #E0F2FE; color: #0284C7; padding: 6px; border-radius: 8px;">👥</span>
+                            <span id="users-growth"
+                                style="font-size: 0.85rem; color: #10B981; font-weight: 600;">...</span>
+                        </div>
+                        <div class="text-body" style="font-size: 0.9rem;">Usuarios Totales</div>
+                        <div id="total-users" class="text-h2" style="font-size: 2rem;">...</div>
+                    </div>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 3; justify-content: space-between;">
+                    <div>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <span
+                                style="background: #F0FDF4; color: #16A34A; padding: 6px; border-radius: 8px;">🛠️</span>
+                            <span style="font-size: 0.85rem; color: #6B7280; font-weight: 600;">Plataforma</span>
+                        </div>
+                        <div class="text-body" style="font-size: 0.9rem;">Proveedores</div>
+                        <div id="total-providers" class="text-h2" style="font-size: 2rem;">...</div>
+                    </div>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 3; justify-content: space-between;">
+                    <div>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <span
+                                style="background: #FEF3C7; color: #D97706; padding: 6px; border-radius: 8px;">📢</span>
+                            <span id="requests-growth"
+                                style="font-size: 0.85rem; color: #10B981; font-weight: 600;">...</span>
+                        </div>
+                        <div class="text-body" style="font-size: 0.9rem;">Servicios Activos</div>
+                        <div id="total-services" class="text-h2" style="font-size: 2rem;">...</div>
+                    </div>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 3; justify-content: space-between;">
+                    <div>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <span
+                                style="background: #FCE7F3; color: #DB2777; padding: 6px; border-radius: 8px;">📩</span>
+                            <span style="font-size: 0.85rem; color: #6B7280; font-weight: 600;">Histórico</span>
+                        </div>
+                        <div class="text-body" style="font-size: 0.9rem;">Solicitudes</div>
+                        <div id="total-requests" class="text-h2" style="font-size: 2rem;">...</div>
+                    </div>
+                </div>
+
+                <!-- Action Cards -->
+                <div class="bento-card"
+                    style="grid-column: span 4; background: linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%); color: white; border: none;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 16px;">👤</div>
+                        <h3 class="text-h3" style="margin-bottom: 8px;">Gestionar Usuarios</h3>
+                        <p style="opacity: 0.8; margin-bottom: 24px; font-size: 0.95rem;">Revisar nuevos registros y
+                            validar identidades pendientes.</p>
+                        <a href="/admin/admin-users.html" class="btn"
+                            style="background: rgba(255,255,255,0.2); color: white; width: 100%; border: 1px solid rgba(255,255,255,0.3);">Ir
+                            a Usuarios</a>
+                    </div>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 16px;">🛡️</div>
+                        <h3 class="text-h3" style="margin-bottom: 8px;">Moderar Servicios</h3>
+                        <p class="text-body" style="margin-bottom: 24px; font-size: 0.95rem;">Revisa y gestiona todos
+                            los servicios activos en la plataforma.</p>
+                        <a href="/admin/admin-services.html" class="btn btn-primary" style="width: 100%;">Moderar
+                            Servicios</a>
+                    </div>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 16px;">⚠️</div>
+                        <h3 class="text-h3" style="margin-bottom: 8px;">Reportes de Incidencias</h3>
+                        <p class="text-body" style="margin-bottom: 24px; font-size: 0.95rem;">Consulta los reportes y
+                            disputas abiertas de la comunidad.</p>
+                        <a href="/admin/admin-reports.html" class="btn btn-outline" style="width: 100%;">Ver
+                            Reportes</a>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Table -->
+                <div class="bento-card" style="grid-column: span 12; padding: 0; overflow: hidden;">
+                    <div
+                        style="padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="text-h3">Actividad Reciente del Sistema</h3>
+                        <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;"
+                            onclick="loadDashboardStats()">Actualizar</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                            <thead
+                                style="background: var(--bg-surface-alt); color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">
+                                <tr>
+                                    <th style="padding: 16px 24px; text-align: left; font-weight: 600;">Referencia</th>
+                                    <th style="padding: 16px 24px; text-align: left; font-weight: 600;">Acción / Estado
+                                    </th>
+                                    <th style="padding: 16px 24px; text-align: left; font-weight: 600;">Detalle</th>
+                                    <th style="padding: 16px 24px; text-align: right; font-weight: 600;">Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-activity-body">
+                                <!-- Activity Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+    <script src="admin-shared.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+
+</html>

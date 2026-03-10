@@ -1,0 +1,66 @@
+{
+  "overview": {
+    "total_services": 2,
+    "active_services": 2,
+    "total_requests": 4,
+    "pending_requests": 1,
+    "accepted_requests": 1,
+    "completed_requests": 1,
+    "cancelled_requests": 1,
+    "average_rating": 0.0,
+    "total_reviews": 0,
+    "unread_messages": 1,
+    "balance": 0.0,
+    "upcoming_jobs": [
+      {
+        "id": 2,
+        "client_name": "Client Two",
+        "service_title": "AC Repair",
+        "scheduled_date": "2026-02-22T15:43:38.211790-05:00",
+        "status": "ACTIVE"
+      }
+    ]
+  },
+  "requests": [
+    {
+      "id": 4,
+      "client_name": "Client Two",
+      "service_title": "Office Cleaning",
+      "status": "CANCELLED",
+      "price": 80.0,
+      "scheduled_date": "2026-02-25T15:43:48.480218-05:00",
+      "notes": "Actually nvm",
+      "created_at": "2026-02-18T10:43:50.525668-05:00"
+    },
+    {
+      "id": 3,
+      "client_name": "Client One",
+      "service_title": "AC Repair",
+      "status": "COMPLETED",
+      "price": 120.0,
+      "scheduled_date": "2026-02-22T15:43:42.332991-05:00",
+      "notes": "Fixed well",
+      "created_at": "2026-02-18T10:43:44.385212-05:00"
+    },
+    {
+      "id": 2,
+      "client_name": "Client Two",
+      "service_title": "AC Repair",
+      "status": "ACTIVE",
+      "price": 120.0,
+      "scheduled_date": "2026-02-22T15:43:38.211790-05:00",
+      "notes": "Next tuesday",
+      "created_at": "2026-02-18T10:43:40.250149-05:00"
+    },
+    {
+      "id": 1,
+      "client_name": "Client One",
+      "service_title": "Office Cleaning",
+      "status": "PENDING",
+      "price": 80.0,
+      "scheduled_date": "2026-02-23T15:43:36.154940-05:00",
+      "notes": "Need this urgently",
+      "created_at": "2026-02-18T10:43:38.201147-05:00"
+    }
+  ]
+}

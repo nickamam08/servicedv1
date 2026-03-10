@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios - Admin SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboard.html" class="sidebar-logo">SERVICED <span
+                        style="font-weight: 400; opacity: 0.7;">Admin</span></a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-users.html" class="nav-item active">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="admin-services.html" class="nav-item">
+                    <span class="nav-icon">🛠️</span>
+                    <span>Servicios</span>
+                </a>
+                <a href="admin-requests.html" class="nav-item">
+                    <span class="nav-icon">📩</span>
+                    <span>Solicitudes</span>
+                </a>
+                <a href="admin-categories.html" class="nav-item">
+                    <span class="nav-icon">🏷️</span>
+                    <span>Categorías</span>
+                </a>
+                <a href="admin-reports.html" class="nav-item">
+                    <span class="nav-icon">⚠️</span>
+                    <span>Reportes</span>
+                </a>
+                <a href="admin-settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/users/login.html" class="logout-link">
+                    <span class="nav-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div>
+                    <h1 class="text-h2">Gestión de Usuarios (V2)</h1>
+                    <p class="text-body" style="font-size: 0.9rem;">Administra clientes, proveedores y staff.</p>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="user-avatar" style="background: #111827; color: white;">AD</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Administrador</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="bento-grid">
+
+                <!-- Stats Row -->
+                <div class="bento-card" style="grid-column: span 4; justify-content: space-between;">
+                    <div>
+                        <div class="text-body" style="font-size: 0.9rem;">Total Usuarios</div>
+                        <div id="users-total-stat" class="text-h2" style="font-size: 2rem;">...</div>
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4; justify-content: space-between;">
+                    <div>
+                        <div class="text-body" style="font-size: 0.9rem;">Usuarios Activos</div>
+                        <div id="users-active-stat" class="text-h2" style="font-size: 2rem; color: var(--success);">...
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4; justify-content: space-between;">
+                    <div>
+                        <div class="text-body" style="font-size: 0.9rem;">Proveedores</div>
+                        <div id="users-providers-stat" class="text-h2" style="font-size: 2rem;">...</div>
+                    </div>
+                </div>
+
+                <!-- Filters & Actions -->
+                <div class="bento-card"
+                    style="grid-column: span 12; padding: 20px; display: flex; flex-direction: row; gap: 16px; align-items: center; justify-content: space-between;">
+                    <div style="flex: 1; max-width: 400px;">
+                        <input type="text" id="search-input" placeholder="Buscar por nombre o email..."
+                            style="width: 100%;">
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <select id="role-filter"
+                            style="padding: 10px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+                            <option value="all">Todos los Roles</option>
+                            <option value="client">Cliente</option>
+                            <option value="provider">Proveedor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <select id="status-filter"
+                            style="padding: 10px; border-radius: 8px; border: 1px solid var(--border); font-family: inherit;">
+                            <option value="all">Todos los Estados</option>
+                            <option value="active">Activo</option>
+                            <option value="suspended">Inactivo</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="loadUsers()">🔍 Actualizar</button>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="bento-card" style="grid-column: span 12; padding: 0; overflow: hidden;">
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <!-- Users populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination Footer inside table card -->
+                    <div
+                        style="padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                        <span class="text-sm">Vista administrativa de usuarios registrados</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+    <script src="admin-shared.js"></script>
+    <script src="admin-users.js"></script>
+</body>
+
+</html>

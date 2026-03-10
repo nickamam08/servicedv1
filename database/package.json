@@ -1,0 +1,13 @@
+{
+  "name": "serviced-db-scripts",
+  "version": "1.0.0",
+  "description": "Scripts para la base de datos de SERVICED",
+  "main": "connect.js",
+  "scripts": {
+    "test-connection": "node connect.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "pg": "^8.11.3"
+  }
+}

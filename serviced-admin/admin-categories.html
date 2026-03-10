@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías - Admin SERVICED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboard.html" class="sidebar-logo">SERVICED <span
+                        style="font-weight: 400; opacity: 0.7;">Admin</span></a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-users.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="admin-services.html" class="nav-item">
+                    <span class="nav-icon">🛠️</span>
+                    <span>Servicios</span>
+                </a>
+                <a href="admin-requests.html" class="nav-item">
+                    <span class="nav-icon">📩</span>
+                    <span>Solicitudes</span>
+                </a>
+                <a href="admin-categories.html" class="nav-item active">
+                    <span class="nav-icon">🏷️</span>
+                    <span>Categorías</span>
+                </a>
+                <a href="admin-reports.html" class="nav-item">
+                    <span class="nav-icon">⚠️</span>
+                    <span>Reportes</span>
+                </a>
+                <a href="admin-settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/users/login.html" class="logout-link">
+                    <span class="nav-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div>
+                    <h1 class="text-h2">Categorías de Servicios</h1>
+                    <p class="text-body" style="font-size: 0.9rem;">Organiza los tipos de servicios ofrecidos.</p>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="user-avatar" style="background: #111827; color: white;">AD</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Administrador</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="bento-grid">
+
+                <!-- Categories Table -->
+                <div class="bento-card" style="grid-column: span 12; padding: 0; overflow: hidden;">
+                    <div
+                        style="padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="text-h3" style="margin: 0;">Lista de Categorías</h3>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);" id="cat-count">Cargando...</div>
+                    </div>
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Estado</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categories-table-body">
+                                <!-- Categories populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Category Form -->
+                <div class="bento-card" style="grid-column: span 12; background: #f9fafb;">
+                    <h3 class="text-h3" id="form-title">Nueva Categoría</h3>
+                    <p class="text-sm" style="color: var(--text-secondary); margin-bottom: 20px;">Crea una nueva
+                        categoría o edita una existente seleccionando "Editar" en la tabla.</p>
+
+                    <form id="category-form" style="display: flex; gap: 24px; align-items: flex-end; flex-wrap: wrap;">
+                        <input type="hidden" id="cat-id">
+                        <div style="flex: 2; min-width: 300px;">
+                            <label class="text-sm" style="display: block; margin-bottom: 8px; font-weight: 600;">Nombre
+                                de la Categoría</label>
+                            <input type="text" id="cat-name" placeholder="Ej: Plomería, Tecnología..." required
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                        </div>
+                        <div
+                            style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding: 12px; background: white; border-radius: 8px; border: 1px solid var(--border);">
+                            <input type="checkbox" id="cat-active" checked style="width: 18px; height: 18px;">
+                            <label for="cat-active" class="text-sm" style="font-weight: 500; cursor: pointer;">Categoría
+                                Activa</label>
+                        </div>
+                        <div style="flex: 1; min-width: 200px; display: flex; gap: 12px;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">Guardar Cambios</button>
+                            <button type="button" id="cancel-edit" class="btn btn-outline"
+                                style="flex: 1;">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+    <script src="admin-shared.js"></script>
+    <script src="admin-categories.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Solicitudes - SERVICED</title>
+    <!-- Estilos globales de la aplicación -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos de Tabla Bento: Diseño moderno y minimalista */
+        .bento-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bento-table th {
+            text-align: left;
+            padding: 16px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bento-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .bento-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Estilos comunes para botones de acción dentro de la tabla */
+        .btn-action {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .btn-action:hover {
+            opacity: 0.8;
+        }
+
+        /* Estilos para Ventanas Modales */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sistema de Calificación con Estrellas */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 32px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating input:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Barra Lateral de Navegación del Usuario -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <img src="log.png" alt="SERVICED" style="height: 40px; width: auto;">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="client-dashboard.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="search-services.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Buscar Servicios</span>
+                </a>
+                <a href="user-requests.html" class="nav-item active">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Mis Solicitudes</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span>Notificaciones</span>
+                    <span id="notif-badge" class="unread-badge"></span>
+                </a>
+                <a href="user-chat.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Mensajes</span>
+                    <span id="msg-badge" class="unread-badge"></span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+                <a href="user-profile.html" class="nav-item">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <!-- Enlace para Cerrar Sesión -->
+                <a href="#" class="logout-link">
+                    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="app-main" style="overflow-y: auto;">
+
+            <!-- Cabecera de la Página -->
+            <header class="app-header" style="height: auto; padding: 40px 0 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div>
+                        <h1 class="text-h2" style="font-size: 1.75rem; font-weight: 700;">Mis Solicitudes</h1>
+                        <p class="text-body" style="color: var(--text-secondary);">Portal de seguimiento de tus pedidos
+                        </p>
+                    </div>
+                    <!-- Avatar del Usuario (Cargado dinámicamente) -->
+                    <div class="user-avatar"
+                        style="width: 44px; height: 44px; background: #DBEAFE; color: #1E40AF; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600; border: 2px solid white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                        Wait</div>
+                </div>
+            </header>
+
+            <div class="bento-grid">
+
+                <!-- Estadística 1: Total de Solicitudes -->
+                <div class="bento-card" style="grid-column: span 3; background: white;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span class="text-sm" style="color: var(--text-secondary); font-weight: 600;">Total</span>
+                        <div
+                            style="width: 32px; height: 32px; background: #F3F4F6; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            📊</div>
+                    </div>
+                    <div class="text-h1" id="stat-total" style="font-size: 2rem; font-weight: 700;">-</div>
+                </div>
+
+                <!-- Estadística 2: Solicitudes Pendientes o Activas -->
+                <div class="bento-card" style="grid-column: span 3; background: white;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span class="text-sm" style="color: var(--primary); font-weight: 600;">Pendientes</span>
+                        <div
+                            style="width: 32px; height: 32px; background: #EEF2FF; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            ⏳</div>
+                    </div>
+                    <div class="text-h1" id="stat-active"
+                        style="font-size: 2rem; font-weight: 700; color: var(--primary);">-</div>
+                </div>
+
+                <!-- Estadística 3: Solicitudes Completadas -->
+                <div class="bento-card" style="grid-column: span 3; background: white;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span class="text-sm" style="color: #059669; font-weight: 600;">Completadas</span>
+                        <div
+                            style="width: 32px; height: 32px; background: #ECFDF5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            ✅</div>
+                    </div>
+                    <div class="text-h1" id="stat-completed" style="font-size: 2rem; font-weight: 700; color: #059669;">
+                        -</div>
+                </div>
+
+                <!-- Estadística 4: Solicitudes Canceladas -->
+                <div class="bento-card" style="grid-column: span 3; background: white;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span class="text-sm" style="color: #DC2626; font-weight: 600;">Canceladas</span>
+                        <div
+                            style="width: 32px; height: 32px; background: #FEF2F2; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            ❌</div>
+                    </div>
+                    <div class="text-h1" id="stat-cancelled" style="font-size: 2rem; font-weight: 700; color: #DC2626;">
+                        -</div>
+                </div>
+
+                <!-- Tarjeta de Filtros y Tabla de Solicitudes -->
+                <div class="bento-card"
+                    style="grid-column: span 12; min-height: 480px; padding: 0; background: white; border: 1px solid rgba(0,0,0,0.05); overflow: hidden;">
+
+                    <!-- Barra de Herramientas para Filtros -->
+                    <div
+                        style="padding: 24px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid var(--border); background: #fdfdfd;">
+                        <div style="position: relative; flex: 1; max-width: 400px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2"
+                                style="position: absolute; left: 14px; top: 11px; color: var(--text-tertiary);">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <!-- Buscador de solicitudes por nombre o ID -->
+                            <input type="text" id="filter-requests" placeholder="Buscar por servicio o ID..."
+                                style="padding: 10px 12px 10px 42px; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; width: 100%; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <!-- Selector de estado para filtrado rápido -->
+                            <select id="status-filter"
+                                style="padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; font-size: 0.85rem; color: var(--text-main); cursor: pointer; background: white;">
+                                <option value="">Todos los estados</option>
+                                <option value="PENDING">Pendientes</option>
+                                <option value="ACTIVE">En Curso</option>
+                                <option value="COMPLETED">Completadas</option>
+                                <option value="CANCELLED">Canceladas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor Principal de la Tabla de Datos -->
+                    <div style="overflow-x: auto;">
+                        <table class="bento-table">
+                            <thead style="background: #fafafa;">
+                                <tr>
+                                    <th style="padding-left: 24px;">SERVICIO / ID</th>
+                                    <th>PROVEEDOR</th>
+                                    <th>FECHA PROGRAMADA</th>
+                                    <th>COSTO</th>
+                                    <th>ESTADO</th>
+                                    <th style="padding-right: 24px; text-align: right;">ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requests-body">
+                                <tr>
+                                    <td colspan='6' style='text-align:center; padding:40px;'>Cargando solicitudes...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal para Calificar el Servicio -->
+    <div id="rating-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-h3" style="text-align: center; margin-bottom: 8px;">Calificar Servicio</h3>
+            <p class="text-sm" style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">Tu opinión
+                ayuda a mejorar la comunidad.</p>
+
+            <form id="rating-form">
+                <!-- Campos ocultos para capturar el ID de la solicitud y del proveedor -->
+                <input type="hidden" id="rate-request-id">
+                <input type="hidden" id="rate-provider-id">
+
+                <!-- Selección de estrellas (5 a 1) -->
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label class="text-sm" style="display: block; font-weight: 600; margin-bottom: 8px;">Comentario
+                        (opcional)</label>
+                    <textarea id="rate-comment"
+                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; resize: none; min-height: 100px; outline: none; transition: border-color 0.2s;"
+                        placeholder="Cuéntanos tu experiencia..."></textarea>
+                </div>
+
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" id="close-modal" class="btn"
+                        style="flex: 1; background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border);">Cancelar</button>
+                    <button type="submit" class="btn" style="flex: 1; background: var(--primary); color: white;">Enviar
+                        Calificación</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Lógica principal para la gestión de solicitudes del usuario.
+         * Maneja la carga de datos, filtrado y acciones (cancelar, chatear, completar, calificar).
+         */
+        (function () {
+            const API_BASE_URL = "/api/v1";
+            const token = sessionStorage.getItem("serviced_token");
+
+            // Redirección si no hay sesión activa
+            if (!token) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const body = document.getElementById("requests-body");
+            const filterInput = document.getElementById("filter-requests");
+            const statusFilter = document.getElementById("status-filter");
+            if (!body) return;
+
+            let allRequests = [];
+
+            /**
+             * Genera el HTML para el badge de estado con estilos consistentes.
+             * @param {string} status - El estado de la solicitud.
+             */
+            function statusBadge(status) {
+                const base = "padding:6px 12px; border-radius:8px; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.025em;";
+                const s = status.toUpperCase();
+                if (s === "PENDING") return `<span style="${base} background:#FEF3C7; color:#92400E;">Pendiente</span>`;
+                if (s === "ACTIVE" || s === "ACCEPTED") return `<span style="${base} background:#DBEAFE; color:#1E40AF;">En Curso</span>`;
+                if (s === "COMPLETED") return `<span style="${base} background:#D1FAE5; color:#065F46;">Completada</span>`;
+                if (s === "CANCELLED" || s === "REJECTED") return `<span style="${base} background:#FEE2E2; color:#991B1B;">Cancelada</span>`;
+                return `<span style="${base} background:#F3F4F6; color:#374151;">${s}</span>`;
+            }
+
+            /**
+             * Renderiza la lista de solicitudes en la tabla.
+             * @param {Array} requests - Datos de las solicitudes obtenidos del backend.
+             */
+            function renderRequests(requests) {
+                // Manejo de estado vacío
+                if (!Array.isArray(requests) || requests.length === 0) {
+                    body.innerHTML = `<tr><td colspan='6' style='text-align:center; padding:60px;'>
+                        <div style="font-size: 2rem; margin-bottom: 12px;">🔍</div>
+                        <p style="color: var(--text-secondary); font-weight: 500;">No se encontraron solicitudes que coincidan.</p>
+                    </td></tr>`;
+                    return;
+                }
+
+                body.innerHTML = "";
+                requests.forEach(r => {
+                    const service = r.service || {};
+                    const tr = document.createElement("tr");
+
+                    const title = service.title || "Servicio #" + r.service_id;
+                    const providerName = service.provider && service.provider.full_name
+                        ? service.provider.full_name
+                        : "Proveedor #" + (service.provider_id || "?");
+
+                    // Formateo de fecha y hora local
+                    const displayDate = r.scheduled_date ? new Date(r.scheduled_date) : new Date(r.created_at);
+                    const dateStr = displayDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+                    const timeStr = displayDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+                    const price = r.price_at_purchase || service.price || 0;
+                    const status = r.status || "UNKNOWN";
+
+                    tr.innerHTML = `
+                        <td style="padding-left: 24px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                ${service.image_urls && service.image_urls[0] ? `<img src="${service.image_urls[0]}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid #eee;">` : `<div style="width:40px; height:40px; border-radius:6px; background:#f3f4f6; display:flex; align-items:center; justify-content:center; color:#9ca3af;"><i class="fas fa-image"></i></div>`}
+                                <div>
+                                    <div style="font-weight:700; color: var(--text-main); font-size: 0.95rem;">${title}</div>
+                                    <div style="color:var(--text-tertiary); font-size:0.75rem; margin-top: 2px;">ID: ${r.id}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 28px; height: 28px; background: #EEF2FF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--primary);">
+                                    ${providerName.charAt(0)}
+                                </div>
+                                <span style="font-weight: 500;">${providerName}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 500;">${dateStr}</div>
+                            <div style="font-size:0.75rem; color:var(--text-tertiary);">${timeStr}</div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 700; color: var(--text-main);">$${Number(price).toLocaleString('es-CO')}</div>
+                        </td>
+                        <td>${statusBadge(status)}</td>
+                        <td style="padding-right: 24px; text-align: right;">
+                            <div style="display:flex; gap:8px; justify-content: flex-end;">
+                                <!-- Botón para abrir el chat con el proveedor -->
+                                <button class="btn btn-chat btn-action" data-provider-user-id="${service.provider_user_id || ''}" style="background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main);">
+                                    Chatear
+                                </button>
+                                ${status === 'PENDING' ? `
+                                <button class="btn btn-cancel btn-action" data-id="${r.id}" style="background: #FEF2F2; color: #DC2626; border: 1px solid #FEE2E2;">
+                                    Cancelar
+                                </button>` : ''}
+                                ${status === 'ACTIVE' || status === 'ACCEPTED' ? `
+                                <button class="btn btn-complete btn-action" data-id="${r.id}" style="background: #ECFDF5; color: #059669; border: 1px solid #D1FAE5;">
+                                    Finalizar
+                                </button>` : ''}
+                                ${status === 'COMPLETED' ? `
+                                <button class="btn btn-rate btn-action" data-id="${r.id}" data-provider-id="${service.provider_user_id}" style="background: #FFF7ED; color: #EA580C; border: 1px solid #FFEDD5;">
+                                    Calificar
+                                </button>` : ''}
+                            </div>
+                        </td>
+                    `;
+                    body.appendChild(tr);
+                });
+
+                // Vinculación de eventos a los botones generados dinámicamente
+                document.querySelectorAll(".btn-cancel").forEach(btn => btn.addEventListener("click", cancelRequest));
+                document.querySelectorAll(".btn-chat").forEach(btn => btn.addEventListener("click", openChat));
+                document.querySelectorAll(".btn-complete").forEach(btn => btn.addEventListener("click", completeRequest));
+                document.querySelectorAll(".btn-rate").forEach(btn => btn.addEventListener("click", openRateModal));
+            }
+
+            /**
+             * Obtiene todas las solicitudes del usuario desde la API.
+             */
+            async function loadRequests() {
+                try {
+                    const resp = await fetch(API_BASE_URL + "/requests/", {
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+
+                    if (!resp.ok) {
+                        if (resp.status === 401) {
+                            sessionStorage.removeItem("serviced_token");
+                            window.location.href = "login.html";
+                            return;
+                        }
+                        throw new Error("Error " + resp.status);
+                    }
+
+                    allRequests = await resp.json();
+                    updateStats(allRequests);
+                    renderRequests(allRequests);
+
+                } catch (err) {
+                    console.error("Fetch Error:", err);
+                    body.innerHTML = `<tr><td colspan='6' style="color:red; padding:40px; text-align:center;">
+                        <strong>Error de carga:</strong> ${err.message}<br>
+                        <button class="btn" style="margin-top:15px; background: var(--text-main); color: white; padding: 10px 20px; border-radius: 8px;" onclick="window.location.reload()">Reintentar</button>
+                    </td></tr>`;
+                }
+            }
+
+            /**
+             * Actualiza los contadores de estadísticas en la parte superior del bento.
+             * @param {Array} requests - Lista de solicitudes.
+             */
+            function updateStats(requests) {
+                const total = requests.length;
+                const active = requests.filter(r => ["PENDING", "ACTIVE", "ACCEPTED"].includes(r.status)).length;
+                const completed = requests.filter(r => r.status === "COMPLETED").length;
+                const cancelled = requests.filter(r => ["CANCELLED", "REJECTED"].includes(r.status)).length;
+
+                document.getElementById("stat-total").textContent = total;
+                document.getElementById("stat-active").textContent = active;
+                document.getElementById("stat-completed").textContent = completed;
+                document.getElementById("stat-cancelled").textContent = cancelled;
+            }
+
+            /**
+             * Filtra las solicitudes basándose en el input de búsqueda y el selector de estado.
+             */
+            function filterRequests() {
+                const search = filterInput.value.toLowerCase();
+                const status = statusFilter.value;
+
+                const filtered = allRequests.filter(r => {
+                    const serviceTitle = (r.service?.title || "").toLowerCase();
+                    const requestId = String(r.id).toLowerCase();
+                    const matchesSearch = serviceTitle.includes(search) || requestId.includes(search);
+                    const matchesStatus = status === "" || r.status === status;
+                    return matchesSearch && matchesStatus;
+                });
+
+                renderRequests(filtered);
+            }
+
+            // Listeners para actualización automática al filtrar
+            if (filterInput) filterInput.addEventListener("input", filterRequests);
+            if (statusFilter) statusFilter.addEventListener("change", filterRequests);
+
+            /**
+             * Redirige al usuario al chat específico con el proveedor.
+             */
+            async function openChat(e) {
+                const btn = e.target.closest("button");
+                const participantId = btn.getAttribute("data-provider-user-id");
+                if (!participantId || participantId === "undefined") {
+                    alert("No se puede iniciar chat: el proveedor no tiene usuario asociado.");
+                    return;
+                }
+                window.location.href = `user-chat.html?userId=${participantId}`;
+            }
+
+            /**
+             * Envía una petición para cancelar una solicitud pendiente.
+             */
+            async function cancelRequest(e) {
+                const btn = e.target.closest("button");
+                const id = btn.getAttribute("data-id");
+                if (!id || !confirm("¿Seguro que deseas cancelar esta solicitud?")) return;
+
+                btn.disabled = true;
+                const oldText = btn.textContent;
+                btn.textContent = "...";
+
+                try {
+                    const resp = await fetch(API_BASE_URL + `/requests/${id}/cancel`, {
+                        method: "PATCH",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (resp.ok) {
+                        loadRequests();
+                    } else {
+                        const err = await resp.json();
+                        alert("Error al cancelar: " + (err.detail || resp.statusText));
+                        btn.disabled = false;
+                        btn.textContent = oldText;
+                    }
+                } catch (error) {
+                    alert("Error de red al cancelar");
+                    btn.disabled = false;
+                    btn.textContent = oldText;
+                }
+            }
+
+            /**
+             * Marca una solicitud activa como completada.
+             */
+            async function completeRequest(e) {
+                const btn = e.target.closest("button");
+                const id = btn.getAttribute("data-id");
+                if (!id || !confirm("¿Confirmas que el servicio ha sido completado satisfactoriamente?")) return;
+
+                btn.disabled = true;
+                btn.textContent = "...";
+
+                try {
+                    const resp = await fetch(API_BASE_URL + `/requests/${id}/complete`, {
+                        method: "PATCH",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (resp.ok) {
+                        loadRequests();
+                    } else {
+                        const err = await resp.json();
+                        alert("Error: " + (err.detail || resp.statusText));
+                        btn.disabled = false;
+                        btn.textContent = "Finalizar";
+                    }
+                } catch (error) {
+                    alert("Error de red");
+                    btn.disabled = false;
+                    btn.textContent = "Finalizar";
+                }
+            }
+
+            // --- Lógica del Modal de Calificación ---
+            const modal = document.getElementById("rating-modal");
+            const rateForm = document.getElementById("rating-form");
+            const closeBtn = document.getElementById("close-modal");
+
+            /**
+             * Abre el modal de calificación y prepara los IDs necesarios.
+             */
+            function openRateModal(e) {
+                const btn = e.target.closest("button");
+                document.getElementById("rate-request-id").value = btn.getAttribute("data-id");
+                document.getElementById("rate-provider-id").value = btn.getAttribute("data-provider-id");
+                modal.style.display = "flex";
+            }
+
+            // Control de cierre del modal
+            closeBtn.onclick = () => { modal.style.display = "none"; rateForm.reset(); };
+            window.onclick = (e) => { if (e.target == modal) closeBtn.onclick(); };
+
+            /**
+             * Maneja el envío del formulario de calificación al servidor.
+             */
+            rateForm.onsubmit = async (e) => {
+                e.preventDefault();
+                const rating = rateForm.querySelector('input[name="rating"]:checked');
+                if (!rating) {
+                    alert("Por favor selecciona una calificación");
+                    return;
+                }
+
+                const payload = {
+                    provider_id: parseInt(document.getElementById("rate-provider-id").value),
+                    service_request_id: parseInt(document.getElementById("rate-request-id").value),
+                    rating: parseInt(rating.value),
+                    comment: document.getElementById("rate-comment").value
+                };
+
+                const submitBtn = rateForm.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Enviando...";
+
+                try {
+                    const resp = await fetch(API_BASE_URL + "/reviews/", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (resp.ok) {
+                        alert("¡Gracias por tu calificación!");
+                        modal.style.display = "none";
+                        rateForm.reset();
+                        loadRequests();
+                    } else {
+                        const err = await resp.json();
+                        alert("Error: " + (err.detail || "No se pudo enviar la calificación"));
+                    }
+                } catch (err) {
+                    alert("Error de red al enviar calificación");
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Enviar Calificación";
+                }
+            };
+
+            /**
+             * Sincroniza la información del perfil del usuario (Avatar) y configura el logout.
+             */
+            (function () {
+                const user = JSON.parse(sessionStorage.getItem("serviced_user"));
+                if (user) {
+                    document.querySelectorAll(".user-avatar").forEach(el => {
+                        if (user.avatar_url) {
+                            el.innerHTML = `<img src="${user.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                        } else {
+                            // Genera iniciales a partir del nombre completo
+                            el.textContent = (user.full_name || "U").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                        }
+                    });
+                }
+
+                const logoutLink = document.querySelector(".logout-link");
+                if (logoutLink) {
+                    logoutLink.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        sessionStorage.removeItem("serviced_token");
+                        sessionStorage.removeItem("serviced_user");
+                        window.location.href = "login.html";
+                    });
+                }
+            })();
+
+            // Carga inicial de datos
+            loadRequests();
+        })();
+    </script>
+    <!-- Script para insignias/badges de notificaciones en el sidebar -->
+    <script src="sidebar-badges.js"></script>
+</body>
+
+</html>
